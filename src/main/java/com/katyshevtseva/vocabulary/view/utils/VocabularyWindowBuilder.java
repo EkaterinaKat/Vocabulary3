@@ -1,8 +1,10 @@
 package com.katyshevtseva.vocabulary.view.utils;
 
 import com.katyshevtseva.fx.WindowBuilder;
+import com.katyshevtseva.fx.WindowBuilder.FxController;
 import com.katyshevtseva.vocabulary.core.CoreConstants;
-import com.katyshevtseva.vocabulary.view.MainController;
+import com.katyshevtseva.vocabulary.view.controller.MainController;
+import javafx.scene.Node;
 
 public class VocabularyWindowBuilder {
     private static final VocabularyWindowBuilder INSTANCE = new VocabularyWindowBuilder();
@@ -15,6 +17,19 @@ public class VocabularyWindowBuilder {
     }
 
     public void openMainWindow() {
-        new WindowBuilder("/fxml/main.fxml").setTitle(CoreConstants.APP_NAME).setController(new MainController()).showWindow();
+        new WindowBuilder("/fxml/main.fxml").setTitle(CoreConstants.APP_NAME).setWidth(1730).setHeight(900).
+                setController(new MainController()).showWindow();
+    }
+
+    public Node getCatalogueNode(FxController controller) {
+        return new WindowBuilder("/fxml/catalogue.fxml").setController(controller).getNode();
+    }
+
+    public Node getListNode(FxController controller) {
+        return new WindowBuilder("/fxml/list.fxml").setController(controller).getNode();
+    }
+
+    public Node getSearchNode(FxController controller) {
+        return new WindowBuilder("/fxml/search.fxml").setController(controller).getNode();
     }
 }

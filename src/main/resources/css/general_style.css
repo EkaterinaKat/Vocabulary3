@@ -1,25 +1,52 @@
-.black_border {
-    -fx-border-color: #000000;
+.root{
+    -fx-background-color: #CCFF99;
 }
 
-.font_25 {
-     -fx-font-size: 25;
+.scroll-pane{
+    -fx-background: #CCFF99;
 }
 
-.root {
-    -fx-background-color: #fff1ad;
+.scroll-bar .track-background {
+ -fx-background-color: #006400;
+ -fx-background-radius: 2em;
+}
+
+.scroll-bar .thumb {
+ -fx-background-color: #CCFF99;
+}
+
+.increment-button, .decrement-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
 }
 
 .button {
-    -fx-background-color: #8B4513;
-    -fx-text-fill: #FFFFFF;
+    -fx-background-color: #006400;
+    -fx-text-fill: #7CFC00;
+    -fx-font-weight: bold;
 }
 
 .button:hover {
-    -fx-background-color: #FFFFFF;
-    -fx-text-fill: #8B4513;
+    -fx-background-color: #7CFC00;
+    -fx-text-fill: #006400;
 }
 
-.label {
+.label{
+    -fx-text-fill: #006400;
+    -fx-font-weight: bold;
+}
+
+.check-box{
+    -fx-text-fill: #006400;
+    -fx-font-weight: bold;
+}
+
+.deletionButton:hover{
+    -fx-background-color: #C14242;
+    -fx-text-fill: #FFFFFF;
+}
+
+.radio-button{
+    -fx-text-fill: #006400;
     -fx-font-weight: bold;
 }

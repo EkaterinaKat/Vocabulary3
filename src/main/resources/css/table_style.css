@@ -1,0 +1,16 @@
+.table-view .column-header {
+    -fx-background-color: #006400;
+}
+
+.table-view .column-header .label{
+    -fx-text-fill: #7CFC00;
+}
+
+.table-view .table-cell{
+    -fx-text-fill: #006400;
+}
+
+.table-view .table-row-cell:hover:filled{
+    -fx-background-color: #A0FF42;
+    -fx-font-weight: bold;
+}

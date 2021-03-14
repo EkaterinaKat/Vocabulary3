@@ -1,0 +1,20 @@
+#okButton{
+    -fx-background-color: #CCFF99;
+}
+
+#okButton:hover{
+    -fx-background-color: #7CFC00;
+}
+
+#notOkButton{
+    -fx-background-color: #CCFF99;
+}
+
+#notOkButton:hover{
+    -fx-background-color: #C14242;
+}
+
+#wordLabel{
+    -fx-font-weight: bold;
+    -fx-font-size: 32 px;
+}

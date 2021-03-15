@@ -50,3 +50,7 @@
     -fx-text-fill: #006400;
     -fx-font-weight: bold;
 }
+
+.black_border {
+    -fx-border-color: #000000;
+}

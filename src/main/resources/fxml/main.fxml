@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import java.net.URL?>
 <HBox xmlns="http://javafx.com/javafx"
@@ -7,13 +8,19 @@
 
     <stylesheets>
         <URL value="@/css/general_style.css"/>
+        <URL value="@/css/learning_window_style.css"/>
+        <URL value="@/css/table_style.css"/>
     </stylesheets>
 
     <VBox>
-        <Pane fx:id="cataloguePane"/>
-        <Pane fx:id="searchPane"/>
+        <HBox>
+            <ImageView fx:id="logoImageView" fitHeight="300" fitWidth="300"/>
+            <Pane minWidth="20" maxWidth="20"/>
+            <Pane fx:id="cataloguePane"/>
+        </HBox>
+        <Pane fx:id="searchPane" styleClass="black_border"/>
     </VBox>
 
-    <Pane fx:id="listPane"/>
+    <Pane fx:id="listPane" styleClass="black_border"/>
 
 </HBox>

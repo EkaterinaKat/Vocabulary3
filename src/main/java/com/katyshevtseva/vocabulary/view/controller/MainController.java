@@ -1,8 +1,12 @@
 package com.katyshevtseva.vocabulary.view.controller;
 
 import com.katyshevtseva.fx.WindowBuilder.FxController;
+import com.katyshevtseva.vocabulary.core.entity.WordList;
+import com.katyshevtseva.vocabulary.view.utils.VocUtils;
 import com.katyshevtseva.vocabulary.view.utils.VocabularyWindowBuilder;
 import javafx.fxml.FXML;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
 public class MainController implements FxController {
@@ -12,13 +16,19 @@ public class MainController implements FxController {
     private Pane searchPane;
     @FXML
     private Pane listPane;
+    @FXML
+    private ImageView logoImageView;
 
     @FXML
     private void initialize() {
-        cataloguePane.getChildren().add(VocabularyWindowBuilder.getInstance().getCatalogueNode(new CatalogueController()));
+        logoImageView.setImage(new Image(VocUtils.getLogoImagePath()));
+        cataloguePane.getChildren().add(VocabularyWindowBuilder.getInstance().getCatalogueNode(new CatalogueController(this)));
         searchPane.getChildren().add(VocabularyWindowBuilder.getInstance().getSearchNode(new SearchController()));
         listPane.getChildren().add(VocabularyWindowBuilder.getInstance().getListNode(new ListController()));
     }
 
+    void showList(WordList wordList) {
+        System.out.println("show list");
+    }
 
 }

@@ -1,11 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.Pane?>
-<Pane xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      maxWidth="820" minWidth="820" maxHeight="500" minHeight="500">
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            maxWidth="520" minWidth="520" maxHeight="500" minHeight="500">
 
-    <Label text="catalogue"/>
+    <stylesheets>
+        <URL value="@/css/catalogue_style.css"/>
+    </stylesheets>
 
-</Pane>
+    <top>
+        <HBox>
+
+            <Button fx:id="newListButton" text="Add word list"
+                    styleClass="topBtn">
+                <HBox.margin>
+                    <Insets bottom="25" left="40" right="10" top="20"/>
+                </HBox.margin>
+            </Button>
+
+            <Button fx:id="learnButton" text="Learn words" styleClass="topBtn">
+                <HBox.margin>
+                    <Insets bottom="25" left="10" right="10" top="20"/>
+                </HBox.margin>
+            </Button>
+
+        </HBox>
+    </top>
+
+    <center>
+        <ScrollPane styleClass="edge-to-edge">
+            <VBox fx:id="cataloguePane">
+
+            </VBox>
+        </ScrollPane>
+    </center>
+
+    <left>
+        <Pane prefWidth="40"/>
+    </left>
+
+</BorderPane>

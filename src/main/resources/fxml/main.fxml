@@ -15,10 +15,11 @@
     <VBox>
         <HBox>
             <ImageView fx:id="logoImageView" fitHeight="300" fitWidth="300"/>
-            <Pane minWidth="20" maxWidth="20"/>
-            <Pane fx:id="cataloguePane"/>
+            <Pane fx:id="cataloguePane"
+                  maxWidth="500" minWidth="500" maxHeight="500" minHeight="500"/>
         </HBox>
-        <Pane fx:id="searchPane" styleClass="black_border"/>
+        <Pane fx:id="searchPane" styleClass="black_border" maxWidth="800" minWidth="800" maxHeight="400"
+              minHeight="400"/>
     </VBox>
 
     <Pane fx:id="listPane" styleClass="black_border"/>

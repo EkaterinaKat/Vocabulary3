@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.Pane?>
-<Pane xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      maxWidth="820" minWidth="820" maxHeight="400" minHeight="400">
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.VBox?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml">
 
-    <Label text="search"/>
+    <TextField fx:id="textField" prefWidth="800"/>
 
-</Pane>
+    <TableView fx:id="table">
+        <columns>
+            <TableColumn prefWidth="200" text="Word" fx:id="wordColumn"/>
+            <TableColumn prefWidth="280" text="Translation" fx:id="translationColumn"/>
+            <TableColumn prefWidth="70" text="Level" fx:id="levelColumn"/>
+            <TableColumn prefWidth="250" text="List name" fx:id="listNameColumn"/>
+        </columns>
+    </TableView>
+
+</VBox>

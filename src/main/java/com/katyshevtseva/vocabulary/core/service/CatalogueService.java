@@ -1,4 +1,4 @@
-package com.katyshevtseva.vocabulary.core;
+package com.katyshevtseva.vocabulary.core.service;
 
 import com.katyshevtseva.vocabulary.core.entity.WordList;
 

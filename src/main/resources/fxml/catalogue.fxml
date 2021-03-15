@@ -6,8 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import java.net.URL?>
 <BorderPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            maxWidth="520" minWidth="520" maxHeight="500" minHeight="500">
+            xmlns:fx="http://javafx.com/fxml">
 
     <stylesheets>
         <URL value="@/css/catalogue_style.css"/>

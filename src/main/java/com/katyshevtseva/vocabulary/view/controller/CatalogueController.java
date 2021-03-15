@@ -11,10 +11,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
+import java.util.ArrayList;
 import java.util.List;
 
 class CatalogueController implements FxController {
     private MainController mainController;
+    private List<Label> labels;
     @FXML
     private Button newListButton;
     @FXML
@@ -39,11 +41,19 @@ class CatalogueController implements FxController {
 
     private void updateCatalogue() {
         List<WordList> catalogue = Core.getInstance().catalogueService().getCatalogue();
+        labels = new ArrayList<>();
         cataloguePane.getChildren().clear();
         for (WordList list : catalogue) {
             Label label = new Label(list.getTitle());
             label.setMinHeight(30);
-            label.setOnMouseClicked(event -> mainController.showList(list));
+            label.setOnMouseClicked(event -> {
+                mainController.showList(list);
+                for (Label label1 : labels) {
+                    label1.setStyle(VocUtils.getNotSelectedListStyle());
+                }
+                label.setStyle(VocUtils.getSelectedListStyle());
+            });
+            labels.add(label);
             cataloguePane.getChildren().addAll(label, Utils.getPaneWithHeight(20));
         }
     }

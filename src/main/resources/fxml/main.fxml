@@ -22,6 +22,6 @@
               minHeight="400"/>
     </VBox>
 
-    <Pane fx:id="listPane" styleClass="black_border"/>
+    <Pane fx:id="listPane"/>
 
 </HBox>

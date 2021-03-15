@@ -10,6 +10,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
 public class MainController implements FxController {
+    private ListController listController = new ListController(this);
     @FXML
     private Pane cataloguePane;
     @FXML
@@ -24,11 +25,11 @@ public class MainController implements FxController {
         logoImageView.setImage(new Image(VocUtils.getLogoImagePath()));
         cataloguePane.getChildren().add(VocabularyWindowBuilder.getInstance().getCatalogueNode(new CatalogueController(this)));
         searchPane.getChildren().add(VocabularyWindowBuilder.getInstance().getSearchNode(new SearchController()));
-        listPane.getChildren().add(VocabularyWindowBuilder.getInstance().getListNode(new ListController()));
+        listPane.getChildren().add(VocabularyWindowBuilder.getInstance().getListNode(listController));
     }
 
     void showList(WordList wordList) {
-        System.out.println("show list");
+        listController.showWordList(wordList);
     }
 
 }

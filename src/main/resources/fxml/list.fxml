@@ -1,11 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.Pane?>
-<Pane xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      maxWidth="910" minWidth="910" maxHeight="900" minHeight="900">
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<BorderPane xmlns:fx="http://javafx.com/fxml">
 
-    <Label text="list"/>
+    <top>
+        <VBox>
+            <Pane prefHeight="10"/>
+            <HBox>
+                <Pane prefWidth="10"/>
+                <Button fx:id="addWordButton" text="Add word"/>
+                <Pane prefWidth="10"/>
+                <Button text="Rename list"/>
+                <Pane prefWidth="10"/>
+                <Button fx:id="moveButton" text="Move"/>
+                <Pane prefWidth="10"/>
+                <Button fx:id="deleteButton" text="Delete"
+                        styleClass="deletionButton"/>
+                <Pane prefWidth="10"/>
+                <Button fx:id="editButton" text="Edit"/>
+            </HBox>
+            <Pane prefHeight="10"/>
+        </VBox>
+    </top>
 
-</Pane>
+    <center>
+        <TableView fx:id="table" layoutX="12.0" layoutY="62.0" prefHeight="900">
+            <columns>
+                <TableColumn prefWidth="60" text="№" fx:id="countColumn"/>
+                <TableColumn prefWidth="200" text="word" fx:id="wordColumn"/>
+                <TableColumn prefWidth="340" text="translation" fx:id="translationColumn"/>
+                <TableColumn prefWidth="130" text="last repeat" fx:id="dateColumn"/>
+                <TableColumn prefWidth="90" text="level" fx:id="levelColumn"/>
+                <TableColumn prefWidth="90" fx:id="checkBoxColumn"/>
+            </columns>
+        </TableView>
+    </center>
+
+</BorderPane>
+

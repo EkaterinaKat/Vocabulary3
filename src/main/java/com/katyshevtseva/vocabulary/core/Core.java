@@ -1,6 +1,7 @@
 package com.katyshevtseva.vocabulary.core;
 
 import com.katyshevtseva.vocabulary.core.service.CatalogueService;
+import com.katyshevtseva.vocabulary.core.service.EntryLifecycleService;
 import com.katyshevtseva.vocabulary.core.service.ListService;
 import com.katyshevtseva.vocabulary.core.service.SearchService;
 import org.springframework.beans.factory.InitializingBean;
@@ -12,6 +13,7 @@ public class Core implements InitializingBean {
     private CatalogueService catalogueService = new CatalogueService();
     private SearchService searchService = new SearchService();
     private ListService listService = new ListService();
+    private EntryLifecycleService entryLifecycleService = new EntryLifecycleService();
 
     public static Core getInstance() {
 //        while (INSTANCE == null) {
@@ -39,6 +41,10 @@ public class Core implements InitializingBean {
 
     public ListService listService() {
         return listService;
+    }
+
+    public EntryLifecycleService entryLifecycleService() {
+        return entryLifecycleService;
     }
 
 }

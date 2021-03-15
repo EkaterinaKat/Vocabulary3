@@ -8,21 +8,21 @@ import java.util.List;
 @Data
 public class WordList {
     private String title;
-    private List<Entry> entries;
+    private List<Entry> entries = new ArrayList<>();
 
     @Override
     public String toString() {
         return title;
     }
 
-    public List<Entry> getEntries() {
-        List<Entry> entries = new ArrayList<>();
-        Entry entry = new Entry();
-        entry.setWord("cat");
-        entry.setTranslation("кот");
-        entry.setLevel(5);
-        entry.setWordList(this);
-        entries.add(entry);
-        return entries;
-    }
+//    public List<Entry> getEntries() {
+//        List<Entry> entries = new ArrayList<>();
+//        Entry entry = new Entry();
+//        entry.setWord("cat");
+//        entry.setTranslation("кот");
+//        entry.setLevel(5);
+//        entry.setWordList(this);
+//        entries.add(entry);
+//        return entries;
+//    }
 }

@@ -2,8 +2,13 @@ package com.katyshevtseva.vocabulary.view.controller;
 
 import com.katyshevtseva.fx.Utils;
 import com.katyshevtseva.fx.WindowBuilder.FxController;
+import com.katyshevtseva.fx.dialog.StandardDialogBuilder;
+import com.katyshevtseva.fx.dialog.controller.TwoTextFieldsDialogController;
+import com.katyshevtseva.vocabulary.core.Core;
+import com.katyshevtseva.vocabulary.core.KeyboardLayoutManager;
 import com.katyshevtseva.vocabulary.core.entity.Entry;
 import com.katyshevtseva.vocabulary.core.entity.WordList;
+import com.katyshevtseva.vocabulary.view.utils.VocUtils;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
@@ -13,6 +18,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 
@@ -57,6 +63,7 @@ class ListController implements FxController {
         table.setEditable(true);
         Utils.setImageOnButton("images/plus.png", addWordButton, 15, 15);
         setVisibilityOfWordManagementButtons();
+        addWordButton.setOnAction(event -> openWordsAddingWindow());
     }
 
     void showWordList(WordList wordList) {
@@ -104,5 +111,20 @@ class ListController implements FxController {
         table.setItems(entries);
     }
 
+    private void openWordsAddingWindow() {
+        TwoTextFieldsDialogController controller = new StandardDialogBuilder().setIconPath(VocUtils.getLogoImagePath())
+                .setCssPath(VocUtils.getCssPath()).openTwoTextFieldsDialog("", "", false,
+                        (text1, text2) -> {
+                            Core.getInstance().listService().addEntryToList(text1, text2, wordList);
+                            updateTable();
+                        });
 
+        TextField wordTextField = controller.getTextField1();
+        TextField translationField = controller.getTextField2();
+
+        wordTextField.textProperty().addListener((observable, oldValue, newValue) ->
+                wordTextField.setText(KeyboardLayoutManager.changeToEng(newValue)));
+        translationField.textProperty().addListener((observable, oldValue, newValue) ->
+                translationField.setText(KeyboardLayoutManager.changeToRus(newValue)));
+    }
 }

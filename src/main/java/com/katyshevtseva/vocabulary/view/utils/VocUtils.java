@@ -5,7 +5,7 @@ import com.katyshevtseva.fx.dialog.StandardDialogBuilder;
 public class VocUtils {
 
     public static StandardDialogBuilder getDialogBuilder() {
-        return new StandardDialogBuilder().setCssPath(getCssPath()).setIconPath(getCssPath());
+        return new StandardDialogBuilder().setCssPath(getCssPath()).setIconPath(getLogoImagePath());
     }
 
     private static String getCssPath() {

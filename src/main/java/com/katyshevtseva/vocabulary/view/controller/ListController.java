@@ -28,7 +28,7 @@ import java.util.Collections;
 import java.util.List;
 
 class ListController implements FxController {
-    private WordList wordList;
+    private WordList currentWordList;
     private MainController mainController;
     private List<Entry> selectedEntries;
     @FXML
@@ -70,29 +70,14 @@ class ListController implements FxController {
         table.setEditable(true);
         Utils.setImageOnButton("images/plus.png", addWordButton, 15, 15);
         setVisibilityOfWordManagementButtons();
-        addWordButton.setOnAction(event -> openWordsAddingWindow());
-        listRenameButton.setOnAction(
-                event -> VocUtils.getDialogBuilder().openTextFieldDialog(wordList.getTitle(), (newTitle) -> {
-                    Core.getInstance().catalogueService().renameList(wordList, newTitle);
-                    mainController.updateListsTitlesInCatalogue();
-                    mainController.catalogueListSelectionListener(wordList);
-                }));
-        listArchiveButton.setOnAction(
-                event -> VocUtils.getDialogBuilder().openQuestionDialog("Delete list?", (b) -> {
-                    if (b) {
-                        Core.getInstance().catalogueService().archiveList(wordList);
-                        mainController.updateCatalogue();
-                        showWordListIfItIsNotNull(null);
-                    }
-                }));
+        adjustButtonListeners();
     }
 
     void showWordListIfItIsNotNull(WordList wordList) {
         if (wordList == null)
             root.setVisible(false);
         else {
-            this.wordList = wordList;
-            selectedEntries = new ArrayList<>();
+            this.currentWordList = wordList;
             root.setVisible(true);
             updateTable();
         }
@@ -135,26 +120,72 @@ class ListController implements FxController {
     }
 
     private void updateTable() {
+        selectedEntries = new ArrayList<>();
+        setVisibilityOfWordManagementButtons();
         ObservableList<Entry> entries = FXCollections.observableArrayList();
-        entries.addAll(wordList.getEntries());
+        entries.addAll(currentWordList.getEntries());
+        System.out.println(entries);
         Collections.reverse(entries);
+        table.getItems().clear();
         table.setItems(entries);
     }
 
-    private void openWordsAddingWindow() {
-        TwoTextFieldsDialogController controller = VocUtils.getDialogBuilder()
-                .openTwoTextFieldsDialog("", "", false,
-                        (text1, text2) -> {
-                            Core.getInstance().listService().addEntryToList(text1, text2, wordList);
-                            updateTable();
-                        });
+    private void adjustButtonListeners() {
 
-        TextField wordTextField = controller.getTextField1();
-        TextField translationField = controller.getTextField2();
+        addWordButton.setOnAction(event -> {
+            TwoTextFieldsDialogController controller = VocUtils.getDialogBuilder()
+                    .openTwoTextFieldsDialog("", "", false,
+                            (text1, text2) -> {
+                                Core.getInstance().listService().addEntryToList(text1, text2, currentWordList);
+                                updateTable();
+                            });
 
-        wordTextField.textProperty().addListener((observable, oldValue, newValue) ->
-                wordTextField.setText(KeyboardLayoutManager.changeToEng(newValue)));
-        translationField.textProperty().addListener((observable, oldValue, newValue) ->
-                translationField.setText(KeyboardLayoutManager.changeToRus(newValue)));
+            TextField wordTextField = controller.getTextField1();
+            TextField translationField = controller.getTextField2();
+
+            wordTextField.textProperty().addListener((observable, oldValue, newValue) ->
+                    wordTextField.setText(KeyboardLayoutManager.changeToEng(newValue)));
+            translationField.textProperty().addListener((observable, oldValue, newValue) ->
+                    translationField.setText(KeyboardLayoutManager.changeToRus(newValue)));
+        });
+
+        listRenameButton.setOnAction(
+                event -> VocUtils.getDialogBuilder().openTextFieldDialog(currentWordList.getTitle(), (newTitle) -> {
+                    Core.getInstance().catalogueService().renameList(currentWordList, newTitle);
+                    mainController.updateListsTitlesInCatalogue();
+                    mainController.catalogueListSelectionListener(currentWordList);
+                }));
+
+        listArchiveButton.setOnAction(
+                event -> VocUtils.getDialogBuilder().openQuestionDialog("Archive list?", (b) -> {
+                    if (b) {
+                        Core.getInstance().catalogueService().archiveList(currentWordList);
+                        mainController.updateCatalogue();
+                        showWordListIfItIsNotNull(null);
+                    }
+                }));
+
+        editButton.setOnAction(event -> {
+            Entry entryToEdit = selectedEntries.get(0);
+            VocUtils.getDialogBuilder().openTwoTextFieldsDialog(entryToEdit.getWord(), entryToEdit.getTranslation(), true,
+                    (t1, t2) -> {
+                        Core.getInstance().listService().editEntry(entryToEdit, t1, t2);
+                        updateTable();
+                    });
+        });
+
+        moveButton.setOnAction(event -> VocUtils.getDialogBuilder().openComboBoxDialog(
+                Core.getInstance().catalogueService().getCatalogue(), currentWordList,
+                newWordList -> {
+                    Core.getInstance().listService().moveEntries(selectedEntries, newWordList);
+                    updateTable();
+                }));
+
+        wordDeleteButton.setOnAction(event -> VocUtils.getDialogBuilder().openQuestionDialog("Delete?", (b -> {
+            if (b) {
+                Core.getInstance().listService().deleteEntries(selectedEntries);
+                updateTable();
+            }
+        })));
     }
 }

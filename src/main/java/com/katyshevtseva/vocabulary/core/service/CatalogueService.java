@@ -15,7 +15,18 @@ public class CatalogueService {
         return Arrays.asList(wordList, wordList1);
     }
 
-    public void createWordList(String title) {
+    public WordList createWordList(String title) {
         System.out.println("list " + title + " created");
+        WordList wordList = new WordList();
+        wordList.setTitle(title);
+        return wordList;
+    }
+
+    public void renameList(WordList wordList, String newTitle) {
+        wordList.setTitle(newTitle);
+    }
+
+    public void archiveList(WordList wordList) {
+
     }
 }

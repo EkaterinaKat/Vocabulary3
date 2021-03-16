@@ -11,4 +11,12 @@ public class Entry {
     private int level;
     private WordList wordList;
     private Date lastRepeat;
+
+    @Override
+    public String toString() {
+        return "Entry{" +
+                "word='" + word + '\'' +
+                ", translation='" + translation + '\'' +
+                '}';
+    }
 }

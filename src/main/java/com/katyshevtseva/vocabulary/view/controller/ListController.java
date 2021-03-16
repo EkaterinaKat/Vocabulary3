@@ -2,7 +2,6 @@ package com.katyshevtseva.vocabulary.view.controller;
 
 import com.katyshevtseva.fx.Utils;
 import com.katyshevtseva.fx.WindowBuilder.FxController;
-import com.katyshevtseva.fx.dialog.StandardDialogBuilder;
 import com.katyshevtseva.fx.dialog.controller.TwoTextFieldsDialogController;
 import com.katyshevtseva.vocabulary.core.Core;
 import com.katyshevtseva.vocabulary.core.KeyboardLayoutManager;
@@ -39,7 +38,11 @@ class ListController implements FxController {
     @FXML
     private Button moveButton;
     @FXML
-    private Button deleteButton;
+    private Button wordDeleteButton;
+    @FXML
+    private Button listArchiveButton;
+    @FXML
+    private Button listRenameButton;
     @FXML
     private TableView<Entry> table;
     @FXML
@@ -68,13 +71,31 @@ class ListController implements FxController {
         Utils.setImageOnButton("images/plus.png", addWordButton, 15, 15);
         setVisibilityOfWordManagementButtons();
         addWordButton.setOnAction(event -> openWordsAddingWindow());
+        listRenameButton.setOnAction(
+                event -> VocUtils.getDialogBuilder().openTextFieldDialog(wordList.getTitle(), (newTitle) -> {
+                    Core.getInstance().catalogueService().renameList(wordList, newTitle);
+                    mainController.updateListsTitlesInCatalogue();
+                    mainController.catalogueListSelectionListener(wordList);
+                }));
+        listArchiveButton.setOnAction(
+                event -> VocUtils.getDialogBuilder().openQuestionDialog("Delete list?", (b) -> {
+                    if (b) {
+                        Core.getInstance().catalogueService().archiveList(wordList);
+                        mainController.updateCatalogue();
+                        showWordListIfItIsNotNull(null);
+                    }
+                }));
     }
 
-    void showWordList(WordList wordList) {
-        this.wordList = wordList;
-        selectedEntries = new ArrayList<>();
-        root.setVisible(true);
-        updateTable();
+    void showWordListIfItIsNotNull(WordList wordList) {
+        if (wordList == null)
+            root.setVisible(false);
+        else {
+            this.wordList = wordList;
+            selectedEntries = new ArrayList<>();
+            root.setVisible(true);
+            updateTable();
+        }
     }
 
     private void tuneColumns() {
@@ -110,7 +131,7 @@ class ListController implements FxController {
     private void setVisibilityOfWordManagementButtons() {
         editButton.setVisible(selectedEntries != null && selectedEntries.size() == 1);
         moveButton.setVisible(selectedEntries != null && selectedEntries.size() > 0);
-        deleteButton.setVisible(selectedEntries != null && selectedEntries.size() > 0);
+        wordDeleteButton.setVisible(selectedEntries != null && selectedEntries.size() > 0);
     }
 
     private void updateTable() {
@@ -121,8 +142,8 @@ class ListController implements FxController {
     }
 
     private void openWordsAddingWindow() {
-        TwoTextFieldsDialogController controller = new StandardDialogBuilder().setIconPath(VocUtils.getLogoImagePath())
-                .setCssPath(VocUtils.getCssPath()).openTwoTextFieldsDialog("", "", false,
+        TwoTextFieldsDialogController controller = VocUtils.getDialogBuilder()
+                .openTwoTextFieldsDialog("", "", false,
                         (text1, text2) -> {
                             Core.getInstance().listService().addEntryToList(text1, text2, wordList);
                             updateTable();

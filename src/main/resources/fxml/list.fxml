@@ -11,12 +11,13 @@
                 <Pane prefWidth="10"/>
                 <Button fx:id="addWordButton" text="Add word"/>
                 <Pane prefWidth="10"/>
-                <Button text="Rename list"/>
+                <Button fx:id="listRenameButton" text="Rename list"/>
+                <Pane prefWidth="10"/>
+                <Button fx:id="listArchiveButton" text="Archive list" styleClass="deletionButton"/>
                 <Pane prefWidth="10"/>
                 <Button fx:id="moveButton" text="Move"/>
                 <Pane prefWidth="10"/>
-                <Button fx:id="deleteButton" text="Delete"
-                        styleClass="deletionButton"/>
+                <Button fx:id="wordDeleteButton" text="Delete word" styleClass="deletionButton"/>
                 <Pane prefWidth="10"/>
                 <Button fx:id="editButton" text="Edit"/>
             </HBox>

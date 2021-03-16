@@ -2,7 +2,6 @@ package com.katyshevtseva.vocabulary.view.controller;
 
 import com.katyshevtseva.fx.Utils;
 import com.katyshevtseva.fx.WindowBuilder.FxController;
-import com.katyshevtseva.fx.dialog.StandardDialogBuilder;
 import com.katyshevtseva.vocabulary.core.Core;
 import com.katyshevtseva.vocabulary.core.entity.WordList;
 import com.katyshevtseva.vocabulary.view.utils.VocUtils;
@@ -11,12 +10,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 class CatalogueController implements FxController {
     private MainController mainController;
-    private List<Label> labels;
+    private Map<WordList, Label> listLabelMap;
     @FXML
     private Button newListButton;
     @FXML
@@ -30,31 +30,40 @@ class CatalogueController implements FxController {
 
     @FXML
     private void initialize() {
-        newListButton.setOnAction(event -> new StandardDialogBuilder().setCssPath(VocUtils.getCssPath())
-                .setIconPath(VocUtils.getLogoImagePath()).openTextFieldDialog("",
-                        s -> {
-                            Core.getInstance().catalogueService().createWordList(s);
-                            updateCatalogue();
-                        }));
+        newListButton.setOnAction(event -> VocUtils.getDialogBuilder().openTextFieldDialog("",
+                s -> {
+                    WordList newWordList = Core.getInstance().catalogueService().createWordList(s);
+                    updateCatalogue();
+                    listSelectionListener(newWordList);
+                }));
         updateCatalogue();
     }
 
-    private void updateCatalogue() {
+    void updateListsTitles() {
+        for (Map.Entry<WordList, Label> mapEntry : listLabelMap.entrySet()) {
+            mapEntry.getValue().setText(mapEntry.getKey().getTitle());
+        }
+    }
+
+    void updateCatalogue() {
         List<WordList> catalogue = Core.getInstance().catalogueService().getCatalogue();
-        labels = new ArrayList<>();
+        listLabelMap = new HashMap<>();
         cataloguePane.getChildren().clear();
         for (WordList list : catalogue) {
             Label label = new Label(list.getTitle());
             label.setMinHeight(30);
-            label.setOnMouseClicked(event -> {
-                mainController.showList(list);
-                for (Label label1 : labels) {
-                    label1.setStyle(VocUtils.getNotSelectedListStyle());
-                }
-                label.setStyle(VocUtils.getSelectedListStyle());
-            });
-            labels.add(label);
+            label.setOnMouseClicked(event -> listSelectionListener(list));
+            listLabelMap.put(list, label);
             cataloguePane.getChildren().addAll(label, Utils.getPaneWithHeight(20));
         }
+    }
+
+    void listSelectionListener(WordList wordList) {
+        mainController.showList(wordList);
+        Label label = listLabelMap.get(wordList);
+        for (Label label1 : listLabelMap.values()) {
+            label1.setStyle(VocUtils.getNotSelectedListStyle());
+        }
+        label.setStyle(VocUtils.getSelectedListStyle());
     }
 }

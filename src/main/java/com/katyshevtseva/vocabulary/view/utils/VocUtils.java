@@ -1,8 +1,14 @@
 package com.katyshevtseva.vocabulary.view.utils;
 
+import com.katyshevtseva.fx.dialog.StandardDialogBuilder;
+
 public class VocUtils {
 
-    public static String getCssPath() {
+    public static StandardDialogBuilder getDialogBuilder() {
+        return new StandardDialogBuilder().setCssPath(getCssPath()).setIconPath(getCssPath());
+    }
+
+    private static String getCssPath() {
         return "/css/general_style.css";
     }
 

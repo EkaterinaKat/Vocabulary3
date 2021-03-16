@@ -15,9 +15,8 @@ public class EntryLifecycleService {
     private static Map<Integer, Integer> levelDaysMap = new HashMap<>();
 
     static {
-        levelDaysMap.put(0, 3);
-        levelDaysMap.put(1, 4);
-        levelDaysMap.put(2, 5);
+        levelDaysMap.put(1, 3);
+        levelDaysMap.put(2, 4);
         levelDaysMap.put(3, 6);
         levelDaysMap.put(4, 8);
         levelDaysMap.put(5, 10);
@@ -33,6 +32,8 @@ public class EntryLifecycleService {
     public boolean entryIsRipe(Entry entry) {
         if (entry.getLevel() == MAX_LEVEL)
             return false;
+        if (entry.getLevel() == 0)
+            return true;
         int daysNeedToPath = levelDaysMap.get(entry.getLevel());
         Date appointmentDay = Utils.shiftDate(entry.getLastRepeat(), Utils.TimeUnit.DAY, daysNeedToPath);
         return !appointmentDay.after(new Date());

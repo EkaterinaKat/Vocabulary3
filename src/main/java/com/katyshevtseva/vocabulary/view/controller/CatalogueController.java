@@ -3,8 +3,10 @@ package com.katyshevtseva.vocabulary.view.controller;
 import com.katyshevtseva.fx.Utils;
 import com.katyshevtseva.fx.WindowBuilder.FxController;
 import com.katyshevtseva.vocabulary.core.Core;
+import com.katyshevtseva.vocabulary.core.entity.Entry;
 import com.katyshevtseva.vocabulary.core.entity.WordList;
 import com.katyshevtseva.vocabulary.view.utils.VocUtils;
+import com.katyshevtseva.vocabulary.view.utils.VocabularyWindowBuilder;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -36,6 +38,15 @@ class CatalogueController implements FxController {
                     updateCatalogue();
                     listSelectionListener(newWordList);
                 }));
+        learnButton.setOnAction(event -> {
+            List<Entry> entriesToLearn = Core.getInstance().learningService().getEntriesToLearn();
+            if (entriesToLearn.isEmpty()) {
+                VocUtils.getDialogBuilder().openInfoDialog("No words to learn");
+            } else {
+                VocabularyWindowBuilder.getInstance().openLearningWindow(new LearningController(entriesToLearn));
+            }
+        });
+
         updateCatalogue();
     }
 

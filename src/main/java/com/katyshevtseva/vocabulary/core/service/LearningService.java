@@ -1,6 +1,7 @@
 package com.katyshevtseva.vocabulary.core.service;
 
 import com.katyshevtseva.vocabulary.core.entity.Entry;
+import com.katyshevtseva.vocabulary.core.entity.LearningStatistics;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -13,7 +14,7 @@ import static com.katyshevtseva.vocabulary.core.service.EntryLifecycleService.en
 
 public class LearningService {
 
-    public List<Entry> getEntriesForLearning() {
+    public List<Entry> getEntriesToLearn() {
         List<Entry> allEntries = new ArrayList<>(); //todo достаем записи из бд тип
         List<Entry> entriesToLearn = new ArrayList<>();
         for (Entry entry : allEntries) {
@@ -24,7 +25,8 @@ public class LearningService {
         return entriesToLearn;
     }
 
-    public void changeEntryLevel(Entry entry, boolean positiveAnswer) {
+    public void changeEntryLevelAndStatistics(Entry entry, boolean positiveAnswer) {
+        addStatistics(positiveAnswer, entry.getLevel());
         entry.setLastRepeat(new Date());
 
         if (positiveAnswer) {
@@ -36,5 +38,13 @@ public class LearningService {
         }
 
         //todo сохраняем
+    }
+
+    private void addStatistics(boolean correctAnswer, int currentLevel) {
+
+    }
+
+    public List<LearningStatistics> getLearningStatistics() {
+        return new ArrayList<>();
     }
 }

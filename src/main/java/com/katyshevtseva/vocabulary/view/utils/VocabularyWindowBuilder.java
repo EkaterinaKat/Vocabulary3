@@ -21,6 +21,11 @@ public class VocabularyWindowBuilder {
                 setIconImagePath(VocUtils.getLogoImagePath()).setController(new MainController()).showWindow();
     }
 
+    public void openLearningWindow(FxController controller) {
+        new WindowBuilder("/fxml/learning.fxml").setTitle(CoreConstants.APP_NAME).setWidth(650).setHeight(500).
+                setIconImagePath(VocUtils.getLogoImagePath()).setController(controller).showWindow();
+    }
+
     public Node getCatalogueNode(FxController controller) {
         return new WindowBuilder("/fxml/catalogue.fxml").setController(controller).getNode();
     }

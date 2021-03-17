@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      alignment="CENTER">
+
+
+    <stylesheets>
+        <URL value="@/css/general_style.css"/>
+        <URL value="@/css/learning_window_style.css"/>
+    </stylesheets>
+
+    <Pane prefHeight="50"/>
+    <Label text=" " fx:id="wordLabel" wrapText="true"/>
+    <Pane prefHeight="20"/>
+    <Button text="Show translation" fx:id="showTranslationButton"/>
+    <Pane prefHeight="20"/>
+    <Label text=" " fx:id="translationLabel" wrapText="true"/>
+    <Pane prefHeight="20"/>
+
+    <HBox alignment="CENTER">
+        <Button fx:id="okButton">
+            <HBox.margin>
+                <Insets bottom="5" left="20" right="20" top="5"/>
+            </HBox.margin>
+        </Button>
+        <Button fx:id="notOkButton">
+            <HBox.margin>
+                <Insets bottom="5" left="20" right="20" top="5"/>
+            </HBox.margin>
+        </Button>
+    </HBox>
+
+    <Pane prefHeight="20"/>
+
+    <Label fx:id="levelLabel" textAlignment="CENTER"/>
+    <Label fx:id="countLabel"/>
+
+</VBox>

@@ -68,7 +68,7 @@ class ListController implements FxController {
     private void initialize() {
         tuneColumns();
         table.setEditable(true);
-        Utils.setImageOnButton("images/plus.png", addWordButton, 15, 15);
+        Utils.setImageOnButton("images/plus.png", addWordButton, 15);
         setVisibilityOfWordManagementButtons();
         adjustButtonListeners();
     }

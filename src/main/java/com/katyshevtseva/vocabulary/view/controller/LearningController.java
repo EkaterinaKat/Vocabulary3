@@ -39,8 +39,8 @@ public class LearningController implements FxController {
 
     @FXML
     private void initialize() {
-        Utils.setImageOnButton("images/tick.png", okButton, 25, 25);
-        Utils.setImageOnButton("images/red_cross.png", notOkButton, 25, 25);
+        Utils.setImageOnButton("images/tick.png", okButton, 25);
+        Utils.setImageOnButton("images/red_cross.png", notOkButton, 25);
         okButton.setOnAction(event -> resultButtonsListener(true));
         notOkButton.setOnAction(event -> resultButtonsListener(false));
         showTranslationButton.setOnAction(event -> showTranslationButtonListener());

@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Data
-public class WordList {
+public class WordList implements Comparable<WordList> {
     private static int ID_COUNT = 1;
     private Long id;
     private String title;
@@ -46,5 +46,10 @@ public class WordList {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    @Override
+    public int compareTo(WordList o) {
+        return Long.compare(id, o.getId());
     }
 }

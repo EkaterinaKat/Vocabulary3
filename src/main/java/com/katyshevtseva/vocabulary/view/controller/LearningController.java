@@ -4,7 +4,6 @@ import com.katyshevtseva.fx.Utils;
 import com.katyshevtseva.fx.WindowBuilder.FxController;
 import com.katyshevtseva.vocabulary.core.Core;
 import com.katyshevtseva.vocabulary.core.entity.Entry;
-import com.katyshevtseva.vocabulary.core.entity.LearningStatistics;
 import com.katyshevtseva.vocabulary.view.utils.VocUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -91,15 +90,8 @@ public class LearningController implements FxController {
     }
 
     private void finishLearning() {
-        VocUtils.getDialogBuilder().openInfoDialog("Learning is completed!\n\n" + getStatisticsReport());
+        VocUtils.getDialogBuilder().openInfoDialog("Learning is completed!\n\n"
+                + Core.getInstance().learningService().getStatisticsReport());
         closeWindowThatContains(wordLabel);
-    }
-
-    private String getStatisticsReport() {
-        String report = "Statistics:\n";
-        for (LearningStatistics statistics : Core.getInstance().learningService().getLearningStatistics()) {
-            report += String.format("%s: %s/%s \n", statistics.getLevel(), statistics.getFalseNum(), statistics.getAllNum());
-        }
-        return report;
     }
 }

@@ -4,11 +4,12 @@ import com.katyshevtseva.vocabulary.core.service.*;
 
 public class Core {
     private static Core INSTANCE = new Core();
-    private CatalogueService catalogueService = new CatalogueService();
-    private SearchService searchService = new SearchService();
-    private ListService listService = new ListService();
+    private VocDao vocDao;
+    private CatalogueService catalogueService = new CatalogueService(vocDao);
+    private SearchService searchService = new SearchService(vocDao);
+    private ListService listService = new ListService(vocDao);
     private EntryLifecycleService entryLifecycleService = new EntryLifecycleService();
-    private LearningService learningService = new LearningService();
+    private LearningService learningService = new LearningService(vocDao);
 
     public static Core getInstance() {
         return INSTANCE;

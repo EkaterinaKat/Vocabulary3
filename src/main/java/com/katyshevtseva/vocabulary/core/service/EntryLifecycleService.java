@@ -9,6 +9,7 @@ import java.util.Date;
 
 import static com.katyshevtseva.vocabulary.core.CoreConstants.LEVEL_DAYS_MAP;
 import static com.katyshevtseva.vocabulary.core.CoreConstants.MAX_LEVEL;
+import static com.katyshevtseva.vocabulary.core.DateCorrector.getProperDate;
 
 public class EntryLifecycleService {
     private final DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
@@ -25,6 +26,6 @@ public class EntryLifecycleService {
             return true;
         int daysNeedToPath = LEVEL_DAYS_MAP.get(entry.getLevel());
         Date appointmentDay = Utils.shiftDate(entry.getLastRepeat(), Utils.TimeUnit.DAY, daysNeedToPath);
-        return !appointmentDay.after(new Date());
+        return !appointmentDay.after(getProperDate());
     }
 }

@@ -6,11 +6,11 @@ import com.katyshevtseva.vocabulary.core.entity.LearningStatistics;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
 
 import static com.katyshevtseva.vocabulary.core.CoreConstants.CRITICAL_LEVEL;
 import static com.katyshevtseva.vocabulary.core.CoreConstants.MAX_LEVEL;
+import static com.katyshevtseva.vocabulary.core.DateCorrector.getProperDate;
 import static com.katyshevtseva.vocabulary.core.service.EntryLifecycleService.entryIsRipe;
 
 public class LearningService {
@@ -33,7 +33,7 @@ public class LearningService {
 
     public void changeEntryLevelAndStatistics(Entry entry, boolean positiveAnswer) {
         addStatistics(positiveAnswer, entry.getLevel());
-        entry.setLastRepeat(new Date());
+        entry.setLastRepeat(getProperDate());
 
         if (positiveAnswer) {
             entry.setLevel(entry.getLevel() + 1);
@@ -47,11 +47,11 @@ public class LearningService {
     }
 
     private void addStatistics(boolean correctAnswer, int currentLevel) {
-        LearningStatistics statistics = dao.getLearningStatisticsOrNull(new Date(), currentLevel);
+        LearningStatistics statistics = dao.getLearningStatisticsOrNull(getProperDate(), currentLevel);
         if (statistics == null) {
             statistics = new LearningStatistics();
             statistics.setLevel(currentLevel);
-            statistics.setDate(new Date());
+            statistics.setDate(getProperDate());
             statistics.setAllNum(1);
             statistics.setFalseNum(correctAnswer ? 0 : 1);
             dao.saveNewLearningStatistics(statistics);
@@ -64,7 +64,7 @@ public class LearningService {
     }
 
     public String getStatisticsReport() {
-        List<LearningStatistics> statisticsList = dao.getStatistics(new Date());
+        List<LearningStatistics> statisticsList = dao.getStatistics(getProperDate());
         statisticsList.sort(Comparator.comparing(LearningStatistics::getLevel));
 
         String report = "Statistics:\n";

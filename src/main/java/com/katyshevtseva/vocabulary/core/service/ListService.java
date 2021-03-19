@@ -4,8 +4,9 @@ import com.katyshevtseva.vocabulary.core.VocDao;
 import com.katyshevtseva.vocabulary.core.entity.Entry;
 import com.katyshevtseva.vocabulary.core.entity.WordList;
 
-import java.util.Date;
 import java.util.List;
+
+import static com.katyshevtseva.vocabulary.core.DateCorrector.getProperDate;
 
 public class ListService {
     private VocDao dao;
@@ -20,9 +21,9 @@ public class ListService {
         entry.setTranslation(translation);
         entry.setLevel(0);
         entry.setWordList(list);
-        entry.setLastRepeat(new Date());
+        entry.setLastRepeat(getProperDate());
         list.getEntries().add(entry);
-        dao.saveEditedEntry(entry);
+        dao.saveNewEntry(entry);
     }
 
     public void editEntry(Entry entry, String newWord, String newTranslation) {

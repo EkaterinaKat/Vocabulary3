@@ -14,7 +14,7 @@ import java.util.List;
 
 import static com.katyshevtseva.fx.Utils.closeWindowThatContains;
 
-public class LearningController implements FxController {
+class LearningController implements FxController {
     private List<Entry> entries;
     private int wordCount;
     @FXML
@@ -90,7 +90,7 @@ public class LearningController implements FxController {
     }
 
     private void finishLearning() {
-        VocUtils.getDialogBuilder().openInfoDialog("Learning is completed!\n\n"
+        VocUtils.getDialogBuilder().setDialogHeight(600).openInfoDialog("Learning is completed!\n\n"
                 + Core.getInstance().learningService().getStatisticsReport());
         closeWindowThatContains(wordLabel);
     }

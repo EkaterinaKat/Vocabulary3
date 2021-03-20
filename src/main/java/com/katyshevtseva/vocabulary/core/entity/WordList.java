@@ -2,15 +2,24 @@ package com.katyshevtseva.vocabulary.core.entity;
 
 import lombok.Data;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 @Data
+@Entity
+@Table(name = "word_list")
 public class WordList implements Comparable<WordList> {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String title;
+
     private boolean archived;
+
+    @OneToMany(mappedBy = "wordList")
     private List<Entry> entries = new ArrayList<>();
 
     @Override

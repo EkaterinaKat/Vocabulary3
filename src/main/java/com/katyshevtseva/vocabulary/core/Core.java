@@ -1,10 +1,11 @@
 package com.katyshevtseva.vocabulary.core;
 
 import com.katyshevtseva.vocabulary.core.service.*;
+import com.katyshevtseva.vocabulary.database.VocDaoImpl;
 
 public class Core {
     private static Core INSTANCE = new Core();
-    private VocDao vocDao;
+    private VocDao vocDao = new VocDaoImpl();
     private CatalogueService catalogueService = new CatalogueService(vocDao);
     private SearchService searchService = new SearchService(vocDao);
     private ListService listService = new ListService(vocDao);

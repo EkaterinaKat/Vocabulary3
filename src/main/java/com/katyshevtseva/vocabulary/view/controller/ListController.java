@@ -1,9 +1,11 @@
 package com.katyshevtseva.vocabulary.view.controller;
 
+import com.katyshevtseva.fx.Styler;
 import com.katyshevtseva.fx.Utils;
 import com.katyshevtseva.fx.WindowBuilder.FxController;
 import com.katyshevtseva.fx.dialog.controller.TwoTextFieldsDialogController;
 import com.katyshevtseva.vocabulary.core.Core;
+import com.katyshevtseva.vocabulary.core.CoreConstants;
 import com.katyshevtseva.vocabulary.core.KeyboardLayoutManager;
 import com.katyshevtseva.vocabulary.core.entity.Entry;
 import com.katyshevtseva.vocabulary.core.entity.WordList;
@@ -15,17 +17,18 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
+import javafx.util.Callback;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import static com.katyshevtseva.fx.Styler.StandardColor.SCREAMING_GREEN;
+import static com.katyshevtseva.fx.Styler.ThingToColor.BACKGROUND;
 
 class ListController implements FxController {
     private WordList currentWordList;
@@ -71,6 +74,7 @@ class ListController implements FxController {
         Utils.setImageOnButton("images/plus.png", addWordButton, 15);
         setVisibilityOfWordManagementButtons();
         adjustButtonListeners();
+        setRowsColors();
     }
 
     void showWordListIfItIsNotNull(WordList wordList) {
@@ -187,5 +191,28 @@ class ListController implements FxController {
                 updateTable();
             }
         })));
+    }
+
+    private void setRowsColors() {
+        table.setRowFactory(new Callback<TableView<Entry>, TableRow<Entry>>() {
+            @Override
+            public TableRow<Entry> call(TableView<Entry> tableView) {
+                return new TableRow<Entry>() {
+                    @Override
+                    protected void updateItem(Entry entry, boolean empty) {
+                        super.updateItem(entry, empty);
+                        if (entry != null) {
+                            if (entry.getLevel() < CoreConstants.CRITICAL_LEVEL) {
+                                setStyle(Styler.getColorfullStyle(BACKGROUND, "#FF9999"));
+                            } else if (entry.getLevel() >= CoreConstants.MAX_LEVEL) {
+                                setStyle(Styler.getColorfullStyle(BACKGROUND, "#AAFF99"));
+                            } else {
+                                setStyle(Styler.getColorfullStyle(BACKGROUND, "#FFD299"));
+                            }
+                        }
+                    }
+                };
+            }
+        });
     }
 }

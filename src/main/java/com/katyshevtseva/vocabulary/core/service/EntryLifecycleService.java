@@ -15,12 +15,14 @@ public class EntryLifecycleService {
     private final DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
 
     public String getRipenessInfo(Entry entry) {
+        if (entry.getLastRepeat() == null)
+            return "Дата последнего повторения не задана";
         return dateFormat.format(entry.getLastRepeat()) +
                 String.format(" (%s)", entryIsRipe(entry));
     }
 
     static boolean entryIsRipe(Entry entry) {
-        if (entry.getLevel() == MAX_LEVEL)
+        if (entry.getLevel() == MAX_LEVEL || entry.getLastRepeat() == null)
             return false;
         if (entry.getLevel() == 0)
             return true;

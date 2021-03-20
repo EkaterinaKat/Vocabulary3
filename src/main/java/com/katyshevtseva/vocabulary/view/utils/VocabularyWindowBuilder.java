@@ -17,7 +17,7 @@ public class VocabularyWindowBuilder {
     }
 
     public void openMainWindow() {
-        new WindowBuilder("/fxml/main.fxml").setTitle(CoreConstants.APP_NAME).setWidth(1710).setHeight(900).
+        new WindowBuilder("/fxml/main.fxml").setTitle(CoreConstants.APP_NAME).setWidth(1735).setHeight(900).
                 setIconImagePath(VocUtils.getLogoImagePath()).setController(new MainController()).showWindow();
     }
 

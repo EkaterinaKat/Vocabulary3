@@ -7,15 +7,13 @@
 
     <TextField fx:id="textField" prefWidth="800"/>
 
-    <ScrollPane prefHeight="330">
-        <TableView fx:id="table">
-            <columns>
-                <TableColumn prefWidth="200" text="Word" fx:id="wordColumn"/>
-                <TableColumn prefWidth="260" text="Translation" fx:id="translationColumn"/>
-                <TableColumn prefWidth="66" text="Level" fx:id="levelColumn"/>
-                <TableColumn prefWidth="250" text="List name" fx:id="listNameColumn"/>
-            </columns>
-        </TableView>
-    </ScrollPane>
+    <TableView fx:id="table" prefHeight="330">
+        <columns>
+            <TableColumn prefWidth="200" text="Word" fx:id="wordColumn"/>
+            <TableColumn prefWidth="260" text="Translation" fx:id="translationColumn"/>
+            <TableColumn prefWidth="65" text="Level" fx:id="levelColumn"/>
+            <TableColumn prefWidth="275" text="List name" fx:id="listNameColumn"/>
+        </columns>
+    </TableView>
 
 </VBox>

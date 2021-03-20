@@ -14,5 +14,6 @@
         <mapping class="com.katyshevtseva.vocabulary.core.entity.WordList"></mapping>
         <mapping class="com.katyshevtseva.vocabulary.core.entity.Entry"></mapping>
         <mapping class="com.katyshevtseva.vocabulary.core.entity.LearningStatistics"></mapping>
+        <mapping class="com.katyshevtseva.vocabulary.core.entity.AddingStatistics"></mapping>
     </session-factory>
 </hibernate-configuration>

@@ -1,12 +1,14 @@
 package com.katyshevtseva.vocabulary.core.service;
 
 import com.katyshevtseva.vocabulary.core.VocDao;
+import com.katyshevtseva.vocabulary.core.entity.AddingStatistics;
 import com.katyshevtseva.vocabulary.core.entity.Entry;
 import com.katyshevtseva.vocabulary.core.entity.WordList;
 
 import java.util.List;
 
-import static com.katyshevtseva.vocabulary.core.DateCorrector.getProperDate;
+import static com.katyshevtseva.date.DateCorrector.getProperDate;
+
 
 public class ListService {
     private VocDao dao;
@@ -16,6 +18,7 @@ public class ListService {
     }
 
     public void addEntryToList(String word, String translation, WordList list) {
+        addStatistics();
         Entry entry = new Entry();
         entry.setWord(word);
         entry.setTranslation(translation);
@@ -45,6 +48,19 @@ public class ListService {
         for (Entry entry : entries) {
             entry.getWordList().getEntries().remove(entry);
             dao.deleteEntry(entry);
+        }
+    }
+
+    private void addStatistics() {
+        AddingStatistics statistics = dao.getAddingStatisticsOrNull(getProperDate());
+        if (statistics == null) {
+            statistics = new AddingStatistics();
+            statistics.setDate(getProperDate());
+            statistics.setNum(1);
+            dao.saveNewAddingStatistics(statistics);
+        } else {
+            statistics.setNum(statistics.getNum() + 1);
+            dao.saveEditedAddingStatistics(statistics);
         }
     }
 }

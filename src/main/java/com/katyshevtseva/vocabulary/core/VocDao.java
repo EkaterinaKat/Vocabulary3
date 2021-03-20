@@ -1,5 +1,6 @@
 package com.katyshevtseva.vocabulary.core;
 
+import com.katyshevtseva.vocabulary.core.entity.AddingStatistics;
 import com.katyshevtseva.vocabulary.core.entity.Entry;
 import com.katyshevtseva.vocabulary.core.entity.LearningStatistics;
 import com.katyshevtseva.vocabulary.core.entity.WordList;
@@ -29,4 +30,10 @@ public interface VocDao {
     List<LearningStatistics> getStatistics(Date date);
 
     void deleteEntry(Entry entry);
+
+    AddingStatistics getAddingStatisticsOrNull(Date date);
+
+    void saveNewAddingStatistics(AddingStatistics addingStatistics);
+
+    void saveEditedAddingStatistics(AddingStatistics addingStatistics);
 }

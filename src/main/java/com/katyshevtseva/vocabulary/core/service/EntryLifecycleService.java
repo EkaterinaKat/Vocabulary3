@@ -7,9 +7,9 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import static com.katyshevtseva.date.DateCorrector.getProperDate;
 import static com.katyshevtseva.vocabulary.core.CoreConstants.LEVEL_DAYS_MAP;
 import static com.katyshevtseva.vocabulary.core.CoreConstants.MAX_LEVEL;
-import static com.katyshevtseva.vocabulary.core.DateCorrector.getProperDate;
 
 public class EntryLifecycleService {
     private final DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");

@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+import static com.katyshevtseva.date.DateCorrector.getProperDate;
 import static com.katyshevtseva.vocabulary.core.CoreConstants.CRITICAL_LEVEL;
 import static com.katyshevtseva.vocabulary.core.CoreConstants.MAX_LEVEL;
-import static com.katyshevtseva.vocabulary.core.DateCorrector.getProperDate;
 import static com.katyshevtseva.vocabulary.core.service.EntryLifecycleService.entryIsRipe;
 
 public class LearningService {

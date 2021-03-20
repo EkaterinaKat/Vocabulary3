@@ -1,6 +1,7 @@
 package com.katyshevtseva.vocabulary.database;
 
 import com.katyshevtseva.vocabulary.core.VocDao;
+import com.katyshevtseva.vocabulary.core.entity.AddingStatistics;
 import com.katyshevtseva.vocabulary.core.entity.Entry;
 import com.katyshevtseva.vocabulary.core.entity.LearningStatistics;
 import com.katyshevtseva.vocabulary.core.entity.WordList;
@@ -141,6 +142,45 @@ public class VocDaoImpl implements VocDao {
         session.beginTransaction();
 
         session.delete(entry);
+
+        session.getTransaction().commit();
+    }
+
+    @Override
+    public AddingStatistics getAddingStatisticsOrNull(Date date) {
+        Session session = HibernateUtil.getSession();
+        session.beginTransaction();
+
+        Criteria criteria = session.createCriteria(AddingStatistics.class)
+                .add(Restrictions.eq("date", date));
+        List<AddingStatistics> statistics = criteria.list();
+
+        session.getTransaction().commit();
+
+        if (statistics.size() > 1)
+            throw new RuntimeException();
+        if (statistics.size() == 0)
+            return null;
+
+        return statistics.get(0);
+    }
+
+    @Override
+    public void saveNewAddingStatistics(AddingStatistics addingStatistics) {
+        Session session = HibernateUtil.getSession();
+        session.beginTransaction();
+
+        session.save(addingStatistics);
+
+        session.getTransaction().commit();
+    }
+
+    @Override
+    public void saveEditedAddingStatistics(AddingStatistics addingStatistics) {
+        Session session = HibernateUtil.getSession();
+        session.beginTransaction();
+
+        session.update(addingStatistics);
 
         session.getTransaction().commit();
     }

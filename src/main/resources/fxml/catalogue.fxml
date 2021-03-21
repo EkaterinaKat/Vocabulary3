@@ -32,7 +32,7 @@
     </top>
 
     <center>
-        <ScrollPane styleClass="edge-to-edge" maxWidth="450" minWidth="450" maxHeight="380" minHeight="380">
+        <ScrollPane styleClass="edge-to-edge" maxWidth="400" minWidth="400" maxHeight="380" minHeight="380">
             <VBox fx:id="cataloguePane">
 
             </VBox>

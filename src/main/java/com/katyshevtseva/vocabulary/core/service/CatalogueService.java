@@ -3,8 +3,8 @@ package com.katyshevtseva.vocabulary.core.service;
 import com.katyshevtseva.vocabulary.core.VocDao;
 import com.katyshevtseva.vocabulary.core.entity.WordList;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CatalogueService {
     private VocDao dao;
@@ -14,12 +14,7 @@ public class CatalogueService {
     }
 
     public List<WordList> getCatalogue() {
-        List<WordList> allLists = dao.getAllWordLists();
-        List<WordList> notArchivedLists = new ArrayList<>();
-        for (WordList wordList : allLists)
-            if (!wordList.isArchived())
-                notArchivedLists.add(wordList);
-        return notArchivedLists;
+        return dao.getAllWordLists().stream().filter(wordList -> !wordList.isArchived()).collect(Collectors.toList());
     }
 
     public WordList createWordList(String title) {

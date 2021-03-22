@@ -38,19 +38,19 @@ public class ListService {
     }
 
     public void moveEntries(List<Entry> entries, WordList newWordList) {
-        for (Entry entry : entries) {
+        entries.forEach(entry -> {
             entry.getWordList().getEntries().remove(entry);
             entry.setWordList(newWordList);
             newWordList.getEntries().add(entry);
             dao.saveEditedEntry(entry);
-        }
+        });
     }
 
     public void deleteEntries(List<Entry> entries) {
-        for (Entry entry : entries) {
+        entries.forEach(entry -> {
             entry.getWordList().getEntries().remove(entry);
             dao.deleteEntry(entry);
-        }
+        });
     }
 
     private void addStatistics() {

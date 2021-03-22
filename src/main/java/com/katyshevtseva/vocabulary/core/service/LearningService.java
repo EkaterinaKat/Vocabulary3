@@ -4,9 +4,9 @@ import com.katyshevtseva.vocabulary.core.VocDao;
 import com.katyshevtseva.vocabulary.core.entity.Entry;
 import com.katyshevtseva.vocabulary.core.entity.LearningStatistics;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.katyshevtseva.date.DateCorrector.getProperDate;
 import static com.katyshevtseva.vocabulary.core.CoreConstants.CRITICAL_LEVEL;
@@ -21,14 +21,10 @@ public class LearningService {
     }
 
     public List<Entry> getEntriesToLearn() {
-        List<Entry> allEntries = dao.getAllEntries();
-        List<Entry> entriesToLearn = new ArrayList<>();
-        for (Entry entry : allEntries) {
-            if (!entry.getWordList().isArchived() && entry.getLevel() < MAX_LEVEL && entryIsRipe(entry))
-                entriesToLearn.add(entry);
-        }
-        entriesToLearn.sort(Comparator.comparing(Entry::getLevel).thenComparing(Entry::getWordList));
-        return entriesToLearn;
+        return dao.getAllEntries().stream().filter(
+                entry -> (!entry.getWordList().isArchived() && entry.getLevel() < MAX_LEVEL && entryIsRipe(entry)))
+                .sorted(Comparator.comparing(Entry::getLevel).thenComparing(Entry::getWordList))
+                .collect(Collectors.toList());
     }
 
     public void changeEntryLevelAndStatistics(Entry entry, boolean positiveAnswer) {
@@ -64,13 +60,10 @@ public class LearningService {
     }
 
     public String getStatisticsReport() {
-        List<LearningStatistics> statisticsList = dao.getStatistics(getProperDate());
-        statisticsList.sort(Comparator.comparing(LearningStatistics::getLevel));
-
-        String report = "Statistics:\n";
-        for (LearningStatistics statistics : statisticsList) {
-            report += String.format("%s: %s/%s \n", statistics.getLevel(), statistics.getFalseNum(), statistics.getAllNum());
-        }
-        return report;
+        StringBuilder report = new StringBuilder("Statistics:\n");
+        dao.getStatistics(getProperDate()).stream().sorted(Comparator.comparing(LearningStatistics::getLevel))
+                .forEach(statistics -> report.append(String.format("%s: %s/%s \n",
+                        statistics.getLevel(), statistics.getFalseNum(), statistics.getAllNum())));
+        return report.toString();
     }
 }

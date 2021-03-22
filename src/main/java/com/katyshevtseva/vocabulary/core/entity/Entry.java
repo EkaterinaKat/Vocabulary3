@@ -26,6 +26,10 @@ public class Entry {
     @Column(name = "last_repeat")
     private Date lastRepeat;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "creation_date")
+    private Date creationDate;
+
     @Override
     public String toString() {
         return "Entry{" +

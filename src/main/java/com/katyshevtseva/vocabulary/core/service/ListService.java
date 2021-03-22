@@ -5,6 +5,7 @@ import com.katyshevtseva.vocabulary.core.entity.AddingStatistics;
 import com.katyshevtseva.vocabulary.core.entity.Entry;
 import com.katyshevtseva.vocabulary.core.entity.WordList;
 
+import java.util.Date;
 import java.util.List;
 
 import static com.katyshevtseva.date.DateCorrector.getProperDate;
@@ -25,6 +26,7 @@ public class ListService {
         entry.setLevel(0);
         entry.setWordList(list);
         entry.setLastRepeat(getProperDate());
+        entry.setCreationDate(new Date());
         list.getEntries().add(entry);
         dao.saveNewEntry(entry);
     }

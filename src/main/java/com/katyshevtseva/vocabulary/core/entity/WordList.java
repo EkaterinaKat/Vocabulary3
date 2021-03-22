@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
@@ -21,6 +22,11 @@ public class WordList implements Comparable<WordList> {
 
     @OneToMany(mappedBy = "wordList")
     private List<Entry> entries = new ArrayList<>();
+
+    public List<Entry> getEntries() {
+        entries.sort(Comparator.comparing(Entry::getCreationDate));
+        return entries;
+    }
 
     @Override
     public String toString() {

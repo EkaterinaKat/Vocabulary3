@@ -18,6 +18,8 @@ public class Entry {
 
     private int level;
 
+    private Integer page;
+
     @ManyToOne
     @JoinColumn(name = "word_list_id")
     private WordList wordList;

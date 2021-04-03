@@ -3,13 +3,13 @@ package com.katyshevtseva.vocabulary.view.controller;
 import com.katyshevtseva.fx.Styler;
 import com.katyshevtseva.fx.Utils;
 import com.katyshevtseva.fx.WindowBuilder.FxController;
-import com.katyshevtseva.fx.dialog.controller.TwoTextFieldsDialogController;
 import com.katyshevtseva.vocabulary.core.Core;
 import com.katyshevtseva.vocabulary.core.CoreConstants;
-import com.katyshevtseva.vocabulary.core.KeyboardLayoutManager;
 import com.katyshevtseva.vocabulary.core.entity.Entry;
 import com.katyshevtseva.vocabulary.core.entity.WordList;
+import com.katyshevtseva.vocabulary.view.controller.dialog.EntryEditingDialogController;
 import com.katyshevtseva.vocabulary.view.utils.VocUtils;
+import com.katyshevtseva.vocabulary.view.utils.VocabularyWindowBuilder;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -17,7 +17,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
+import javafx.scene.control.TableView;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
@@ -27,7 +30,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static com.katyshevtseva.fx.Styler.StandardColor.SCREAMING_GREEN;
 import static com.katyshevtseva.fx.Styler.ThingToColor.BACKGROUND;
 
 class ListController implements FxController {
@@ -137,20 +139,12 @@ class ListController implements FxController {
     private void adjustButtonListeners() {
 
         addWordButton.setOnAction(event -> {
-            TwoTextFieldsDialogController controller = VocUtils.getDialogBuilder()
-                    .openTwoTextFieldsDialog("", "", false,
-                            (text1, text2) -> {
-                                Core.getInstance().listService().addEntryToList(text1, text2, currentWordList);
-                                updateTable();
-                            });
-
-            TextField wordTextField = controller.getTextField1();
-            TextField translationField = controller.getTextField2();
-
-            wordTextField.textProperty().addListener((observable, oldValue, newValue) ->
-                    wordTextField.setText(KeyboardLayoutManager.changeToEng(newValue)));
-            translationField.textProperty().addListener((observable, oldValue, newValue) ->
-                    translationField.setText(KeyboardLayoutManager.changeToRus(newValue)));
+            VocabularyWindowBuilder.getInstance().openEntryAddingDialog(new EntryEditingDialogController(
+                    (word, translation, page) -> {
+                        Core.getInstance().listService().addEntryToList(word, translation, page, currentWordList);
+                        updateTable();
+                    }
+            ));
         });
 
         listRenameButton.setOnAction(
@@ -171,11 +165,13 @@ class ListController implements FxController {
 
         editButton.setOnAction(event -> {
             Entry entryToEdit = selectedEntries.get(0);
-            VocUtils.getDialogBuilder().openTwoTextFieldsDialog(entryToEdit.getWord(), entryToEdit.getTranslation(), true,
-                    (t1, t2) -> {
-                        Core.getInstance().listService().editEntry(entryToEdit, t1, t2);
+
+            VocabularyWindowBuilder.getInstance().openEntryAddingDialog(new EntryEditingDialogController(
+                    entryToEdit.getWord(), entryToEdit.getTranslation(), entryToEdit.getPage() == null ? 0 : entryToEdit.getPage(),
+                    (word, translation, page) -> {
+                        Core.getInstance().listService().editEntry(entryToEdit, word, translation, page);
                         updateTable();
-                    });
+                    }));
         });
 
         moveButton.setOnAction(event -> VocUtils.getDialogBuilder().openComboBoxDialog(

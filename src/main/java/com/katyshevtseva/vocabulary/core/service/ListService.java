@@ -18,7 +18,7 @@ public class ListService {
         this.dao = dao;
     }
 
-    public void addEntryToList(String word, String translation, WordList list) {
+    public void addEntryToList(String word, String translation, int page, WordList list) {
         addStatistics();
         Entry entry = new Entry();
         entry.setWord(word);
@@ -27,13 +27,15 @@ public class ListService {
         entry.setWordList(list);
         entry.setLastRepeat(getProperDate());
         entry.setCreationDate(new Date());
+        entry.setPage(page);
         list.getEntries().add(entry);
         dao.saveNewEntry(entry);
     }
 
-    public void editEntry(Entry entry, String newWord, String newTranslation) {
+    public void editEntry(Entry entry, String newWord, String newTranslation, int newPage) {
         entry.setWord(newWord);
         entry.setTranslation(newTranslation);
+        entry.setPage(newPage);
         dao.saveEditedEntry(entry);
     }
 

@@ -127,7 +127,7 @@ class ListController implements FxController {
         selectedEntries = new ArrayList<>();
         setVisibilityOfWordManagementButtons();
         ObservableList<Entry> entries = FXCollections.observableArrayList();
-        entries.addAll(currentWordList.getEntries());
+        entries.addAll(currentWordList.getSortedEntries());
         System.out.println(entries);
         Collections.reverse(entries);
         table.getItems().clear();

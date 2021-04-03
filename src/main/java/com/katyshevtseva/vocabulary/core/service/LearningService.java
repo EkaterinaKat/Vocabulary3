@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.katyshevtseva.date.DateCorrector.getProperDate;
-import static com.katyshevtseva.vocabulary.core.CoreConstants.CRITICAL_LEVEL;
 import static com.katyshevtseva.vocabulary.core.CoreConstants.MAX_LEVEL;
 import static com.katyshevtseva.vocabulary.core.service.EntryLifecycleService.entryIsRipe;
 
@@ -23,7 +22,7 @@ public class LearningService {
     public List<Entry> getEntriesToLearn() {
         return dao.getAllEntries().stream().filter(
                 entry -> (!entry.getWordList().isArchived() && entry.getLevel() < MAX_LEVEL && entryIsRipe(entry)))
-                .sorted(Comparator.comparing(Entry::getLevel).thenComparing(Entry::getWordList))
+                .sorted(Comparator.comparing(Entry::getLevel).thenComparing(Entry::getWordList).thenComparing(Entry::getWord))
                 .collect(Collectors.toList());
     }
 
@@ -31,13 +30,10 @@ public class LearningService {
         addStatistics(positiveAnswer, entry.getLevel());
         entry.setLastRepeat(getProperDate());
 
-        if (positiveAnswer) {
+        if (positiveAnswer)
             entry.setLevel(entry.getLevel() + 1);
-        } else if (entry.getLevel() == 0 || entry.getLevel() >= CRITICAL_LEVEL) {
+        else
             entry.setLevel(0);
-        } else {
-            entry.setLevel(entry.getLevel() - 1);
-        }
 
         dao.saveEditedEntry(entry);
     }

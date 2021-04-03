@@ -55,6 +55,8 @@ class ListController implements FxController {
     @FXML
     private TableColumn<Entry, String> translationColumn;
     @FXML
+    private TableColumn<Entry, Integer> pageColumn;
+    @FXML
     private TableColumn<Entry, Number> countColumn;
     @FXML
     private TableColumn<Entry, Integer> levelColumn;
@@ -95,6 +97,7 @@ class ListController implements FxController {
         wordColumn.setCellValueFactory(new PropertyValueFactory<>("word"));
         translationColumn.setCellValueFactory(new PropertyValueFactory<>("translation"));
         levelColumn.setCellValueFactory(new PropertyValueFactory<>("level"));
+        pageColumn.setCellValueFactory(new PropertyValueFactory<>("page"));
         dateColumn.setCellValueFactory(param -> {
             Entry entry = param.getValue();
             String value = Core.getInstance().entryLifecycleService().getRipenessInfo(entry);

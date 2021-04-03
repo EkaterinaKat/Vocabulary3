@@ -69,9 +69,9 @@ class LearningController implements FxController {
     private void tuneLabelsForNewWord() {
         wordLabel.setText(getCurrentEntry().getWord());
         countLabel.setText(String.format("%s/%s", wordCount + 1, entries.size()));
-        String desc = String.format("Level: %s\nList: %s\nLast repeat: %s", getCurrentEntry().getLevel(),
+        String desc = String.format("Level: %s\nList: %s\nLast repeat: %s\nPage: %s", getCurrentEntry().getLevel(),
                 getCurrentEntry().getWordList(),
-                new SimpleDateFormat("dd.MM.yyyy").format(getCurrentEntry().getLastRepeat()));
+                new SimpleDateFormat("dd.MM.yyyy").format(getCurrentEntry().getLastRepeat()), getCurrentEntry().getPage());
         levelLabel.setText(desc);
         translationLabel.setText("");
     }

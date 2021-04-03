@@ -23,6 +23,8 @@ class SearchController implements FxController {
     @FXML
     private TableColumn<Entry, String> translationColumn;
     @FXML
+    private TableColumn<Entry, Integer> pageColumn;
+    @FXML
     private TableColumn<Entry, Integer> levelColumn;
     @FXML
     private TableColumn<Entry, String> listNameColumn;
@@ -37,6 +39,7 @@ class SearchController implements FxController {
         wordColumn.setCellValueFactory(new PropertyValueFactory<>("word"));
         translationColumn.setCellValueFactory(new PropertyValueFactory<>("translation"));
         levelColumn.setCellValueFactory(new PropertyValueFactory<>("level"));
+        pageColumn.setCellValueFactory(new PropertyValueFactory<>("page"));
         listNameColumn.setCellValueFactory(new PropertyValueFactory<>("wordList"));
     }
 

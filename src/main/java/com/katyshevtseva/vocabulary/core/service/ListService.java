@@ -67,4 +67,8 @@ public class ListService {
             dao.saveEditedAddingStatistics(statistics);
         }
     }
+
+    public AddingStatistics getTodayAddingStatisticsOrNull() {
+        return dao.getAddingStatisticsOrNull(getProperDate());
+    }
 }

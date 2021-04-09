@@ -4,6 +4,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.*?>
 <?import java.net.URL?>
+<?import javafx.scene.control.Label?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml">
 
@@ -13,6 +14,8 @@
 
     <center>
         <VBox alignment="CENTER">
+            <Pane prefHeight="15"/>
+            <Label fx:id="countLabel"/>
             <Pane prefHeight="15"/>
             <TextField fx:id="wordTextField" minWidth="270" maxWidth="270"/>
             <Pane prefHeight="15"/>

@@ -2,17 +2,26 @@ package com.katyshevtseva.vocabulary.view.controller.dialog;
 
 import com.katyshevtseva.fx.Utils;
 import com.katyshevtseva.fx.WindowBuilder.FxController;
+import com.katyshevtseva.vocabulary.core.Core;
 import com.katyshevtseva.vocabulary.core.KeyboardLayoutManager;
+import com.katyshevtseva.vocabulary.core.entity.AddingStatistics;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
+import java.text.SimpleDateFormat;
+
+import static com.katyshevtseva.date.DateCorrector.getProperDate;
 import static com.katyshevtseva.fx.Utils.closeWindowThatContains;
 import static com.katyshevtseva.fx.Utils.disableNonNumericChars;
 import static com.katyshevtseva.vocabulary.view.controller.dialog.EntryEditingDialogController.DialogPurpose.CREATION;
 import static com.katyshevtseva.vocabulary.view.controller.dialog.EntryEditingDialogController.DialogPurpose.EDITING;
 
 public class EntryEditingDialogController implements FxController {
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyy");
+    @FXML
+    private Label countLabel;
     @FXML
     private TextField wordTextField;
     @FXML
@@ -66,10 +75,22 @@ public class EntryEditingDialogController implements FxController {
             if (!okButton.isDisable())
                 okButtonListener();
         });
+        setCountLabelText();
+    }
+
+    private void setCountLabelText() {
+        if (dialogPurpose == CREATION) {
+            AddingStatistics addingStatistics = Core.getInstance().listService().getTodayAddingStatisticsOrNull();
+            if (addingStatistics == null)
+                countLabel.setText(String.format("%s: %d", dateFormat.format(getProperDate()), 0));
+            else
+                countLabel.setText(String.format("%s: %d", dateFormat.format(addingStatistics.getDate()), addingStatistics.getNum()));
+        }
     }
 
     private void okButtonListener() {
         okButtonHandler.execute(wordTextField.getText(), translationTextField.getText(), Integer.parseInt(pageTextField.getText()));
+        setCountLabelText();
 
         if (dialogPurpose == EDITING)
             closeWindowThatContains(wordTextField);

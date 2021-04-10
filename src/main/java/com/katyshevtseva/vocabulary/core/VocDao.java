@@ -1,9 +1,6 @@
 package com.katyshevtseva.vocabulary.core;
 
-import com.katyshevtseva.vocabulary.core.entity.AddingStatistics;
-import com.katyshevtseva.vocabulary.core.entity.Entry;
-import com.katyshevtseva.vocabulary.core.entity.LearningStatistics;
-import com.katyshevtseva.vocabulary.core.entity.WordList;
+import com.katyshevtseva.vocabulary.core.entity.*;
 
 import java.util.Date;
 import java.util.List;
@@ -36,4 +33,6 @@ public interface VocDao {
     void saveNewAddingStatistics(AddingStatistics addingStatistics);
 
     void saveEditedAddingStatistics(AddingStatistics addingStatistics);
+
+    void saveLearningLog(LearningLog learningLog);
 }

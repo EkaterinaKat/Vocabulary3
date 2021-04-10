@@ -1,10 +1,7 @@
 package com.katyshevtseva.vocabulary.database;
 
 import com.katyshevtseva.vocabulary.core.VocDao;
-import com.katyshevtseva.vocabulary.core.entity.AddingStatistics;
-import com.katyshevtseva.vocabulary.core.entity.Entry;
-import com.katyshevtseva.vocabulary.core.entity.LearningStatistics;
-import com.katyshevtseva.vocabulary.core.entity.WordList;
+import com.katyshevtseva.vocabulary.core.entity.*;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
@@ -181,6 +178,16 @@ public class VocDaoImpl implements VocDao {
         session.beginTransaction();
 
         session.update(addingStatistics);
+
+        session.getTransaction().commit();
+    }
+
+    @Override
+    public void saveLearningLog(LearningLog learningLog) {
+        Session session = HibernateUtil.getSession();
+        session.beginTransaction();
+
+        session.save(learningLog);
 
         session.getTransaction().commit();
     }

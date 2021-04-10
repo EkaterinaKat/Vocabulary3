@@ -2,6 +2,7 @@ package com.katyshevtseva.vocabulary.core.service;
 
 import com.katyshevtseva.vocabulary.core.VocDao;
 import com.katyshevtseva.vocabulary.core.entity.Entry;
+import com.katyshevtseva.vocabulary.core.entity.LearningLog;
 import com.katyshevtseva.vocabulary.core.entity.LearningStatistics;
 
 import java.util.Comparator;
@@ -28,6 +29,7 @@ public class LearningService {
 
     public void changeEntryLevelAndStatistics(Entry entry, boolean positiveAnswer) {
         addStatistics(positiveAnswer, entry.getLevel());
+        saveLearningLog(entry, positiveAnswer);
         entry.setLastRepeat(getProperDate());
 
         if (positiveAnswer)
@@ -36,6 +38,15 @@ public class LearningService {
             entry.setLevel(0);
 
         dao.saveEditedEntry(entry);
+    }
+
+    private void saveLearningLog(Entry entry, boolean positiveAnswer) {
+        LearningLog learningLog = new LearningLog();
+        learningLog.setEntry(entry);
+        learningLog.setDate(getProperDate());
+        learningLog.setInitLevel(entry.getLevel());
+        learningLog.setPositiveAnswer(positiveAnswer);
+        dao.saveLearningLog(learningLog);
     }
 
     private void addStatistics(boolean correctAnswer, int currentLevel) {

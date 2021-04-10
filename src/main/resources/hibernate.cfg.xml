@@ -13,6 +13,7 @@
         <property name="hbm2ddl.auto">update</property>
         <mapping class="com.katyshevtseva.vocabulary.core.entity.WordList"></mapping>
         <mapping class="com.katyshevtseva.vocabulary.core.entity.Entry"></mapping>
+        <mapping class="com.katyshevtseva.vocabulary.core.entity.LearningLog"></mapping>
         <mapping class="com.katyshevtseva.vocabulary.core.entity.LearningStatistics"></mapping>
         <mapping class="com.katyshevtseva.vocabulary.core.entity.AddingStatistics"></mapping>
     </session-factory>

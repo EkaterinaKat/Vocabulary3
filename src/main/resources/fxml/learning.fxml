@@ -39,5 +39,6 @@
 
     <Label fx:id="levelLabel" textAlignment="CENTER"/>
     <Label fx:id="countLabel"/>
+    <Label fx:id="levelsInfoLabel"/>
 
 </VBox>

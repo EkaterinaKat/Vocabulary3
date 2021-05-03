@@ -35,4 +35,6 @@ public interface VocDao {
     void saveEditedAddingStatistics(AddingStatistics addingStatistics);
 
     void saveLearningLog(LearningLog learningLog);
+
+    int getPageOfLastAddedWord(WordList wordList);
 }

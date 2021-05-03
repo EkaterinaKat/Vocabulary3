@@ -1,6 +1,5 @@
 package com.katyshevtseva.vocabulary.view.controller.dialog;
 
-import com.katyshevtseva.fx.Utils;
 import com.katyshevtseva.fx.WindowBuilder.FxController;
 import com.katyshevtseva.vocabulary.core.Core;
 import com.katyshevtseva.vocabulary.core.KeyboardLayoutManager;
@@ -13,8 +12,7 @@ import javafx.scene.control.TextField;
 import java.text.SimpleDateFormat;
 
 import static com.katyshevtseva.date.DateCorrector.getProperDate;
-import static com.katyshevtseva.fx.Utils.closeWindowThatContains;
-import static com.katyshevtseva.fx.Utils.disableNonNumericChars;
+import static com.katyshevtseva.fx.FxUtils.*;
 import static com.katyshevtseva.vocabulary.view.controller.dialog.EntryEditingDialogController.DialogPurpose.CREATION;
 import static com.katyshevtseva.vocabulary.view.controller.dialog.EntryEditingDialogController.DialogPurpose.EDITING;
 
@@ -48,9 +46,10 @@ public class EntryEditingDialogController implements FxController {
         this.initPage = initPage;
     }
 
-    public EntryEditingDialogController(
-            OkButtonHandler okButtonHandler) {
+    public EntryEditingDialogController(int initPage,
+                                        OkButtonHandler okButtonHandler) {
         dialogPurpose = CREATION;
+        this.initPage = initPage;
         this.okButtonHandler = okButtonHandler;
     }
 
@@ -60,10 +59,13 @@ public class EntryEditingDialogController implements FxController {
 
     @FXML
     private void initialize() {
-        Utils.associateButtonWithControls(okButton, wordTextField, translationTextField, pageTextField);
+        associateButtonWithControls(okButton, wordTextField, translationTextField, pageTextField);
         if (dialogPurpose == EDITING) {
             wordTextField.setText(initWord);
             translationTextField.setText(initTranslation);
+            pageTextField.setText("" + initPage);
+        }
+        if (dialogPurpose == CREATION) {
             pageTextField.setText("" + initPage);
         }
         addKeyboardLayoutCorrection();

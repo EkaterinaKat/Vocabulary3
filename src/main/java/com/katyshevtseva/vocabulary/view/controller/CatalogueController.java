@@ -1,6 +1,5 @@
 package com.katyshevtseva.vocabulary.view.controller;
 
-import com.katyshevtseva.fx.Utils;
 import com.katyshevtseva.fx.WindowBuilder.FxController;
 import com.katyshevtseva.vocabulary.core.Core;
 import com.katyshevtseva.vocabulary.core.entity.Entry;
@@ -15,6 +14,8 @@ import javafx.scene.layout.VBox;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static com.katyshevtseva.fx.FxUtils.getPaneWithHeight;
 
 class CatalogueController implements FxController {
     private MainController mainController;
@@ -65,7 +66,7 @@ class CatalogueController implements FxController {
             label.setMinHeight(30);
             label.setOnMouseClicked(event -> listSelectionListener(list));
             listLabelMap.put(list, label);
-            cataloguePane.getChildren().addAll(label, Utils.getPaneWithHeight(20));
+            cataloguePane.getChildren().addAll(label, getPaneWithHeight(20));
         }
     }
 

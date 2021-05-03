@@ -3,6 +3,7 @@ package com.katyshevtseva.vocabulary.database;
 import com.katyshevtseva.vocabulary.core.VocDao;
 import com.katyshevtseva.vocabulary.core.entity.*;
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
@@ -190,5 +191,24 @@ public class VocDaoImpl implements VocDao {
         session.save(learningLog);
 
         session.getTransaction().commit();
+    }
+
+    @Override
+    public int getPageOfLastAddedWord(WordList wordList) {
+        Session session = HibernateUtil.getSession();
+        session.beginTransaction();
+        Query query = session.createSQLQuery(
+                "select * from entry where word_list_id = :word_list_id order by creation_date desc limit 1; ")
+                .addEntity(Entry.class)
+                .setParameter("word_list_id", wordList.getId());
+
+        List<Entry> entries = query.list();
+
+        session.getTransaction().commit();
+
+        if (entries.isEmpty() || entries.get(0).getPage() == null)
+            return 0;
+
+        return entries.get(0).getPage();
     }
 }

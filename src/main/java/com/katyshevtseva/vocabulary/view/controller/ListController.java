@@ -1,7 +1,6 @@
 package com.katyshevtseva.vocabulary.view.controller;
 
 import com.katyshevtseva.fx.Styler;
-import com.katyshevtseva.fx.Utils;
 import com.katyshevtseva.fx.WindowBuilder.FxController;
 import com.katyshevtseva.vocabulary.core.Core;
 import com.katyshevtseva.vocabulary.core.CoreConstants;
@@ -30,6 +29,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static com.katyshevtseva.fx.FxUtils.setImageOnButton;
 import static com.katyshevtseva.fx.Styler.ThingToColor.BACKGROUND;
 
 class ListController implements FxController {
@@ -75,7 +75,7 @@ class ListController implements FxController {
     private void initialize() {
         tuneColumns();
         table.setEditable(true);
-        Utils.setImageOnButton("images/plus.png", addWordButton, 15);
+        setImageOnButton("images/plus.png", addWordButton, 15);
         setVisibilityOfWordManagementButtons();
         adjustButtonListeners();
         setRowsColors();
@@ -143,6 +143,7 @@ class ListController implements FxController {
 
         addWordButton.setOnAction(event -> {
             VocabularyWindowBuilder.getInstance().openEntryAddingDialog(new EntryEditingDialogController(
+                    Core.getInstance().listService().getPageOfLastAddedWord(currentWordList),
                     (word, translation, page) -> {
                         Core.getInstance().listService().addEntryToList(word, translation, page, currentWordList);
                         updateTable();

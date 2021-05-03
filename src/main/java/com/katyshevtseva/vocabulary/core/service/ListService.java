@@ -71,4 +71,8 @@ public class ListService {
     public AddingStatistics getTodayAddingStatisticsOrNull() {
         return dao.getAddingStatisticsOrNull(getProperDate());
     }
+
+    public int getPageOfLastAddedWord(WordList wordList) {
+        return dao.getPageOfLastAddedWord(wordList);
+    }
 }

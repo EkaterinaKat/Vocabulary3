@@ -1,6 +1,5 @@
 package com.katyshevtseva.vocabulary.view.controller;
 
-import com.katyshevtseva.fx.Utils;
 import com.katyshevtseva.fx.WindowBuilder.FxController;
 import com.katyshevtseva.vocabulary.core.Core;
 import com.katyshevtseva.vocabulary.core.entity.Entry;
@@ -14,7 +13,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.katyshevtseva.fx.Utils.closeWindowThatContains;
+import static com.katyshevtseva.fx.FxUtils.closeWindowThatContains;
+import static com.katyshevtseva.fx.FxUtils.setImageOnButton;
 
 class LearningController implements FxController {
     private List<Entry> entries;
@@ -42,8 +42,8 @@ class LearningController implements FxController {
 
     @FXML
     private void initialize() {
-        Utils.setImageOnButton("images/tick.png", okButton, 25);
-        Utils.setImageOnButton("images/red_cross.png", notOkButton, 25);
+        setImageOnButton("images/tick.png", okButton, 25);
+        setImageOnButton("images/red_cross.png", notOkButton, 25);
         okButton.setOnAction(event -> resultButtonsListener(true));
         notOkButton.setOnAction(event -> resultButtonsListener(false));
         showTranslationButton.setOnAction(event -> showTranslationButtonListener());

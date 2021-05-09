@@ -24,9 +24,15 @@ public class WordList implements Comparable<WordList> {
     @OneToMany(mappedBy = "wordList")
     private List<Entry> entries = new ArrayList<>();
 
-    public List<Entry> getSortedEntries() {
-        return entries.stream().sorted(Comparator.comparing(Entry::getLevel).reversed())
-                .sorted(Comparator.comparing(Entry::getCreationDate))
+    public List<Entry> getEntriesSortedByDate() {
+        return entries.stream()
+                .sorted(Comparator.comparing(Entry::getLevel))
+                .sorted(Comparator.comparing(Entry::getCreationDate).reversed())
+                .collect(Collectors.toList());
+    }
+
+    public List<Entry> getEntriesSortedByLevel() {
+        return entries.stream().sorted(Comparator.comparing(Entry::getLevel))
                 .collect(Collectors.toList());
     }
 

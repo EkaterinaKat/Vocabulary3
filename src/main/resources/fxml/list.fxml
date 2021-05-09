@@ -9,6 +9,10 @@
             <Pane prefHeight="10"/>
             <HBox>
                 <Pane prefWidth="10"/>
+                <Label text="Order by:"/>
+                <Pane prefWidth="10"/>
+                <ComboBox fx:id="orderComboBox"/>
+                <Pane prefWidth="10"/>
                 <Button fx:id="addWordButton" text="Add word"/>
                 <Pane prefWidth="10"/>
                 <Button fx:id="listRenameButton" text="Rename list"/>

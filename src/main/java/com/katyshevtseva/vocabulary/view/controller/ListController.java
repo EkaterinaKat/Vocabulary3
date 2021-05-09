@@ -16,19 +16,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.util.Callback;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
+import static com.katyshevtseva.fx.FxUtils.setComboBoxItems;
 import static com.katyshevtseva.fx.FxUtils.setImageOnButton;
 import static com.katyshevtseva.fx.Styler.ThingToColor.BACKGROUND;
 
@@ -66,6 +63,8 @@ class ListController implements FxController {
     private TableColumn<Entry, String> dateColumn;
     @FXML
     private BorderPane root;
+    @FXML
+    private ComboBox<Order> orderComboBox;
 
     ListController(MainController mainController) {
         this.mainController = mainController;
@@ -76,12 +75,19 @@ class ListController implements FxController {
         tuneColumns();
         table.setEditable(true);
         setImageOnButton("images/plus.png", addWordButton, 15);
+        setComboBoxItems(orderComboBox, Order.values(), Order.BY_DATE);
+        orderComboBox.setOnAction(event -> updateTable());
         setVisibilityOfWordManagementButtons();
         adjustButtonListeners();
         setRowsColors();
     }
 
+    private enum Order {
+        BY_DATE, BY_LEVEL
+    }
+
     void showWordListIfItIsNotNull(WordList wordList) {
+        orderComboBox.setValue(Order.BY_DATE);
         if (wordList == null)
             root.setVisible(false);
         else {
@@ -132,11 +138,15 @@ class ListController implements FxController {
         selectedEntries = new ArrayList<>();
         setVisibilityOfWordManagementButtons();
         ObservableList<Entry> entries = FXCollections.observableArrayList();
-        entries.addAll(currentWordList.getSortedEntries());
-        System.out.println(entries);
-        Collections.reverse(entries);
+        entries.addAll(getSortedEntries());
         table.getItems().clear();
         table.setItems(entries);
+    }
+
+    private List<Entry> getSortedEntries() {
+        if (orderComboBox.getValue() == Order.BY_DATE)
+            return currentWordList.getEntriesSortedByDate();
+        return currentWordList.getEntriesSortedByLevel();
     }
 
     private void adjustButtonListeners() {

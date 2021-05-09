@@ -8,7 +8,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
-import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -74,9 +73,8 @@ class LearningController implements FxController {
     private void tuneLabelsForNewWord() {
         wordLabel.setText(getCurrentEntry().getWord());
         countLabel.setText(String.format("%s/%s", wordCount + 1, entries.size()));
-        String desc = String.format("Level: %s\nList: %s\nLast repeat: %s\nPage: %s", getCurrentEntry().getLevel(),
-                getCurrentEntry().getWordList(),
-                new SimpleDateFormat("dd.MM.yyyy").format(getCurrentEntry().getLastRepeat()), getCurrentEntry().getPage());
+        String desc = String.format("Level: %s\nList: %s\nPage: %s", getCurrentEntry().getLevel(),
+                getCurrentEntry().getWordList(), getCurrentEntry().getPage());
         levelLabel.setText(desc);
         translationLabel.setText("");
     }

@@ -8,15 +8,18 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import static com.katyshevtseva.fx.FxUtils.closeWindowThatContains;
 import static com.katyshevtseva.fx.FxUtils.setImageOnButton;
+import static com.katyshevtseva.vocabulary.core.CoreConstants.CRITICAL_LEVEL;
 
 class LearningController implements FxController {
     private List<Entry> entries;
+    private List<Entry> problematicWords = new ArrayList<>();
     private int wordCount;
     @FXML
     private Label wordLabel;
@@ -52,7 +55,12 @@ class LearningController implements FxController {
     }
 
     private void resultButtonsListener(boolean positiveAnswer) {
+        if (getCurrentEntry().getLevel() >= CRITICAL_LEVEL && !positiveAnswer) {
+            problematicWords.add(getCurrentEntry());
+            System.out.println("added");
+        }
         Core.getInstance().learningService().changeEntryLevelAndStatistics(getCurrentEntry(), positiveAnswer);
+        System.out.println(problematicWords);
         nextWord();
     }
 
@@ -73,8 +81,11 @@ class LearningController implements FxController {
     private void tuneLabelsForNewWord() {
         wordLabel.setText(getCurrentEntry().getWord());
         countLabel.setText(String.format("%s/%s", wordCount + 1, entries.size()));
-        String desc = String.format("Level: %s\nList: %s\nPage: %s", getCurrentEntry().getLevel(),
-                getCurrentEntry().getWordList(), getCurrentEntry().getPage());
+        String desc = String.format("Level: %s\n", getCurrentEntry().getLevel());
+        if (getCurrentEntry().getLevel() < CRITICAL_LEVEL) {
+            desc += String.format("%s (%s)\n", getCurrentEntry().getWordList(), getCurrentEntry().getPage());
+        }
+        desc += "\n";
         levelLabel.setText(desc);
         translationLabel.setText("");
     }
@@ -94,8 +105,18 @@ class LearningController implements FxController {
 
     private void finishLearning() {
         VocUtils.getDialogBuilder().setDialogHeight(600).openInfoDialog("Learning is completed!\n\n"
-                + Core.getInstance().learningService().getStatisticsReport());
+                + Core.getInstance().learningService().getStatisticsReport() + "\n\n" + getProblematicWordsLog());
         closeWindowThatContains(wordLabel);
+    }
+
+    private String getProblematicWordsLog() {
+        System.out.println("getProblematicWordsLog");
+        StringBuilder result = new StringBuilder();
+        for (Entry entry : problematicWords) {
+            System.out.println(String.format("%s:%s:%s\n", entry.getWord(), entry.getWordList(), entry.getPage()));
+            result.append(String.format("%s:%s:%s\n", entry.getWord(), entry.getWordList(), entry.getPage()));
+        }
+        return result.toString();
     }
 
     private void setLevelsInfo() {

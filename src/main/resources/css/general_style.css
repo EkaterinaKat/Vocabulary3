@@ -54,3 +54,7 @@
 .black_border {
     -fx-border-color: #000000;
 }
+
+.font_size_25{
+    -fx-font-size: 25 px;
+}

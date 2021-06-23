@@ -42,4 +42,9 @@ public class VocabularyWindowBuilder {
         new WindowBuilder("/fxml/entry_editing_dialog.fxml").setWidth(340).setHeight(300).
                 setIconImagePath(VocUtils.getIconImagePath()).setController(controller).showWindow();
     }
+
+    public void openLearningFinishDialog(FxController controller) {
+        new WindowBuilder("/fxml/learning_finish_dialog.fxml").setWidth(650).setHeight(600).
+                setIconImagePath(VocUtils.getIconImagePath()).setController(controller).showWindow();
+    }
 }

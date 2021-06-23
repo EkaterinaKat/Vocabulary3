@@ -3,7 +3,8 @@ package com.katyshevtseva.vocabulary.view.controller;
 import com.katyshevtseva.fx.WindowBuilder.FxController;
 import com.katyshevtseva.vocabulary.core.Core;
 import com.katyshevtseva.vocabulary.core.entity.Entry;
-import com.katyshevtseva.vocabulary.view.utils.VocUtils;
+import com.katyshevtseva.vocabulary.view.controller.dialog.LearningFinishDialogController;
+import com.katyshevtseva.vocabulary.view.utils.VocabularyWindowBuilder;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -104,19 +105,8 @@ class LearningController implements FxController {
     }
 
     private void finishLearning() {
-        VocUtils.getDialogBuilder().setDialogHeight(600).openInfoDialog("Learning is completed!\n\n"
-                + Core.getInstance().learningService().getStatisticsReport() + "\n\n" + getProblematicWordsLog());
+        VocabularyWindowBuilder.getInstance().openLearningFinishDialog(new LearningFinishDialogController(problematicWords));
         closeWindowThatContains(wordLabel);
-    }
-
-    private String getProblematicWordsLog() {
-        System.out.println("getProblematicWordsLog");
-        StringBuilder result = new StringBuilder();
-        for (Entry entry : problematicWords) {
-            System.out.println(String.format("%s:%s:%s\n", entry.getWord(), entry.getWordList(), entry.getPage()));
-            result.append(String.format("%s:%s:%s\n", entry.getWord(), entry.getWordList(), entry.getPage()));
-        }
-        return result.toString();
     }
 
     private void setLevelsInfo() {

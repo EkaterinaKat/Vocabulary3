@@ -87,7 +87,6 @@ class ListController implements FxController {
     }
 
     void showWordListIfItIsNotNull(WordList wordList) {
-        orderComboBox.setValue(Order.BY_DATE);
         if (wordList == null)
             root.setVisible(false);
         else {

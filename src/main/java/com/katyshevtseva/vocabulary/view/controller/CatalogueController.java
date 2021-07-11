@@ -1,6 +1,7 @@
 package com.katyshevtseva.vocabulary.view.controller;
 
 import com.katyshevtseva.fx.WindowBuilder.FxController;
+import com.katyshevtseva.fx.dialog.StandardDialogBuilder;
 import com.katyshevtseva.vocabulary.core.Core;
 import com.katyshevtseva.vocabulary.core.entity.Entry;
 import com.katyshevtseva.vocabulary.core.entity.WordList;
@@ -33,7 +34,7 @@ class CatalogueController implements FxController {
 
     @FXML
     private void initialize() {
-        newListButton.setOnAction(event -> VocUtils.getDialogBuilder().openTextFieldDialog("",
+        newListButton.setOnAction(event -> new StandardDialogBuilder().openTextFieldDialog("",
                 s -> {
                     WordList newWordList = Core.getInstance().catalogueService().createWordList(s);
                     updateCatalogue();
@@ -42,7 +43,7 @@ class CatalogueController implements FxController {
         learnButton.setOnAction(event -> {
             List<Entry> entriesToLearn = Core.getInstance().learningService().getEntriesToLearn();
             if (entriesToLearn.isEmpty()) {
-                VocUtils.getDialogBuilder().openInfoDialog("No words to learn");
+                new StandardDialogBuilder().openInfoDialog("No words to learn");
             } else {
                 VocabularyWindowBuilder.getInstance().openLearningWindow(new LearningController(entriesToLearn));
             }

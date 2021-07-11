@@ -3,16 +3,9 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import java.net.URL?>
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       alignment="CENTER">
-
-
-    <stylesheets>
-        <URL value="@/css/general_style.css"/>
-        <URL value="@/css/learning_window_style.css"/>
-    </stylesheets>
 
     <Pane prefHeight="50"/>
     <Label text=" " fx:id="wordLabel" wrapText="true"/>
@@ -23,12 +16,12 @@
     <Pane prefHeight="20"/>
 
     <HBox alignment="CENTER">
-        <Button fx:id="okButton">
+        <Button fx:id="okButton" styleClass="learningOkButton">
             <HBox.margin>
                 <Insets bottom="5" left="20" right="20" top="5"/>
             </HBox.margin>
         </Button>
-        <Button fx:id="notOkButton">
+        <Button fx:id="notOkButton" styleClass="learningNotOkButton">
             <HBox.margin>
                 <Insets bottom="5" left="20" right="20" top="5"/>
             </HBox.margin>

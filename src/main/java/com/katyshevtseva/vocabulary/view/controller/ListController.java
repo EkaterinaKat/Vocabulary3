@@ -2,12 +2,12 @@ package com.katyshevtseva.vocabulary.view.controller;
 
 import com.katyshevtseva.fx.Styler;
 import com.katyshevtseva.fx.WindowBuilder.FxController;
+import com.katyshevtseva.fx.dialog.StandardDialogBuilder;
 import com.katyshevtseva.vocabulary.core.Core;
 import com.katyshevtseva.vocabulary.core.CoreConstants;
 import com.katyshevtseva.vocabulary.core.entity.Entry;
 import com.katyshevtseva.vocabulary.core.entity.WordList;
 import com.katyshevtseva.vocabulary.view.controller.dialog.EntryEditingDialogController;
-import com.katyshevtseva.vocabulary.view.utils.VocUtils;
 import com.katyshevtseva.vocabulary.view.utils.VocabularyWindowBuilder;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -161,14 +161,14 @@ class ListController implements FxController {
         });
 
         listRenameButton.setOnAction(
-                event -> VocUtils.getDialogBuilder().openTextFieldDialog(currentWordList.getTitle(), (newTitle) -> {
+                event -> new StandardDialogBuilder().openTextFieldDialog(currentWordList.getTitle(), (newTitle) -> {
                     Core.getInstance().catalogueService().renameList(currentWordList, newTitle);
                     mainController.updateListsTitlesInCatalogue();
                     mainController.catalogueListSelectionListener(currentWordList);
                 }));
 
         listArchiveButton.setOnAction(
-                event -> VocUtils.getDialogBuilder().openQuestionDialog("Archive list?", (b) -> {
+                event -> new StandardDialogBuilder().openQuestionDialog("Archive list?", (b) -> {
                     if (b) {
                         Core.getInstance().catalogueService().archiveList(currentWordList);
                         mainController.updateCatalogue();
@@ -187,14 +187,14 @@ class ListController implements FxController {
                     }));
         });
 
-        moveButton.setOnAction(event -> VocUtils.getDialogBuilder().openComboBoxDialog(
+        moveButton.setOnAction(event -> new StandardDialogBuilder().openComboBoxDialog(
                 Core.getInstance().catalogueService().getCatalogue(), currentWordList,
                 newWordList -> {
                     Core.getInstance().listService().moveEntries(selectedEntries, newWordList);
                     updateTable();
                 }));
 
-        wordDeleteButton.setOnAction(event -> VocUtils.getDialogBuilder().openQuestionDialog("Delete?", (b -> {
+        wordDeleteButton.setOnAction(event -> new StandardDialogBuilder().openQuestionDialog("Delete?", (b -> {
             if (b) {
                 Core.getInstance().listService().deleteEntries(selectedEntries);
                 updateTable();

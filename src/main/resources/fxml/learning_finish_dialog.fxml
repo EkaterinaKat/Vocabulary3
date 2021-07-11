@@ -2,13 +2,8 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import java.net.URL?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml">
-
-    <stylesheets>
-        <URL value="@/css/general_style.css"/>
-    </stylesheets>
 
     <center>
         <VBox alignment="CENTER">

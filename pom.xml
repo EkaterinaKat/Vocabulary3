@@ -39,6 +39,11 @@
             <artifactId>postgresql</artifactId>
             <version>42.2.14</version>
         </dependency>
+        <dependency>
+            <groupId>com.katyshevtseva</groupId>
+            <artifactId>KikiLib</artifactId>
+            <version>1.0</version>
+        </dependency>
     </dependencies>
 
     <build>

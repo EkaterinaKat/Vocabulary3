@@ -1,24 +1,6 @@
 package com.katyshevtseva.vocabulary.view.utils;
 
-import com.katyshevtseva.fx.dialog.StandardDialogBuilder;
-
 public class VocUtils {
-
-    public static StandardDialogBuilder getDialogBuilder() {
-        return new StandardDialogBuilder().setCssPath(getCssPath()).setIconPath(getIconImagePath());
-    }
-
-    private static String getCssPath() {
-        return "/css/general_style.css";
-    }
-
-    public static String getLogoImagePath() {
-        return "/images/logo.png";
-    }
-
-    static String getIconImagePath() {
-        return "/images/icon.png";
-    }
 
     public static String getSelectedListStyle() {
         return "    -fx-text-fill: #66CC00;\n" +

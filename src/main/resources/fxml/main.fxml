@@ -2,15 +2,8 @@
 
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-<?import java.net.URL?>
 <HBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml">
-
-    <stylesheets>
-        <URL value="@/css/general_style.css"/>
-        <URL value="@/css/learning_window_style.css"/>
-        <URL value="@/css/table_style.css"/>
-    </stylesheets>
 
     <VBox>
         <HBox>

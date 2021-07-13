@@ -26,6 +26,8 @@ class CatalogueController implements FxController {
     @FXML
     private Button learnButton;
     @FXML
+    private Button frequentSectionButton;
+    @FXML
     private VBox cataloguePane;
 
     CatalogueController(MainController mainController) {
@@ -48,6 +50,7 @@ class CatalogueController implements FxController {
                 VocabularyWindowBuilder.getInstance().openLearningWindow(new LearningController(entriesToLearn));
             }
         });
+        frequentSectionButton.setOnAction(event -> VocabularyWindowBuilder.getInstance().openFrequentSectionWindow());
 
         updateCatalogue();
     }

@@ -11,6 +11,7 @@ public class Core {
     private ListService listService = new ListService(vocDao);
     private EntryLifecycleService entryLifecycleService = new EntryLifecycleService();
     private LearningService learningService = new LearningService(vocDao);
+    private FrequentWordService frequentWordService = new FrequentWordService(vocDao);
 
     public static Core getInstance() {
         return INSTANCE;
@@ -36,4 +37,7 @@ public class Core {
         return learningService;
     }
 
+    public FrequentWordService frequentWordService() {
+        return frequentWordService;
+    }
 }

@@ -28,6 +28,12 @@
                 </HBox.margin>
             </Button>
 
+            <Button fx:id="frequentSectionButton" text="5000" styleClass="topBtn">
+                <HBox.margin>
+                    <Insets bottom="25" left="10" right="10" top="20"/>
+                </HBox.margin>
+            </Button>
+
         </HBox>
     </top>
 

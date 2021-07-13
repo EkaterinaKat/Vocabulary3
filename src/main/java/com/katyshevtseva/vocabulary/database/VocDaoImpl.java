@@ -2,6 +2,7 @@ package com.katyshevtseva.vocabulary.database;
 
 import com.katyshevtseva.vocabulary.core.VocDao;
 import com.katyshevtseva.vocabulary.core.entity.*;
+import com.katyshevtseva.vocabulary.core.entity.FrequentWord.Status;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -210,6 +211,18 @@ public class VocDaoImpl implements VocDao {
             return 0;
 
         return entries.get(0).getPage();
+    }
+    
+    @Override
+    public int countFrequentWordByStatus(Status status) {
+        Session session = HibernateUtil.getSession();
+        session.beginTransaction();
+
+        Query query = session.createQuery(
+                "select count(*) from FrequentWord fw where fw.status = :status ");
+        query.setString("status", status.toString());
+
+        return ((Long) query.uniqueResult()).intValue();
     }
 
     @Override

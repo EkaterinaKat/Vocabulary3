@@ -1,6 +1,7 @@
 package com.katyshevtseva.vocabulary.core;
 
 import com.katyshevtseva.vocabulary.core.entity.*;
+import com.katyshevtseva.vocabulary.core.entity.FrequentWord.Status;
 
 import java.util.Date;
 import java.util.List;
@@ -43,4 +44,6 @@ public interface VocDao {
     void saveNewFrequentWord(FrequentWord frequentWord);
 
     void saveEditedFrequentWord(FrequentWord frequentWord);
+
+    int countFrequentWordByStatus(Status status);
 }

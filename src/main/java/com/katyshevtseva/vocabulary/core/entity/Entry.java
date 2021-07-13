@@ -32,6 +32,10 @@ public class Entry {
     @Column(name = "creation_date")
     private Date creationDate;
 
+    @ManyToOne
+    @JoinColumn(name = "frequent_word_id")
+    private FrequentWord frequentWord;
+
     @Override
     public String toString() {
         return "Entry{" +

@@ -37,4 +37,10 @@ public interface VocDao {
     void saveLearningLog(LearningLog learningLog);
 
     int getPageOfLastAddedWord(WordList wordList);
+
+    List<FrequentWord> getAllFrequentWords();
+
+    void saveNewFrequentWord(FrequentWord frequentWord);
+
+    void saveEditedFrequentWord(FrequentWord frequentWord);
 }

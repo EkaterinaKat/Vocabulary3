@@ -211,4 +211,37 @@ public class VocDaoImpl implements VocDao {
 
         return entries.get(0).getPage();
     }
+
+    @Override
+    public List<FrequentWord> getAllFrequentWords() {
+        Session session = HibernateUtil.getSession();
+        session.beginTransaction();
+
+        String sql = "From " + FrequentWord.class.getSimpleName();
+        List<FrequentWord> words = session.createQuery(sql).list();
+
+        session.getTransaction().commit();
+
+        return words;
+    }
+
+    @Override
+    public void saveNewFrequentWord(FrequentWord frequentWord) {
+        Session session = HibernateUtil.getSession();
+        session.beginTransaction();
+
+        session.save(frequentWord);
+
+        session.getTransaction().commit();
+    }
+
+    @Override
+    public void saveEditedFrequentWord(FrequentWord frequentWord) {
+        Session session = HibernateUtil.getSession();
+        session.beginTransaction();
+
+        session.update(frequentWord);
+
+        session.getTransaction().commit();
+    }
 }

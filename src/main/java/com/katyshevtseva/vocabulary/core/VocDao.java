@@ -46,4 +46,6 @@ public interface VocDao {
     void saveEditedFrequentWord(FrequentWord frequentWord);
 
     int countFrequentWordByStatus(Status status);
+
+    List<FrequentWord> getFrequentWordsByStatus(Status status);
 }

@@ -212,7 +212,7 @@ public class VocDaoImpl implements VocDao {
 
         return entries.get(0).getPage();
     }
-    
+
     @Override
     public int countFrequentWordByStatus(Status status) {
         Session session = HibernateUtil.getSession();
@@ -223,6 +223,21 @@ public class VocDaoImpl implements VocDao {
         query.setString("status", status.toString());
 
         return ((Long) query.uniqueResult()).intValue();
+    }
+
+    @Override
+    public List<FrequentWord> getFrequentWordsByStatus(Status status) {
+        Session session = HibernateUtil.getSession();
+        session.beginTransaction();
+
+        Query query = session.createQuery(
+                "select fw from FrequentWord fw where fw.status = :status ");
+        query.setString("status", status.toString());
+
+        List<FrequentWord> words = query.list();
+        session.getTransaction().commit();
+
+        return words;
     }
 
     @Override

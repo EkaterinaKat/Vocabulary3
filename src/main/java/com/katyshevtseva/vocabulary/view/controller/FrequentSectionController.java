@@ -4,6 +4,7 @@ import com.katyshevtseva.fx.WindowBuilder.FxController;
 import com.katyshevtseva.vocabulary.core.Core;
 import com.katyshevtseva.vocabulary.core.entity.FrequentWord.Status;
 import com.katyshevtseva.vocabulary.core.service.FrequentWordService;
+import com.katyshevtseva.vocabulary.view.utils.VocabularyWindowBuilder;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -20,6 +21,8 @@ public class FrequentSectionController implements FxController {
     @FXML
     private void initialize() {
         fillChart();
+        sortButton.setOnAction(event -> VocabularyWindowBuilder.getInstance()
+                .openSortingWindow(new SortingController(this::fillChart), this::fillChart));
     }
 
     private void fillChart() {

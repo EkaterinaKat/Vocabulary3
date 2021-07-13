@@ -58,10 +58,8 @@ class LearningController implements FxController {
     private void resultButtonsListener(boolean positiveAnswer) {
         if (getCurrentEntry().getLevel() >= CRITICAL_LEVEL && !positiveAnswer) {
             problematicWords.add(getCurrentEntry());
-            System.out.println("added");
         }
         Core.getInstance().learningService().changeEntryLevelAndStatistics(getCurrentEntry(), positiveAnswer);
-        System.out.println(problematicWords);
         nextWord();
     }
 

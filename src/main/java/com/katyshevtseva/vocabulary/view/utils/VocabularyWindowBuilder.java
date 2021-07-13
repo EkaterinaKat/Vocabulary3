@@ -2,6 +2,7 @@ package com.katyshevtseva.vocabulary.view.utils;
 
 import com.katyshevtseva.fx.WindowBuilder;
 import com.katyshevtseva.fx.WindowBuilder.FxController;
+import com.katyshevtseva.general.NoArgsKnob;
 import com.katyshevtseva.vocabulary.core.CoreConstants;
 import com.katyshevtseva.vocabulary.view.controller.FrequentSectionController;
 import com.katyshevtseva.vocabulary.view.controller.MainController;
@@ -25,6 +26,11 @@ public class VocabularyWindowBuilder {
     public void openFrequentSectionWindow() {
         new WindowBuilder("/fxml/frequent_section.fxml").setTitle(CoreConstants.APP_NAME).setWidth(950).setHeight(650).
                 setController(new FrequentSectionController()).showWindow();
+    }
+
+    public void openSortingWindow(FxController controller, NoArgsKnob onCloseListener) {
+        new WindowBuilder("/fxml/sorting.fxml").setTitle(CoreConstants.APP_NAME).setWidth(650).setHeight(500)
+                .setOnWindowCloseEventHandler(event -> onCloseListener.execute()).setController(controller).showWindow();
     }
 
     public void openLearningWindow(FxController controller) {

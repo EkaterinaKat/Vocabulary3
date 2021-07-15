@@ -1,8 +1,8 @@
 package com.katyshevtseva.vocabulary.view.controller;
 
 import com.katyshevtseva.fx.WindowBuilder.FxController;
+import com.katyshevtseva.general.PieChartData;
 import com.katyshevtseva.vocabulary.core.Core;
-import com.katyshevtseva.vocabulary.core.entity.FrequentWord.Status;
 import com.katyshevtseva.vocabulary.core.service.FrequentWordService;
 import com.katyshevtseva.vocabulary.view.utils.VocabularyWindowBuilder;
 import javafx.collections.FXCollections;
@@ -26,17 +26,15 @@ public class FrequentSectionController implements FxController {
     }
 
     private void fillChart() {
-        ObservableList<PieChart.Data> chartData = FXCollections.observableArrayList();
-        int total = 0;
+        ObservableList<PieChart.Data> observableList = FXCollections.observableArrayList();
+        PieChartData pieChartData = service.getStatusCountPieChartData();
 
-        for (Status status : Status.values()) {
-            int count = service.getStatusCount(status);
-            total += count;
-            PieChart.Data data = new PieChart.Data(status.toString() + " - " + count, count);
-            chartData.add(data);
+        for (PieChartData.Segment segment : pieChartData.getGetSegmentList()) {
+            PieChart.Data data = new PieChart.Data(segment.getTitleAmountAndPercentInfo(), segment.getAmount());
+            observableList.add(data);
         }
 
-        chart.setData(chartData);
-        chart.setTitle("Total: " + total);
+        chart.setData(observableList);
+        chart.setTitle(pieChartData.getTitle());
     }
 }

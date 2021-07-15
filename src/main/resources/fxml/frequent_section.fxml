@@ -8,16 +8,11 @@
 
     <Pane minWidth="30" maxWidth="30"/>
 
-    <VBox>
-        <Pane minHeight="30" maxHeight="30"/>
-        <HBox>
-            <Button fx:id="sortButton" text="Sort"/>
-            <Pane minWidth="20" maxWidth="20"/>
-            <PieChart fx:id="chart" prefHeight="400" prefWidth="750"/>
-        </HBox>
-
-        <Pane minHeight="30" maxHeight="30"/>
-    </VBox>
+    <GridPane alignment="CENTER" vgap="30">
+        <PieChart fx:id="chart" prefHeight="400" prefWidth="850" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <Button fx:id="sortButton" text="Sort" GridPane.halignment="CENTER" GridPane.rowIndex="1"
+                GridPane.columnIndex="0"/>
+    </GridPane>
 
     <Pane minWidth="30" maxWidth="30"/>
 </HBox>

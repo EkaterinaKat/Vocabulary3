@@ -1,5 +1,6 @@
 package com.katyshevtseva.vocabulary.core.service;
 
+import com.katyshevtseva.general.PieChartData;
 import com.katyshevtseva.vocabulary.core.VocDao;
 import com.katyshevtseva.vocabulary.core.entity.FrequentWord;
 import com.katyshevtseva.vocabulary.core.entity.FrequentWord.Status;
@@ -14,7 +15,17 @@ public class FrequentWordService {
         this.dao = dao;
     }
 
-    public int getStatusCount(Status status) {
+    public PieChartData getStatusCountPieChartData() {
+        PieChartData data = new PieChartData();
+
+        for (Status status : Status.values()) {
+            data.addSegment(new PieChartData.Segment(getStatusCount(status), status.toString()));
+        }
+
+        return data;
+    }
+
+    private int getStatusCount(Status status) {
         return dao.countFrequentWordByStatus(status);
     }
 

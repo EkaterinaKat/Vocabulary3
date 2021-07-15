@@ -50,8 +50,13 @@ public class VocabularyWindowBuilder {
         return new WindowBuilder("/fxml/search.fxml").setController(controller).getNode();
     }
 
-    public void openEntryAddingDialog(FxController controller) {
+    public void openEntryEditingDialog(FxController controller) {
         new WindowBuilder("/fxml/entry_editing_dialog.fxml").setWidth(340).setHeight(300).
+                setController(controller).showWindow();
+    }
+
+    public void openEntryAddingDialog(FxController controller) {
+        new WindowBuilder("/fxml/entry_adding_dialog.fxml").setWidth(800).setHeight(650).
                 setController(controller).showWindow();
     }
 

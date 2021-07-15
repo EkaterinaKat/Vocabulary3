@@ -150,15 +150,8 @@ class ListController implements FxController {
 
     private void adjustButtonListeners() {
 
-        addWordButton.setOnAction(event -> {
-            VocabularyWindowBuilder.getInstance().openEntryAddingDialog(new EntryEditingDialogController(
-                    Core.getInstance().listService().getPageOfLastAddedWord(currentWordList),
-                    (word, translation, page) -> {
-                        Core.getInstance().listService().addEntryToList(word, translation, page, currentWordList);
-                        updateTable();
-                    }
-            ));
-        });
+        addWordButton.setOnAction(event -> VocabularyWindowBuilder.getInstance().openEntryAddingDialog(
+                new EntryAddingDialogController(this::updateTable, currentWordList)));
 
         listRenameButton.setOnAction(
                 event -> new StandardDialogBuilder().openTextFieldDialog(currentWordList.getTitle(), (newTitle) -> {
@@ -179,7 +172,7 @@ class ListController implements FxController {
         editButton.setOnAction(event -> {
             Entry entryToEdit = selectedEntries.get(0);
 
-            VocabularyWindowBuilder.getInstance().openEntryAddingDialog(new EntryEditingDialogController(
+            VocabularyWindowBuilder.getInstance().openEntryEditingDialog(new EntryEditingDialogController(
                     entryToEdit.getWord(), entryToEdit.getTranslation(), entryToEdit.getPage() == null ? 0 : entryToEdit.getPage(),
                     (word, translation, page) -> {
                         Core.getInstance().listService().editEntry(entryToEdit, word, translation, page);

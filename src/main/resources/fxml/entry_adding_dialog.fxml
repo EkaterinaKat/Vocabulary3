@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml">
+
+    <center>
+        <VBox alignment="CENTER">
+            <Pane minHeight="15" maxHeight="15"/>
+            <Label fx:id="countLabel"/>
+            <Pane minHeight="15" maxHeight="15"/>
+            <TextField fx:id="wordTextField" minWidth="270" maxWidth="270"/>
+            <Pane minHeight="15" maxHeight="15"/>
+            <TextField fx:id="translationTextField" minWidth="270" maxWidth="270"/>
+            <Pane minHeight="15" maxHeight="15"/>
+            <TextField fx:id="pageTextField" minWidth="100" maxWidth="100"/>
+            <Pane minHeight="15" maxHeight="15"/>
+            <Button text="Ok" fx:id="okButton"/>
+            <Pane minHeight="15" maxHeight="15"/>
+            <TableView fx:id="tableView" minWidth="700" maxWidth="700" maxHeight="300" minHeight="300">
+                <columns>
+                    <TableColumn prefWidth="200" text="word" fx:id="wordColumn"/>
+                    <TableColumn prefWidth="255" text="translation" fx:id="translationColumn"/>
+                    <TableColumn prefWidth="150" text="status" fx:id="statusColumn"/>
+                    <TableColumn prefWidth="70" fx:id="addButtonColumn"/>
+                </columns>
+            </TableView>
+            <Pane minHeight="15" maxHeight="15"/>
+        </VBox>
+    </center>
+
+</BorderPane>

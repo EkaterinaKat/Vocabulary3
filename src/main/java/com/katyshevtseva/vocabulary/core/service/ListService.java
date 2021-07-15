@@ -3,6 +3,7 @@ package com.katyshevtseva.vocabulary.core.service;
 import com.katyshevtseva.vocabulary.core.VocDao;
 import com.katyshevtseva.vocabulary.core.entity.AddingStatistics;
 import com.katyshevtseva.vocabulary.core.entity.Entry;
+import com.katyshevtseva.vocabulary.core.entity.FrequentWord;
 import com.katyshevtseva.vocabulary.core.entity.WordList;
 
 import java.util.Date;
@@ -28,6 +29,21 @@ public class ListService {
         entry.setLastRepeat(getProperDate());
         entry.setCreationDate(new Date());
         entry.setPage(page);
+        list.getEntries().add(entry);
+        dao.saveNewEntry(entry);
+    }
+
+    public void addEntryToList(FrequentWord frequentWord, int page, WordList list) {
+        addStatistics();
+        Entry entry = new Entry();
+        entry.setWord(frequentWord.getWord());
+        entry.setTranslation(frequentWord.getTranslation());
+        entry.setLevel(0);
+        entry.setWordList(list);
+        entry.setLastRepeat(getProperDate());
+        entry.setCreationDate(new Date());
+        entry.setPage(page);
+        entry.setFrequentWord(frequentWord);
         list.getEntries().add(entry);
         dao.saveNewEntry(entry);
     }

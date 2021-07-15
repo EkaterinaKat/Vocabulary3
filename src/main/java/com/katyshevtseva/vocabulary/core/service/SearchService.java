@@ -2,6 +2,7 @@ package com.katyshevtseva.vocabulary.core.service;
 
 import com.katyshevtseva.vocabulary.core.VocDao;
 import com.katyshevtseva.vocabulary.core.entity.Entry;
+import com.katyshevtseva.vocabulary.core.entity.FrequentWord;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,7 +18,9 @@ public class SearchService {
         return dao.getAllEntries().stream()
                 .filter(entry -> (entry.getWord().startsWith(string) || entry.getTranslation().startsWith(string)))
                 .collect(Collectors.toList());
+    }
 
-
+    public List<FrequentWord> searchFrequentWords(String string) {
+        return dao.getFrequentWordsByStatus(FrequentWord.Status.NEED_TO_LEARN); //todo
     }
 }

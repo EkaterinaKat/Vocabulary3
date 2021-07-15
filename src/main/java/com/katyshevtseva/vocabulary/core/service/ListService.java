@@ -44,8 +44,10 @@ public class ListService {
         entry.setCreationDate(new Date());
         entry.setPage(page);
         entry.setFrequentWord(frequentWord);
+        frequentWord.setStatus(FrequentWord.Status.NEED_TO_LEARN);
         list.getEntries().add(entry);
         dao.saveNewEntry(entry);
+        dao.saveEditedFrequentWord(frequentWord);
     }
 
     public void editEntry(Entry entry, String newWord, String newTranslation, int newPage) {

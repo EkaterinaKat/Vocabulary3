@@ -48,4 +48,6 @@ public interface VocDao {
     int countFrequentWordByStatus(Status status);
 
     List<FrequentWord> getFrequentWordsByStatus(Status status);
+
+    List<FrequentWord> searchFrequentWord(String term);
 }

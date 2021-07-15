@@ -4,6 +4,7 @@ import com.katyshevtseva.vocabulary.core.VocDao;
 import com.katyshevtseva.vocabulary.core.entity.Entry;
 import com.katyshevtseva.vocabulary.core.entity.FrequentWord;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,6 +22,8 @@ public class SearchService {
     }
 
     public List<FrequentWord> searchFrequentWords(String string) {
-        return dao.getFrequentWordsByStatus(FrequentWord.Status.NEED_TO_LEARN); //todo
+        if (string.equals(""))
+            return new ArrayList<>();
+        return dao.searchFrequentWord(string);
     }
 }

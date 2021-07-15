@@ -3,6 +3,7 @@ package com.katyshevtseva.vocabulary.core.service;
 import com.katyshevtseva.vocabulary.core.CoreConstants;
 import com.katyshevtseva.vocabulary.core.VocDao;
 import com.katyshevtseva.vocabulary.core.entity.Entry;
+import com.katyshevtseva.vocabulary.core.entity.FrequentWord;
 import com.katyshevtseva.vocabulary.core.entity.LearningLog;
 import com.katyshevtseva.vocabulary.core.entity.LearningStatistics;
 
@@ -55,6 +56,11 @@ public class LearningService {
             entry.setLevel(entry.getLevel() + 1);
         else
             entry.setLevel(0);
+
+        if (entry.getLevel() == MAX_LEVEL && entry.getFrequentWord() != null) {
+            entry.getFrequentWord().setStatus(FrequentWord.Status.LEARNED);
+            dao.saveEditedFrequentWord(entry.getFrequentWord());
+        }
 
         dao.saveEditedEntry(entry);
     }

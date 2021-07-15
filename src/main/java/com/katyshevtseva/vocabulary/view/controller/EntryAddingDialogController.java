@@ -78,7 +78,6 @@ class EntryAddingDialogController implements FxController {
         wordTextField.clear();
         translationTextField.clear();
         wordTextField.requestFocus();
-
     }
 
     private void addFrequentWordButtonListener(FrequentWord frequentWord) {

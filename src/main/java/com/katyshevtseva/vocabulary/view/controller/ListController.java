@@ -7,7 +7,6 @@ import com.katyshevtseva.vocabulary.core.Core;
 import com.katyshevtseva.vocabulary.core.CoreConstants;
 import com.katyshevtseva.vocabulary.core.entity.Entry;
 import com.katyshevtseva.vocabulary.core.entity.WordList;
-import com.katyshevtseva.vocabulary.view.controller.dialog.EntryEditingDialogController;
 import com.katyshevtseva.vocabulary.view.utils.VocabularyWindowBuilder;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -170,14 +169,8 @@ class ListController implements FxController {
                 }));
 
         editButton.setOnAction(event -> {
-            Entry entryToEdit = selectedEntries.get(0);
-
-            VocabularyWindowBuilder.getInstance().openEntryEditingDialog(new EntryEditingDialogController(
-                    entryToEdit.getWord(), entryToEdit.getTranslation(), entryToEdit.getPage() == null ? 0 : entryToEdit.getPage(),
-                    (word, translation, page) -> {
-                        Core.getInstance().listService().editEntry(entryToEdit, word, translation, page);
-                        updateTable();
-                    }));
+            VocabularyWindowBuilder.getInstance().openEntryEditingDialog(
+                    new EntryEditingDialogController(this::updateTable, selectedEntries.get(0)));
         });
 
         moveButton.setOnAction(event -> new StandardDialogBuilder().openComboBoxDialog(

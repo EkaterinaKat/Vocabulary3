@@ -51,7 +51,7 @@ public class VocabularyWindowBuilder {
     }
 
     public void openEntryEditingDialog(FxController controller) {
-        new WindowBuilder("/fxml/entry_editing_dialog.fxml").setWidth(340).setHeight(300).
+        new WindowBuilder("/fxml/entry_editing_dialog.fxml").setWidth(340).setHeight(250).
                 setController(controller).showWindow();
     }
 

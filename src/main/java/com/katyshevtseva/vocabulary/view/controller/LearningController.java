@@ -3,7 +3,6 @@ package com.katyshevtseva.vocabulary.view.controller;
 import com.katyshevtseva.fx.WindowBuilder.FxController;
 import com.katyshevtseva.vocabulary.core.Core;
 import com.katyshevtseva.vocabulary.core.entity.Entry;
-import com.katyshevtseva.vocabulary.view.controller.dialog.LearningFinishDialogController;
 import com.katyshevtseva.vocabulary.view.utils.VocabularyWindowBuilder;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

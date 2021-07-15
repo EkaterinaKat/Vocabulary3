@@ -1,4 +1,4 @@
-package com.katyshevtseva.vocabulary.view.controller.dialog;
+package com.katyshevtseva.vocabulary.view.controller;
 
 import com.katyshevtseva.fx.FxUtils;
 import com.katyshevtseva.fx.WindowBuilder.FxController;
@@ -12,7 +12,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class LearningFinishDialogController implements FxController {
+class LearningFinishDialogController implements FxController {
     private List<Entry> problematicEntries;
     @FXML
     private Label statisticsLabel;
@@ -21,7 +21,7 @@ public class LearningFinishDialogController implements FxController {
     @FXML
     private Button okButton;
 
-    public LearningFinishDialogController(List<Entry> problematicEntries) {
+    LearningFinishDialogController(List<Entry> problematicEntries) {
         this.problematicEntries = problematicEntries;
     }
 

@@ -39,7 +39,7 @@ class SortingController implements FxController {
 
     @FXML
     private void initialize() {
-        words = service.getAllIntactWords();
+        words = service.getWordsForSorting();
         setImageOnButton("images/tick.png", okButton, 25);
         setImageOnButton("images/red_cross.png", notOkButton, 25);
         okButton.setOnAction(event -> resultButtonsListener(true));

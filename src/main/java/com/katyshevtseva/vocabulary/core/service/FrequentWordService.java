@@ -29,7 +29,7 @@ public class FrequentWordService {
         return dao.countFrequentWordByStatus(status);
     }
 
-    public List<FrequentWord> getAllIntactWords() {
+    public List<FrequentWord> getWordsForSorting() {
         List<FrequentWord> words = dao.getFrequentWordsByStatus(Status.INTACT);
         Collections.shuffle(words);
         return words;

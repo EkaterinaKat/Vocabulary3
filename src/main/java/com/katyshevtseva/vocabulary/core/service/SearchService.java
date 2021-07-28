@@ -6,7 +6,6 @@ import com.katyshevtseva.vocabulary.core.entity.FrequentWord;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class SearchService {
     private VocDao dao;
@@ -16,9 +15,9 @@ public class SearchService {
     }
 
     public List<Entry> search(String string) {
-        return dao.getAllEntries().stream()
-                .filter(entry -> (entry.getWord().startsWith(string) || entry.getTranslation().startsWith(string)))
-                .collect(Collectors.toList());
+        if (string.equals(""))
+            return new ArrayList<>();
+        return dao.searchEntries(string);
     }
 
     public List<FrequentWord> searchFrequentWords(String string) {

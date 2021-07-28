@@ -50,4 +50,6 @@ public interface VocDao {
     List<FrequentWord> getFrequentWordsByStatus(Status status);
 
     List<FrequentWord> searchFrequentWord(String term);
+
+    List<Entry> searchEntries(String term);
 }

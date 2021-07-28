@@ -5,7 +5,7 @@
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml">
 
-    <TableView fx:id="table" prefHeight="350">
+    <TableView fx:id="table">
         <columns>
             <TableColumn prefWidth="200" text="Word" fx:id="wordColumn"/>
             <TableColumn prefWidth="225" text="Translation" fx:id="translationColumn"/>

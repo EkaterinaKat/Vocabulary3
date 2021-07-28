@@ -1,5 +1,6 @@
 package com.katyshevtseva.vocabulary.view.controller;
 
+import com.katyshevtseva.fx.Point;
 import com.katyshevtseva.fx.WindowBuilder.FxController;
 import com.katyshevtseva.vocabulary.core.Core;
 import com.katyshevtseva.vocabulary.core.entity.Entry;
@@ -13,6 +14,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.util.List;
 
 class SearchResultController implements FxController {
+    private Point tableSize;
     @FXML
     private TableView<Entry> table;
     @FXML
@@ -26,9 +28,22 @@ class SearchResultController implements FxController {
     @FXML
     private TableColumn<Entry, String> listNameColumn;
 
+    SearchResultController(Point tableSize) {
+        this.tableSize = tableSize;
+    }
+
+    SearchResultController() {
+    }
+
     @FXML
     private void initialize() {
-        tuneTable();
+        tuneTableColumns();
+        if (tableSize != null) {
+            table.setMinWidth(tableSize.getX());
+            table.setMaxWidth(tableSize.getX());
+            table.setMinHeight(tableSize.getY());
+            table.setMaxHeight(tableSize.getY());
+        }
     }
 
     void fillTable(String inputString) {
@@ -38,7 +53,7 @@ class SearchResultController implements FxController {
         table.setItems(observableList);
     }
 
-    private void tuneTable() {
+    private void tuneTableColumns() {
         wordColumn.setCellValueFactory(new PropertyValueFactory<>("word"));
         translationColumn.setCellValueFactory(new PropertyValueFactory<>("translation"));
         levelColumn.setCellValueFactory(new PropertyValueFactory<>("level"));

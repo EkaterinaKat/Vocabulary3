@@ -60,7 +60,7 @@ public class VocabularyWindowBuilder {
     }
 
     public void openEntryAddingDialog(FxController controller) {
-        new WindowBuilder("/fxml/entry_adding_dialog.fxml").setWidth(800).setHeight(650).
+        new WindowBuilder("/fxml/entry_adding_dialog.fxml").setWidth(950).setHeight(850).
                 setController(controller).showWindow();
     }
 

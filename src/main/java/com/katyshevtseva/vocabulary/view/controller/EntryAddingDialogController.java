@@ -1,6 +1,7 @@
 package com.katyshevtseva.vocabulary.view.controller;
 
 import com.katyshevtseva.fx.FxUtils;
+import com.katyshevtseva.fx.Point;
 import com.katyshevtseva.fx.WindowBuilder.FxController;
 import com.katyshevtseva.general.NoArgsKnob;
 import com.katyshevtseva.vocabulary.core.Core;
@@ -9,11 +10,13 @@ import com.katyshevtseva.vocabulary.core.entity.FrequentWord;
 import com.katyshevtseva.vocabulary.core.entity.WordList;
 import com.katyshevtseva.vocabulary.core.service.ListService;
 import com.katyshevtseva.vocabulary.view.utils.VocUtils;
+import com.katyshevtseva.vocabulary.view.utils.VocabularyWindowBuilder;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Pane;
 
 import java.util.List;
 
@@ -46,6 +49,8 @@ class EntryAddingDialogController implements FxController {
     private TableColumn<FrequentWord, String> statusColumn;
     @FXML
     private TableColumn<FrequentWord, Void> addButtonColumn;
+    @FXML
+    private Pane searchResultPane;
 
     EntryAddingDialogController(NoArgsKnob tableUpdateKnob, WordList wordList) {
         this.tableUpdateKnob = tableUpdateKnob;
@@ -67,7 +72,14 @@ class EntryAddingDialogController implements FxController {
         });
         setCountLabelText();
         tuneTable();
-        wordTextField.textProperty().addListener((observable, oldValue, newValue) -> fillTable(wordTextField.getText()));
+        SearchResultController searchResultController = new SearchResultController(new Point(830, 250));
+        searchResultPane.getChildren().add(VocabularyWindowBuilder.getInstance().getSearchResultNode(searchResultController));
+        wordTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            fillTable(wordTextField.getText());
+            searchResultController.fillTable(wordTextField.getText());
+        });
+        translationTextField.textProperty().addListener(
+                (observable, oldValue, newValue) -> searchResultController.fillTable(translationTextField.getText()));
     }
 
     private void okButtonListener() {

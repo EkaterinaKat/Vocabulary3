@@ -246,7 +246,7 @@ public class VocDaoImpl implements VocDao {
         session.beginTransaction();
 
         Query query = session.createQuery(
-                "select fw from FrequentWord fw where fw.word like concat('%', :term, '%') ");
+                "select fw from FrequentWord fw where LOWER(fw.word) like concat('%', LOWER(:term), '%') ");
         query.setString("term", term);
 
         List<FrequentWord> words = query.list();
@@ -255,6 +255,22 @@ public class VocDaoImpl implements VocDao {
         return words;
     }
 
+    @Override
+    public List<Entry> searchEntries(String term) {
+        Session session = HibernateUtil.getSession();
+        session.beginTransaction();
+
+        Query query = session.createQuery(
+                "select e from Entry e " +
+                        " where lower(e.word) like concat('%', lower(:term), '%') " +
+                        " or lower(e.translation) like concat('%', lower(:term), '%') ");
+        query.setString("term", term);
+
+        List<Entry> entries = query.list();
+        session.getTransaction().commit();
+
+        return entries;
+    }
 
     @Override
     public List<FrequentWord> getAllFrequentWords() {

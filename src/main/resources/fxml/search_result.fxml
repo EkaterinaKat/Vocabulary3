@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.VBox?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml">
+
+    <TableView fx:id="table" prefHeight="350">
+        <columns>
+            <TableColumn prefWidth="200" text="Word" fx:id="wordColumn"/>
+            <TableColumn prefWidth="225" text="Translation" fx:id="translationColumn"/>
+            <TableColumn prefWidth="65" text="Page" fx:id="pageColumn"/>
+            <TableColumn prefWidth="65" text="Level" fx:id="levelColumn"/>
+            <TableColumn prefWidth="245" text="List name" fx:id="listNameColumn"/>
+        </columns>
+    </TableView>
+
+</VBox>

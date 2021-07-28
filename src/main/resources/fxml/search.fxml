@@ -1,20 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml">
 
     <TextField fx:id="textField" prefWidth="800"/>
 
-    <TableView fx:id="table" prefHeight="350">
-        <columns>
-            <TableColumn prefWidth="200" text="Word" fx:id="wordColumn"/>
-            <TableColumn prefWidth="225" text="Translation" fx:id="translationColumn"/>
-            <TableColumn prefWidth="65" text="Page" fx:id="pageColumn"/>
-            <TableColumn prefWidth="65" text="Level" fx:id="levelColumn"/>
-            <TableColumn prefWidth="245" text="List name" fx:id="listNameColumn"/>
-        </columns>
-    </TableView>
+    <Pane fx:id="searchResultPane"/>
 
 </VBox>

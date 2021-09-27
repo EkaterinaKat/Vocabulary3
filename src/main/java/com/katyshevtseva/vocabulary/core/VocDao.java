@@ -18,13 +18,15 @@ public interface VocDao {
 
     List<Entry> getAllEntries();
 
+    List<Entry> getEntriesByCreationDate(Date date);
+
     LearningStatistics getLearningStatisticsOrNull(Date date, int level);
 
     List<LearningStatistics> getStatistics(Date date);
 
     AddingStatistics getAddingStatisticsOrNull(Date date);
 
-    List<LearningLog> getAllLearningLogs();
+    List<LearningLog> getLearningLogsByEntry(Entry entry);
 
     int getPageOfLastAddedWord(WordList wordList);
 

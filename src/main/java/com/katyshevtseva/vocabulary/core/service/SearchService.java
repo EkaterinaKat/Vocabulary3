@@ -10,7 +10,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 public class SearchService {
-    private VocDao dao;
+    private final VocDao dao;
 
     public List<Entry> search(String string) {
         if (string.equals(""))

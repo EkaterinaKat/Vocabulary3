@@ -1,5 +1,6 @@
 package com.katyshevtseva.vocabulary.database;
 
+import com.katyshevtseva.date.DateUtils;
 import com.katyshevtseva.vocabulary.core.VocDao;
 import com.katyshevtseva.vocabulary.core.entity.*;
 import com.katyshevtseva.vocabulary.core.entity.FrequentWord.Status;
@@ -42,8 +43,33 @@ public class VocDaoImpl implements VocDao {
     }
 
     @Override
-    public List<LearningLog> getAllLearningLogs() {
-        return coreDao.getAll(LearningLog.class.getSimpleName());
+    public List<Entry> getEntriesByCreationDate(Date date) {
+        Session session = HibernateUtil.getSession();
+        session.beginTransaction();
+
+        date = DateUtils.removeTimeFromDate(date);
+        Date nextDay = DateUtils.shiftDate(date, DateUtils.TimeUnit.DAY, 1);
+        Criteria criteria = session.createCriteria(Entry.class)
+                .add(Restrictions.between("creationDate", date, nextDay));
+        List<Entry> entries = criteria.list();
+
+        session.getTransaction().commit();
+
+        return entries;
+    }
+
+    @Override
+    public List<LearningLog> getLearningLogsByEntry(Entry entry) {
+        Session session = HibernateUtil.getSession();
+        session.beginTransaction();
+
+        Criteria criteria = session.createCriteria(LearningLog.class)
+                .add(Restrictions.eq("entry", entry));
+        List<LearningLog> logs = criteria.list();
+
+        session.getTransaction().commit();
+
+        return logs;
     }
 
     @Override

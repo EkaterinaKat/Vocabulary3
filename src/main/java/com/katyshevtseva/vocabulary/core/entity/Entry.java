@@ -41,6 +41,7 @@ public class Entry {
         return "Entry{" +
                 "word='" + word + '\'' +
                 ", translation='" + translation + '\'' +
+                ", level=" + level +
                 '}';
     }
 }

@@ -25,4 +25,8 @@ public class LearningLog {
 
     @Temporal(TemporalType.DATE)
     private Date date;
+
+    public String getStringForTest() {
+        return date + " " + initLevel + " " + positiveAnswer;
+    }
 }

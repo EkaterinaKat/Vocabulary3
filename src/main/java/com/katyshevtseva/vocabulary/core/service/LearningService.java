@@ -6,6 +6,7 @@ import com.katyshevtseva.vocabulary.core.entity.Entry;
 import com.katyshevtseva.vocabulary.core.entity.FrequentWord;
 import com.katyshevtseva.vocabulary.core.entity.LearningLog;
 import com.katyshevtseva.vocabulary.core.entity.LearningStatistics;
+import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -17,12 +18,9 @@ import static com.katyshevtseva.date.DateCorrector.getProperDate;
 import static com.katyshevtseva.vocabulary.core.CoreConstants.MAX_LEVEL;
 import static com.katyshevtseva.vocabulary.core.service.EntryLifecycleService.entryIsRipe;
 
+@RequiredArgsConstructor
 public class LearningService {
-    private VocDao dao;
-
-    public LearningService(VocDao dao) {
-        this.dao = dao;
-    }
+    private final VocDao dao;
 
     public List<Entry> getEntriesToLearn() {
         List<Entry> entries = dao.getAllEntries().stream()
@@ -59,10 +57,10 @@ public class LearningService {
 
         if (entry.getLevel() == MAX_LEVEL && entry.getFrequentWord() != null) {
             entry.getFrequentWord().setStatus(FrequentWord.Status.LEARNED);
-            dao.saveEditedFrequentWord(entry.getFrequentWord());
+            dao.saveEdited(entry.getFrequentWord());
         }
 
-        dao.saveEditedEntry(entry);
+        dao.saveEdited(entry);
     }
 
     private void saveLearningLog(Entry entry, boolean positiveAnswer) {
@@ -71,7 +69,7 @@ public class LearningService {
         learningLog.setDate(getProperDate());
         learningLog.setInitLevel(entry.getLevel());
         learningLog.setPositiveAnswer(positiveAnswer);
-        dao.saveLearningLog(learningLog);
+        dao.saveNew(learningLog);
     }
 
     private void addStatistics(boolean correctAnswer, int currentLevel) {
@@ -82,12 +80,12 @@ public class LearningService {
             statistics.setDate(getProperDate());
             statistics.setAllNum(1);
             statistics.setFalseNum(correctAnswer ? 0 : 1);
-            dao.saveNewLearningStatistics(statistics);
+            dao.saveNew(statistics);
         } else {
             statistics.setAllNum(statistics.getAllNum() + 1);
             if (!correctAnswer)
                 statistics.setFalseNum(statistics.getFalseNum() + 1);
-            dao.saveEditedLearningStatistics(statistics);
+            dao.saveEdited(statistics);
         }
     }
 

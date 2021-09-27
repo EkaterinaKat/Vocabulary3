@@ -14,71 +14,41 @@ import java.util.List;
 
 public class VocDaoImpl implements VocDao {
     private static final SimpleDateFormat postgresDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    private final CoreDao coreDao = new CoreDao();
+
+    @Override
+    public <T> void saveNew(T t) {
+        coreDao.saveNew(t);
+    }
+
+    @Override
+    public <T> void saveEdited(T t) {
+        coreDao.saveEdited(t);
+    }
+
+    @Override
+    public <T> void delete(T t) {
+        coreDao.delete(t);
+    }
 
     @Override
     public List<WordList> getAllWordLists() {
-        Session session = HibernateUtil.getSession();
-        session.beginTransaction();
-
-        String sql = "From " + WordList.class.getSimpleName();
-        List<WordList> lists = session.createQuery(sql).list();
-
-        session.getTransaction().commit();
-
-        return lists;
-    }
-
-    @Override
-    public void saveNewWordList(WordList wordList) {
-        Session session = HibernateUtil.getSession();
-        session.beginTransaction();
-
-        session.save(wordList);
-
-        session.getTransaction().commit();
-    }
-
-    @Override
-    public void saveEditedWordList(WordList wordList) {
-        Session session = HibernateUtil.getSession();
-        session.beginTransaction();
-
-        session.update(wordList);
-
-        session.getTransaction().commit();
-    }
-
-    @Override
-    public void saveNewEntry(Entry entry) {
-        Session session = HibernateUtil.getSession();
-        session.beginTransaction();
-
-        session.save(entry);
-
-        session.getTransaction().commit();
-    }
-
-    @Override
-    public void saveEditedEntry(Entry entry) {
-        Session session = HibernateUtil.getSession();
-        session.beginTransaction();
-
-        session.update(entry);
-
-        session.getTransaction().commit();
+        return coreDao.getAll(WordList.class.getSimpleName());
     }
 
     @Override
     public List<Entry> getAllEntries() {
-        Session session = HibernateUtil.getSession();
-        session.beginTransaction();
+        return coreDao.getAll(Entry.class.getSimpleName());
+    }
 
-        String sql = "From " + Entry.class.getSimpleName();
-        List<Entry> entries = session.createQuery(sql).list();
+    @Override
+    public List<LearningLog> getAllLearningLogs() {
+        return coreDao.getAll(LearningLog.class.getSimpleName());
+    }
 
-        session.getTransaction().commit();
-
-        return entries;
+    @Override
+    public List<FrequentWord> getAllFrequentWords() {
+        return coreDao.getAll(FrequentWord.class.getSimpleName());
     }
 
     @Override
@@ -102,26 +72,6 @@ public class VocDaoImpl implements VocDao {
     }
 
     @Override
-    public void saveNewLearningStatistics(LearningStatistics learningStatistics) {
-        Session session = HibernateUtil.getSession();
-        session.beginTransaction();
-
-        session.save(learningStatistics);
-
-        session.getTransaction().commit();
-    }
-
-    @Override
-    public void saveEditedLearningStatistics(LearningStatistics learningStatistics) {
-        Session session = HibernateUtil.getSession();
-        session.beginTransaction();
-
-        session.update(learningStatistics);
-
-        session.getTransaction().commit();
-    }
-
-    @Override
     public List<LearningStatistics> getStatistics(Date date) {
         Session session = HibernateUtil.getSession();
         session.beginTransaction();
@@ -133,16 +83,6 @@ public class VocDaoImpl implements VocDao {
         session.getTransaction().commit();
 
         return statistics;
-    }
-
-    @Override
-    public void deleteEntry(Entry entry) {
-        Session session = HibernateUtil.getSession();
-        session.beginTransaction();
-
-        session.delete(entry);
-
-        session.getTransaction().commit();
     }
 
     @Override
@@ -165,41 +105,11 @@ public class VocDaoImpl implements VocDao {
     }
 
     @Override
-    public void saveNewAddingStatistics(AddingStatistics addingStatistics) {
-        Session session = HibernateUtil.getSession();
-        session.beginTransaction();
-
-        session.save(addingStatistics);
-
-        session.getTransaction().commit();
-    }
-
-    @Override
-    public void saveEditedAddingStatistics(AddingStatistics addingStatistics) {
-        Session session = HibernateUtil.getSession();
-        session.beginTransaction();
-
-        session.update(addingStatistics);
-
-        session.getTransaction().commit();
-    }
-
-    @Override
-    public void saveLearningLog(LearningLog learningLog) {
-        Session session = HibernateUtil.getSession();
-        session.beginTransaction();
-
-        session.save(learningLog);
-
-        session.getTransaction().commit();
-    }
-
-    @Override
     public int getPageOfLastAddedWord(WordList wordList) {
         Session session = HibernateUtil.getSession();
         session.beginTransaction();
         Query query = session.createSQLQuery(
-                "select * from entry where word_list_id = :word_list_id order by creation_date desc limit 1; ")
+                        "select * from entry where word_list_id = :word_list_id order by creation_date desc limit 1; ")
                 .addEntity(Entry.class)
                 .setParameter("word_list_id", wordList.getId());
 
@@ -270,38 +180,5 @@ public class VocDaoImpl implements VocDao {
         session.getTransaction().commit();
 
         return entries;
-    }
-
-    @Override
-    public List<FrequentWord> getAllFrequentWords() {
-        Session session = HibernateUtil.getSession();
-        session.beginTransaction();
-
-        String sql = "From " + FrequentWord.class.getSimpleName();
-        List<FrequentWord> words = session.createQuery(sql).list();
-
-        session.getTransaction().commit();
-
-        return words;
-    }
-
-    @Override
-    public void saveNewFrequentWord(FrequentWord frequentWord) {
-        Session session = HibernateUtil.getSession();
-        session.beginTransaction();
-
-        session.save(frequentWord);
-
-        session.getTransaction().commit();
-    }
-
-    @Override
-    public void saveEditedFrequentWord(FrequentWord frequentWord) {
-        Session session = HibernateUtil.getSession();
-        session.beginTransaction();
-
-        session.update(frequentWord);
-
-        session.getTransaction().commit();
     }
 }

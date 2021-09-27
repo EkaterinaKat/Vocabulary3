@@ -3,16 +3,14 @@ package com.katyshevtseva.vocabulary.core.service;
 import com.katyshevtseva.vocabulary.core.VocDao;
 import com.katyshevtseva.vocabulary.core.entity.Entry;
 import com.katyshevtseva.vocabulary.core.entity.FrequentWord;
+import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@RequiredArgsConstructor
 public class SearchService {
     private VocDao dao;
-
-    public SearchService(VocDao dao) {
-        this.dao = dao;
-    }
 
     public List<Entry> search(String string) {
         if (string.equals(""))

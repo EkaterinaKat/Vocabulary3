@@ -4,16 +4,14 @@ import com.katyshevtseva.general.PieChartData;
 import com.katyshevtseva.vocabulary.core.VocDao;
 import com.katyshevtseva.vocabulary.core.entity.FrequentWord;
 import com.katyshevtseva.vocabulary.core.entity.FrequentWord.Status;
+import lombok.RequiredArgsConstructor;
 
 import java.util.Collections;
 import java.util.List;
 
+@RequiredArgsConstructor
 public class FrequentWordService {
-    private VocDao dao;
-
-    public FrequentWordService(VocDao dao) {
-        this.dao = dao;
-    }
+    private final VocDao dao;
 
     public PieChartData getStatusCountPieChartData() {
         PieChartData data = new PieChartData();
@@ -37,7 +35,7 @@ public class FrequentWordService {
 
     public void sort(FrequentWord frequentWord, boolean positiveAnswer) {
         frequentWord.setStatus(positiveAnswer ? Status.KNOWN : Status.NEED_TO_LEARN);
-        dao.saveEditedFrequentWord(frequentWord);
+        dao.saveEdited(frequentWord);
     }
 
 }

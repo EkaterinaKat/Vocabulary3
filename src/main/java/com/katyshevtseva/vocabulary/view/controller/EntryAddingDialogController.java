@@ -5,7 +5,6 @@ import com.katyshevtseva.fx.Point;
 import com.katyshevtseva.fx.WindowBuilder.FxController;
 import com.katyshevtseva.general.NoArgsKnob;
 import com.katyshevtseva.vocabulary.core.Core;
-import com.katyshevtseva.vocabulary.core.entity.AddingStatistics;
 import com.katyshevtseva.vocabulary.core.entity.FrequentWord;
 import com.katyshevtseva.vocabulary.core.entity.WordList;
 import com.katyshevtseva.vocabulary.core.service.ListService;
@@ -102,11 +101,7 @@ class EntryAddingDialogController implements FxController {
     }
 
     private void setCountLabelText() {
-        AddingStatistics addingStatistics = service.getTodayAddingStatisticsOrNull();
-        if (addingStatistics == null)
-            countLabel.setText(String.format("%s: %d", READABLE_DATE_FORMAT.format(getProperDate()), 0));
-        else
-            countLabel.setText(String.format("%s: %d", READABLE_DATE_FORMAT.format(addingStatistics.getDate()), addingStatistics.getNum()));
+        countLabel.setText(String.format("%s: %d", READABLE_DATE_FORMAT.format(getProperDate()), service.getNumOfEntriesAddedToday()));
     }
 
     private void tuneTable() {

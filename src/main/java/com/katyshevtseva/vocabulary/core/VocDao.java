@@ -24,7 +24,7 @@ public interface VocDao {
 
     List<LearningStatistics> getStatistics(Date date);
 
-    AddingStatistics getAddingStatisticsOrNull(Date date);
+    int getNumOfAddedEntriesByDate(Date date);
 
     List<LearningLog> getLearningLogsByEntry(Entry entry);
 

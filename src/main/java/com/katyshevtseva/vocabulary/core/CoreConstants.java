@@ -10,12 +10,12 @@ public class CoreConstants {
     public static final Map<Integer, Integer> LEVEL_DAYS_MAP = new HashMap<>();
 
     static {
-        LEVEL_DAYS_MAP.put(1, 3);
-        LEVEL_DAYS_MAP.put(2, 4);
-        LEVEL_DAYS_MAP.put(3, 6);
-        LEVEL_DAYS_MAP.put(4, 8);
-        LEVEL_DAYS_MAP.put(5, 10);
-        LEVEL_DAYS_MAP.put(6, 12);
-        LEVEL_DAYS_MAP.put(7, 15);
+        LEVEL_DAYS_MAP.put(1, 4);
+        LEVEL_DAYS_MAP.put(2, 6);
+        LEVEL_DAYS_MAP.put(3, 9);
+        LEVEL_DAYS_MAP.put(4, 11);
+        LEVEL_DAYS_MAP.put(5, 14);
+        LEVEL_DAYS_MAP.put(6, 17);
+        LEVEL_DAYS_MAP.put(7, 20);
     }
 }

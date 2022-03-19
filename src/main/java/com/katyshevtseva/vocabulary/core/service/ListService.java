@@ -1,7 +1,6 @@
 package com.katyshevtseva.vocabulary.core.service;
 
 import com.katyshevtseva.vocabulary.core.VocDao;
-import com.katyshevtseva.vocabulary.core.entity.AddingStatistics;
 import com.katyshevtseva.vocabulary.core.entity.Entry;
 import com.katyshevtseva.vocabulary.core.entity.FrequentWord;
 import com.katyshevtseva.vocabulary.core.entity.WordList;
@@ -17,7 +16,6 @@ public class ListService {
     private final VocDao dao;
 
     public void addEntryToList(String word, String translation, int page, WordList list) {
-        addStatistics();
         Entry entry = new Entry();
         entry.setWord(word);
         entry.setTranslation(translation);
@@ -31,7 +29,6 @@ public class ListService {
     }
 
     public void addEntryToList(FrequentWord frequentWord, int page, WordList list) {
-        addStatistics();
         Entry entry = new Entry();
         entry.setWord(frequentWord.getWord());
         entry.setTranslation(frequentWord.getTranslation());
@@ -70,21 +67,8 @@ public class ListService {
         });
     }
 
-    private void addStatistics() {
-        AddingStatistics statistics = dao.getAddingStatisticsOrNull(getProperDate());
-        if (statistics == null) {
-            statistics = new AddingStatistics();
-            statistics.setDate(getProperDate());
-            statistics.setNum(1);
-            dao.saveNew(statistics);
-        } else {
-            statistics.setNum(statistics.getNum() + 1);
-            dao.saveEdited(statistics);
-        }
-    }
-
-    public AddingStatistics getTodayAddingStatisticsOrNull() {
-        return dao.getAddingStatisticsOrNull(getProperDate());
+    public int getNumOfEntriesAddedToday() {
+        return dao.getNumOfAddedEntriesByDate(getProperDate());
     }
 
     public int getPageOfLastAddedWord(WordList wordList) {

@@ -112,22 +112,21 @@ public class VocDaoImpl implements VocDao {
     }
 
     @Override
-    public AddingStatistics getAddingStatisticsOrNull(Date date) {
+    public int getNumOfAddedEntriesByDate(Date date) {
         Session session = HibernateUtil.getSession();
         session.beginTransaction();
 
-        Criteria criteria = session.createCriteria(AddingStatistics.class)
-                .add(Restrictions.eq("date", date));
-        List<AddingStatistics> statistics = criteria.list();
+        Date fromDate = DateUtils.removeTimeFromDate(new Date());
+        Date toDate = DateUtils.removeTimeFromDate(DateUtils.shiftDate(new Date(), DateUtils.TimeUnit.DAY, 1));
+
+        Criteria criteria = session.createCriteria(Entry.class)
+                .add(Restrictions.ge("creationDate", fromDate))
+                .add(Restrictions.le("creationDate", toDate));
+        List<Entry> entries = criteria.list();
 
         session.getTransaction().commit();
 
-        if (statistics.size() > 1)
-            throw new RuntimeException();
-        if (statistics.size() == 0)
-            return null;
-
-        return statistics.get(0);
+        return entries.size();
     }
 
     @Override

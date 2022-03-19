@@ -11,8 +11,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.katyshevtseva.vocabulary.core.CoreConstants.LEVEL_DAYS_MAP;
-
 @RequiredArgsConstructor
 public class Test {
     private final VocDao dao;
@@ -28,7 +26,6 @@ public class Test {
                     LearningLog log = logs.get(i);
                     LearningLog nextLog = logs.get(i + 1);
                     test11(log, nextLog);
-                    test12(log, nextLog);
                 }
         }
         Date finish = new Date();
@@ -42,19 +39,6 @@ public class Test {
             error();
         }
         if (!log.isPositiveAnswer() && nextLog.getInitLevel() != 0) {
-            error();
-        }
-    }
-
-    // Проверка того что между повторениями проходит времени не меньше чем нужно
-    private void test12(LearningLog log, LearningLog nextLog) {
-        Integer daysNeedToPass = LEVEL_DAYS_MAP.get(nextLog.getInitLevel());
-        if (daysNeedToPass == null && nextLog.getInitLevel() == 0) {
-            daysNeedToPass = 0;
-        }
-
-        int daysPassed = DateUtils.getNumberOfDays(log.getDate(), nextLog.getDate());
-        if (daysPassed < daysNeedToPass) {
             error();
         }
     }

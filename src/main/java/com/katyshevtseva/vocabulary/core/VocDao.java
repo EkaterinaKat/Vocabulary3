@@ -1,7 +1,10 @@
 package com.katyshevtseva.vocabulary.core;
 
-import com.katyshevtseva.vocabulary.core.entity.*;
+import com.katyshevtseva.vocabulary.core.entity.Entry;
+import com.katyshevtseva.vocabulary.core.entity.FrequentWord;
 import com.katyshevtseva.vocabulary.core.entity.FrequentWord.Status;
+import com.katyshevtseva.vocabulary.core.entity.LearningLog;
+import com.katyshevtseva.vocabulary.core.entity.WordList;
 
 import java.util.Date;
 import java.util.List;
@@ -20,9 +23,7 @@ public interface VocDao {
 
     List<Entry> getEntriesByCreationDate(Date date);
 
-    LearningStatistics getLearningStatisticsOrNull(Date date, int level);
-
-    List<LearningStatistics> getStatistics(Date date);
+    List<LearningLog> getLearningLogsByDate(Date date);
 
     int getNumOfAddedEntriesByDate(Date date);
 

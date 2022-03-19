@@ -2,8 +2,11 @@ package com.katyshevtseva.vocabulary.database;
 
 import com.katyshevtseva.date.DateUtils;
 import com.katyshevtseva.vocabulary.core.VocDao;
-import com.katyshevtseva.vocabulary.core.entity.*;
+import com.katyshevtseva.vocabulary.core.entity.Entry;
+import com.katyshevtseva.vocabulary.core.entity.FrequentWord;
 import com.katyshevtseva.vocabulary.core.entity.FrequentWord.Status;
+import com.katyshevtseva.vocabulary.core.entity.LearningLog;
+import com.katyshevtseva.vocabulary.core.entity.WordList;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -78,33 +81,12 @@ public class VocDaoImpl implements VocDao {
     }
 
     @Override
-    public LearningStatistics getLearningStatisticsOrNull(Date date, int level) {
+    public List<LearningLog> getLearningLogsByDate(Date date) {
         Session session = HibernateUtil.getSession();
         session.beginTransaction();
 
-        Criteria criteria = session.createCriteria(LearningStatistics.class)
-                .add(Restrictions.eq("level", level))
-                .add(Restrictions.eq("date", date));
-        List<LearningStatistics> statistics = criteria.list();
-
-        session.getTransaction().commit();
-
-        if (statistics.size() > 1)
-            throw new RuntimeException();
-        if (statistics.size() == 0)
-            return null;
-
-        return statistics.get(0);
-    }
-
-    @Override
-    public List<LearningStatistics> getStatistics(Date date) {
-        Session session = HibernateUtil.getSession();
-        session.beginTransaction();
-
-        Criteria criteria = session.createCriteria(LearningStatistics.class)
-                .add(Restrictions.eq("date", date));
-        List<LearningStatistics> statistics = criteria.list();
+        Criteria criteria = session.createCriteria(LearningLog.class).add(Restrictions.eq("date", date));
+        List<LearningLog> statistics = criteria.list();
 
         session.getTransaction().commit();
 

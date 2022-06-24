@@ -1,6 +1,8 @@
 package com.katyshevtseva.vocabulary.database;
 
 import com.katyshevtseva.date.DateUtils;
+import com.katyshevtseva.hibernate.CoreDao;
+import com.katyshevtseva.hibernate.HibernateUtil;
 import com.katyshevtseva.vocabulary.core.VocDao;
 import com.katyshevtseva.vocabulary.core.entity.Entry;
 import com.katyshevtseva.vocabulary.core.entity.FrequentWord;
@@ -27,7 +29,7 @@ public class VocDaoImpl implements VocDao {
 
     @Override
     public <T> void saveEdited(T t) {
-        coreDao.saveEdited(t);
+        coreDao.update(t);
     }
 
     @Override

@@ -19,23 +19,23 @@ public class VocabularyWindowBuilder {
     }
 
     public void openMainWindow() {
-        new WindowBuilder("/fxml/main.fxml").setTitle(CoreConstants.APP_NAME).setWidth(1735).setHeight(900).
-                setController(new MainController()).showWindow();
+        new WindowBuilder("/fxml/main.fxml").setTitle(CoreConstants.APP_NAME).setSize(900, 1735)
+                .setController(new MainController()).showWindow();
     }
 
     public void openFrequentSectionWindow() {
-        new WindowBuilder("/fxml/frequent_section.fxml").setTitle(CoreConstants.APP_NAME).setWidth(950).setHeight(650).
-                setController(new FrequentSectionController()).showWindow();
+        new WindowBuilder("/fxml/frequent_section.fxml").setTitle(CoreConstants.APP_NAME).setSize(650, 950)
+                .setController(new FrequentSectionController()).showWindow();
     }
 
     public void openSortingWindow(FxController controller, NoArgsKnob onCloseListener) {
-        new WindowBuilder("/fxml/sorting.fxml").setTitle(CoreConstants.APP_NAME).setWidth(650).setHeight(500)
+        new WindowBuilder("/fxml/sorting.fxml").setTitle(CoreConstants.APP_NAME).setSize(500, 650)
                 .setOnWindowCloseEventHandler(event -> onCloseListener.execute()).setController(controller).showWindow();
     }
 
     public void openLearningWindow(FxController controller) {
-        new WindowBuilder("/fxml/learning.fxml").setTitle(CoreConstants.APP_NAME).setWidth(650).setHeight(500).
-                setController(controller).showWindow();
+        new WindowBuilder("/fxml/learning.fxml").setTitle(CoreConstants.APP_NAME).setSize(500, 650)
+                .setController(controller).showWindow();
     }
 
     public Node getCatalogueNode(FxController controller) {
@@ -55,17 +55,17 @@ public class VocabularyWindowBuilder {
     }
 
     public void openEntryEditingDialog(FxController controller) {
-        new WindowBuilder("/fxml/entry_editing_dialog.fxml").setWidth(340).setHeight(250).
-                setController(controller).showWindow();
+        new WindowBuilder("/fxml/entry_editing_dialog.fxml").setSize(250, 340)
+                .setController(controller).showWindow();
     }
 
     public void openEntryAddingDialog(FxController controller) {
-        new WindowBuilder("/fxml/entry_adding_dialog.fxml").setWidth(950).setHeight(850).
-                setController(controller).showWindow();
+        new WindowBuilder("/fxml/entry_adding_dialog.fxml").setSize(850, 950)
+                .setController(controller).showWindow();
     }
 
     public void openLearningFinishDialog(FxController controller) {
-        new WindowBuilder("/fxml/learning_finish_dialog.fxml").setWidth(650).setHeight(600).
-                setController(controller).showWindow();
+        new WindowBuilder("/fxml/learning_finish_dialog.fxml").setSize(600, 650)
+                .setController(controller).showWindow();
     }
 }

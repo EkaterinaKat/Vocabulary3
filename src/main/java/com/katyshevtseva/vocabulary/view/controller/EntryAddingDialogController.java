@@ -17,17 +17,17 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 
+import java.util.Date;
 import java.util.List;
 
-import static com.katyshevtseva.date.DateCorrector.getProperDate;
 import static com.katyshevtseva.date.DateUtils.READABLE_DATE_FORMAT;
 import static com.katyshevtseva.fx.FxUtils.associateButtonWithControls;
 import static com.katyshevtseva.fx.FxUtils.disableNonNumericChars;
 
 class EntryAddingDialogController implements FxController {
-    private ListService service = Core.getInstance().listService();
-    private NoArgsKnob tableUpdateKnob;
-    private WordList wordList;
+    private final ListService service = Core.getInstance().listService();
+    private final NoArgsKnob tableUpdateKnob;
+    private final WordList wordList;
     @FXML
     private Label countLabel;
     @FXML
@@ -101,7 +101,7 @@ class EntryAddingDialogController implements FxController {
     }
 
     private void setCountLabelText() {
-        countLabel.setText(String.format("%s: %d", READABLE_DATE_FORMAT.format(getProperDate()), service.getNumOfEntriesAddedToday()));
+        countLabel.setText(String.format("%s: %d", READABLE_DATE_FORMAT.format(new Date()), service.getNumOfEntriesAddedToday()));
     }
 
     private void tuneTable() {

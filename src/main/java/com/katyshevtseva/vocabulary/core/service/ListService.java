@@ -9,8 +9,6 @@ import lombok.RequiredArgsConstructor;
 import java.util.Date;
 import java.util.List;
 
-import static com.katyshevtseva.date.DateCorrector.getProperDate;
-
 @RequiredArgsConstructor
 public class ListService {
     private final VocDao dao;
@@ -21,7 +19,7 @@ public class ListService {
         entry.setTranslation(translation);
         entry.setLevel(0);
         entry.setWordList(list);
-        entry.setLastRepeat(getProperDate());
+        entry.setLastRepeat(new Date());
         entry.setCreationDate(new Date());
         entry.setPage(page);
         list.getEntries().add(entry);
@@ -34,7 +32,7 @@ public class ListService {
         entry.setTranslation(frequentWord.getTranslation());
         entry.setLevel(0);
         entry.setWordList(list);
-        entry.setLastRepeat(getProperDate());
+        entry.setLastRepeat(new Date());
         entry.setCreationDate(new Date());
         entry.setPage(page);
         entry.setFrequentWord(frequentWord);
@@ -68,7 +66,7 @@ public class ListService {
     }
 
     public int getNumOfEntriesAddedToday() {
-        return dao.getNumOfAddedEntriesByDate(getProperDate());
+        return dao.getNumOfAddedEntriesByDate(new Date());
     }
 
     public int getPageOfLastAddedWord(WordList wordList) {

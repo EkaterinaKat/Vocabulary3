@@ -2,6 +2,8 @@ package com.katyshevtseva.vocabulary.view.controller;
 
 import com.katyshevtseva.fx.WindowBuilder.FxController;
 import com.katyshevtseva.fx.dialog.StandardDialogBuilder;
+import com.katyshevtseva.fx.dialogconstructor.DcTextField;
+import com.katyshevtseva.fx.dialogconstructor.DialogConstructor;
 import com.katyshevtseva.vocabulary.core.Core;
 import com.katyshevtseva.vocabulary.core.entity.Entry;
 import com.katyshevtseva.vocabulary.core.entity.WordList;
@@ -19,7 +21,7 @@ import java.util.Map;
 import static com.katyshevtseva.fx.FxUtils.getPaneWithHeight;
 
 class CatalogueController implements FxController {
-    private MainController mainController;
+    private final MainController mainController;
     private Map<WordList, Label> listLabelMap;
     @FXML
     private Button newListButton;
@@ -36,12 +38,14 @@ class CatalogueController implements FxController {
 
     @FXML
     private void initialize() {
-        newListButton.setOnAction(event -> new StandardDialogBuilder().openTextFieldDialog("",
-                s -> {
-                    WordList newWordList = Core.getInstance().catalogueService().createWordList(s);
-                    updateCatalogue();
-                    listSelectionListener(newWordList);
-                }));
+
+        DcTextField titleField = new DcTextField(true, "");
+        newListButton.setOnAction(event -> DialogConstructor.constructDialog(() -> {
+            WordList newWordList = Core.getInstance().catalogueService().createWordList(titleField.getValue());
+            updateCatalogue();
+            listSelectionListener(newWordList);
+        }, titleField));
+
         learnButton.setOnAction(event -> {
             List<Entry> entriesToLearn = Core.getInstance().learningService().getEntriesToLearn();
             if (entriesToLearn.isEmpty()) {
@@ -68,6 +72,8 @@ class CatalogueController implements FxController {
         for (WordList list : catalogue) {
             Label label = new Label(list.getTitle());
             label.setMinHeight(30);
+            label.setWrapText(true);
+            label.setMaxWidth(330);
             label.setOnMouseClicked(event -> listSelectionListener(list));
             listLabelMap.put(list, label);
             cataloguePane.getChildren().addAll(label, getPaneWithHeight(20));

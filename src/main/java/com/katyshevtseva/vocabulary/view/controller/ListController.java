@@ -3,6 +3,9 @@ package com.katyshevtseva.vocabulary.view.controller;
 import com.katyshevtseva.fx.Styler;
 import com.katyshevtseva.fx.WindowBuilder.FxController;
 import com.katyshevtseva.fx.dialog.StandardDialogBuilder;
+import com.katyshevtseva.fx.dialogconstructor.DcComboBox;
+import com.katyshevtseva.fx.dialogconstructor.DcTextField;
+import com.katyshevtseva.fx.dialogconstructor.DialogConstructor;
 import com.katyshevtseva.vocabulary.core.Core;
 import com.katyshevtseva.vocabulary.core.CoreConstants;
 import com.katyshevtseva.vocabulary.core.entity.Entry;
@@ -29,8 +32,8 @@ import static com.katyshevtseva.fx.FxUtils.setImageOnButton;
 import static com.katyshevtseva.fx.Styler.ThingToColor.BACKGROUND;
 
 class ListController implements FxController {
+    private final MainController mainController;
     private WordList currentWordList;
-    private MainController mainController;
     private List<Entry> selectedEntries;
     @FXML
     private Button addWordButton;
@@ -139,6 +142,25 @@ class ListController implements FxController {
         entries.addAll(getSortedEntries());
         table.getItems().clear();
         table.setItems(entries);
+        adjustButtonListenersThatDependsOnNotNullCurrentWordList();
+    }
+
+    // Настройка этих кнопок идет отдельно от настроек других кнопок так как
+    // для настройки этой кнопки нужно знать currentWordList. Такой костыльчик
+    private void adjustButtonListenersThatDependsOnNotNullCurrentWordList() {
+        DcTextField titleField = new DcTextField(true, currentWordList.getTitle());
+        listRenameButton.setOnAction(event -> DialogConstructor.constructDialog(() -> {
+            Core.getInstance().catalogueService().renameList(currentWordList, titleField.getValue());
+            mainController.updateListsTitlesInCatalogue();
+            mainController.catalogueListSelectionListener(currentWordList);
+        }, titleField));
+
+        DcComboBox<WordList> dcComboBox = new DcComboBox<>(true, currentWordList,
+                Core.getInstance().catalogueService().getCatalogue());
+        moveButton.setOnAction(event -> DialogConstructor.constructDialog(() -> {
+            Core.getInstance().listService().moveEntries(selectedEntries, dcComboBox.getValue());
+            updateTable();
+        }, dcComboBox));
     }
 
     private List<Entry> getSortedEntries() {
@@ -151,13 +173,6 @@ class ListController implements FxController {
 
         addWordButton.setOnAction(event -> VocabularyWindowBuilder.getInstance().openEntryAddingDialog(
                 new EntryAddingDialogController(this::updateTable, currentWordList)));
-
-        listRenameButton.setOnAction(
-                event -> new StandardDialogBuilder().openTextFieldDialog(currentWordList.getTitle(), (newTitle) -> {
-                    Core.getInstance().catalogueService().renameList(currentWordList, newTitle);
-                    mainController.updateListsTitlesInCatalogue();
-                    mainController.catalogueListSelectionListener(currentWordList);
-                }));
 
         listArchiveButton.setOnAction(
                 event -> new StandardDialogBuilder().openQuestionDialog("Archive list?", (b) -> {
@@ -172,13 +187,6 @@ class ListController implements FxController {
             VocabularyWindowBuilder.getInstance().openEntryEditingDialog(
                     new EntryEditingDialogController(this::updateTable, selectedEntries.get(0)));
         });
-
-        moveButton.setOnAction(event -> new StandardDialogBuilder().openComboBoxDialog(
-                Core.getInstance().catalogueService().getCatalogue(), currentWordList,
-                newWordList -> {
-                    Core.getInstance().listService().moveEntries(selectedEntries, newWordList);
-                    updateTable();
-                }));
 
         wordDeleteButton.setOnAction(event -> new StandardDialogBuilder().openQuestionDialog("Delete?", (b -> {
             if (b) {

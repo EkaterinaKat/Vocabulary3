@@ -11,7 +11,6 @@ import lombok.RequiredArgsConstructor;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.katyshevtseva.date.DateCorrector.getProperDate;
 import static com.katyshevtseva.vocabulary.core.CoreConstants.MAX_LEVEL;
 import static com.katyshevtseva.vocabulary.core.service.EntryLifecycleService.entryIsRipe;
 
@@ -44,7 +43,7 @@ public class LearningService {
 
     public void changeEntryLevelAndStatistics(Entry entry, boolean positiveAnswer) {
         saveLearningLog(entry, positiveAnswer);
-        entry.setLastRepeat(getProperDate());
+        entry.setLastRepeat(new Date());
 
         if (positiveAnswer)
             entry.setLevel(entry.getLevel() + 1);
@@ -62,7 +61,7 @@ public class LearningService {
     private void saveLearningLog(Entry entry, boolean positiveAnswer) {
         LearningLog learningLog = new LearningLog();
         learningLog.setEntry(entry);
-        learningLog.setDate(getProperDate());
+        learningLog.setDate(new Date());
         learningLog.setInitLevel(entry.getLevel());
         learningLog.setPositiveAnswer(positiveAnswer);
         dao.saveNew(learningLog);

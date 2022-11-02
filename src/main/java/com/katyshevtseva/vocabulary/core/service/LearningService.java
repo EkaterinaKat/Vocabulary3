@@ -1,11 +1,11 @@
 package com.katyshevtseva.vocabulary.core.service;
 
 import com.katyshevtseva.vocabulary.core.CoreConstants;
-import com.katyshevtseva.vocabulary.core.LearningStatistics;
 import com.katyshevtseva.vocabulary.core.VocDao;
 import com.katyshevtseva.vocabulary.core.entity.Entry;
 import com.katyshevtseva.vocabulary.core.entity.FrequentWord;
 import com.katyshevtseva.vocabulary.core.entity.LearningLog;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
 import java.util.*;
@@ -91,5 +91,12 @@ public class LearningService {
             statisticsList.add(statistics);
         }
         return statisticsList;
+    }
+
+    @Data
+    public static class LearningStatistics {
+        private int level;
+        private int allNum;
+        private int falseNum;
     }
 }

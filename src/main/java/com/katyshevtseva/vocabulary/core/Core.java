@@ -13,6 +13,10 @@ public class Core {
     private final LearningService learningService = new LearningService(vocDao);
     private final FrequentWordService frequentWordService = new FrequentWordService(vocDao);
 
+//    public Core() {
+//        new Test(vocDao).execute();
+//    }
+
     public static Core getInstance() {
         return INSTANCE;
     }

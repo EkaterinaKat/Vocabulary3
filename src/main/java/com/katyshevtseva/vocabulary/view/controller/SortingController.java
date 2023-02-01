@@ -12,6 +12,8 @@ import javafx.scene.control.Label;
 
 import java.util.List;
 
+import static com.katyshevtseva.fx.FxImageCreationUtil.IconPicture.GREEN_TICK;
+import static com.katyshevtseva.fx.FxImageCreationUtil.IconPicture.RED_CROSS;
 import static com.katyshevtseva.fx.FxUtils.closeWindowThatContains;
 import static com.katyshevtseva.fx.FxUtils.setImageOnButton;
 
@@ -40,8 +42,8 @@ class SortingController implements FxController {
     @FXML
     private void initialize() {
         words = service.getWordsForSorting();
-        setImageOnButton("images/tick.png", okButton, 25);
-        setImageOnButton("images/red_cross.png", notOkButton, 25);
+        setImageOnButton(GREEN_TICK, okButton, 25);
+        setImageOnButton(RED_CROSS, notOkButton, 25);
         okButton.setOnAction(event -> resultButtonsListener(true));
         notOkButton.setOnAction(event -> resultButtonsListener(false));
         showTranslationButton.setOnAction(event -> showTranslationButtonListener());

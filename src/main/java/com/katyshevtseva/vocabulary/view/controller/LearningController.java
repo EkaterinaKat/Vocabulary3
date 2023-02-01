@@ -13,6 +13,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.katyshevtseva.fx.FxImageCreationUtil.IconPicture.GREEN_TICK;
+import static com.katyshevtseva.fx.FxImageCreationUtil.IconPicture.RED_CROSS;
 import static com.katyshevtseva.fx.FxUtils.closeWindowThatContains;
 import static com.katyshevtseva.fx.FxUtils.setImageOnButton;
 import static com.katyshevtseva.vocabulary.core.CoreConstants.CRITICAL_LEVEL;
@@ -44,8 +46,8 @@ class LearningController implements FxController {
 
     @FXML
     private void initialize() {
-        setImageOnButton("images/tick.png", okButton, 25);
-        setImageOnButton("images/red_cross.png", notOkButton, 25);
+        setImageOnButton(GREEN_TICK, okButton, 25);
+        setImageOnButton(RED_CROSS, notOkButton, 25);
         okButton.setOnAction(event -> resultButtonsListener(true));
         notOkButton.setOnAction(event -> resultButtonsListener(false));
         showTranslationButton.setOnAction(event -> showTranslationButtonListener());

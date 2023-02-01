@@ -1,7 +1,7 @@
 package com.katyshevtseva.vocabulary.view.controller;
 
-import com.katyshevtseva.fx.FxUtils;
 import com.katyshevtseva.fx.Point;
+import com.katyshevtseva.fx.TableUtils;
 import com.katyshevtseva.fx.WindowBuilder.FxController;
 import com.katyshevtseva.general.NoArgsKnob;
 import com.katyshevtseva.vocabulary.core.Core;
@@ -108,7 +108,7 @@ class EntryAddingDialogController implements FxController {
         wordColumn.setCellValueFactory(new PropertyValueFactory<>("word"));
         translationColumn.setCellValueFactory(new PropertyValueFactory<>("translation"));
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
-        FxUtils.adjustButtonColumn(addButtonColumn, "Add", this::addFrequentWordButtonListener);
+        TableUtils.adjustButtonColumn(addButtonColumn, "Add", this::addFrequentWordButtonListener);
     }
 
     private void fillTable(String string) {

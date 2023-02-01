@@ -27,6 +27,7 @@ import javafx.util.Callback;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.katyshevtseva.fx.FxImageCreationUtil.IconPicture.GREEN_PLUS;
 import static com.katyshevtseva.fx.FxUtils.setComboBoxItems;
 import static com.katyshevtseva.fx.FxUtils.setImageOnButton;
 import static com.katyshevtseva.fx.Styler.ThingToColor.BACKGROUND;
@@ -76,7 +77,7 @@ class ListController implements FxController {
     private void initialize() {
         tuneColumns();
         table.setEditable(true);
-        setImageOnButton("images/plus.png", addWordButton, 15);
+        setImageOnButton(GREEN_PLUS, addWordButton, 15);
         setComboBoxItems(orderComboBox, Order.values(), Order.BY_DATE);
         orderComboBox.setOnAction(event -> updateTable());
         setVisibilityOfWordManagementButtons();

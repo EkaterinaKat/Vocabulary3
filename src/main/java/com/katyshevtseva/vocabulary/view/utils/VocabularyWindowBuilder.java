@@ -1,11 +1,10 @@
 package com.katyshevtseva.vocabulary.view.utils;
 
+import com.katyshevtseva.fx.Size;
 import com.katyshevtseva.fx.WindowBuilder;
 import com.katyshevtseva.fx.WindowBuilder.FxController;
 import com.katyshevtseva.general.NoArgsKnob;
 import com.katyshevtseva.vocabulary.core.CoreConstants;
-import com.katyshevtseva.vocabulary.view.controller.FrequentSectionController;
-import com.katyshevtseva.vocabulary.view.controller.MainController;
 import javafx.scene.Node;
 
 public class VocabularyWindowBuilder {
@@ -18,14 +17,14 @@ public class VocabularyWindowBuilder {
         return INSTANCE;
     }
 
-    public void openMainWindow() {
-        new WindowBuilder("/fxml/main.fxml").setTitle(CoreConstants.APP_NAME).setSize(900, 1735)
-                .setController(new MainController()).showWindow();
+    public Node getNode(NodeInfo nodeInfo, FxController controller) {
+        return new WindowBuilder(nodeInfo.fileName).setController(controller).getNode();
     }
 
-    public void openFrequentSectionWindow() {
-        new WindowBuilder("/fxml/frequent_section.fxml").setTitle(CoreConstants.APP_NAME).setSize(650, 950)
-                .setController(new FrequentSectionController()).showWindow();
+    public void openDialog(DialogInfo dialogInfo, FxController controller) {
+        new WindowBuilder(dialogInfo.fileName)
+                .setController(controller).setSize(dialogInfo.size)
+                .setTitle(dialogInfo.title).showWindow();
     }
 
     public void openSortingWindow(FxController controller, NoArgsKnob onCloseListener) {
@@ -33,39 +32,35 @@ public class VocabularyWindowBuilder {
                 .setOnWindowCloseEventHandler(event -> onCloseListener.execute()).setController(controller).showWindow();
     }
 
-    public void openLearningWindow(FxController controller) {
-        new WindowBuilder("/fxml/learning.fxml").setTitle(CoreConstants.APP_NAME).setSize(500, 650)
-                .setController(controller).showWindow();
+    public enum DialogInfo {
+        LEARNING_FINISH("/fxml/learning_finish_dialog.fxml", new Size(600, 650), ""),
+        ENTRY_ADDING("/fxml/entry_adding_dialog.fxml", new Size(850, 950), ""),
+        ENTRY_EDITING("/fxml/entry_editing_dialog.fxml", new Size(250, 340), ""),
+        LEARNING("/fxml/learning.fxml", new Size(500, 650), ""),
+        FREQUENT_SECTION("/fxml/frequent_section.fxml", new Size(650, 950), ""),
+        MAIN("/fxml/main.fxml", new Size(900, 1735), CoreConstants.APP_NAME);
+
+        private final String fileName;
+        private final Size size;
+        private final String title;
+
+        DialogInfo(String fileName, Size size, String title) {
+            this.fileName = fileName;
+            this.size = size;
+            this.title = title;
+        }
     }
 
-    public Node getCatalogueNode(FxController controller) {
-        return new WindowBuilder("/fxml/catalogue.fxml").setController(controller).getNode();
-    }
+    public enum NodeInfo {
+        CATALOGUE("/fxml/catalogue.fxml"),
+        LIST("/fxml/list.fxml"),
+        SEARCH("/fxml/search.fxml"),
+        SEARCH_RESULT("/fxml/search_result.fxml");
 
-    public Node getListNode(FxController controller) {
-        return new WindowBuilder("/fxml/list.fxml").setController(controller).getNode();
-    }
+        private final String fileName;
 
-    public Node getSearchNode(FxController controller) {
-        return new WindowBuilder("/fxml/search.fxml").setController(controller).getNode();
-    }
-
-    public Node getSearchResultNode(FxController controller) {
-        return new WindowBuilder("/fxml/search_result.fxml").setController(controller).getNode();
-    }
-
-    public void openEntryEditingDialog(FxController controller) {
-        new WindowBuilder("/fxml/entry_editing_dialog.fxml").setSize(250, 340)
-                .setController(controller).showWindow();
-    }
-
-    public void openEntryAddingDialog(FxController controller) {
-        new WindowBuilder("/fxml/entry_adding_dialog.fxml").setSize(850, 950)
-                .setController(controller).showWindow();
-    }
-
-    public void openLearningFinishDialog(FxController controller) {
-        new WindowBuilder("/fxml/learning_finish_dialog.fxml").setSize(600, 650)
-                .setController(controller).showWindow();
+        NodeInfo(String fileName) {
+            this.fileName = fileName;
+        }
     }
 }

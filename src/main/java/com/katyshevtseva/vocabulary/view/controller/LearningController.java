@@ -18,10 +18,11 @@ import static com.katyshevtseva.fx.FxImageCreationUtil.IconPicture.RED_CROSS;
 import static com.katyshevtseva.fx.FxUtils.closeWindowThatContains;
 import static com.katyshevtseva.fx.FxUtils.setImageOnButton;
 import static com.katyshevtseva.vocabulary.core.CoreConstants.CRITICAL_LEVEL;
+import static com.katyshevtseva.vocabulary.view.utils.VocabularyWindowBuilder.DialogInfo.LEARNING_FINISH;
 
 class LearningController implements FxController {
-    private List<Entry> entries;
-    private List<Entry> problematicWords = new ArrayList<>();
+    private final List<Entry> entries;
+    private final List<Entry> problematicWords = new ArrayList<>();
     private int wordCount;
     @FXML
     private Label wordLabel;
@@ -104,7 +105,7 @@ class LearningController implements FxController {
     }
 
     private void finishLearning() {
-        VocabularyWindowBuilder.getInstance().openLearningFinishDialog(new LearningFinishDialogController(problematicWords));
+        VocabularyWindowBuilder.getInstance().openDialog(LEARNING_FINISH, new LearningFinishDialogController(problematicWords));
         closeWindowThatContains(wordLabel);
     }
 

@@ -1,8 +1,11 @@
 package com.katyshevtseva.vocabulary;
 
+import com.katyshevtseva.vocabulary.view.controller.MainController;
 import com.katyshevtseva.vocabulary.view.utils.VocabularyWindowBuilder;
 import javafx.application.Application;
 import javafx.stage.Stage;
+
+import static com.katyshevtseva.vocabulary.view.utils.VocabularyWindowBuilder.DialogInfo.MAIN;
 
 public class Main extends Application {
 
@@ -12,6 +15,6 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        VocabularyWindowBuilder.getInstance().openMainWindow();
+        VocabularyWindowBuilder.getInstance().openDialog(MAIN, new MainController());
     }
 }

@@ -12,7 +12,7 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 
 public class FrequentSectionController implements FxController {
-    private FrequentWordService service = Core.getInstance().frequentWordService();
+    private final FrequentWordService service = Core.getInstance().frequentWordService();
     @FXML
     private PieChart chart;
     @FXML

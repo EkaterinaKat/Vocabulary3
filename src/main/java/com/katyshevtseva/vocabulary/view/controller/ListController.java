@@ -31,6 +31,8 @@ import static com.katyshevtseva.fx.FxImageCreationUtil.IconPicture.GREEN_PLUS;
 import static com.katyshevtseva.fx.FxUtils.setComboBoxItems;
 import static com.katyshevtseva.fx.FxUtils.setImageOnButton;
 import static com.katyshevtseva.fx.Styler.ThingToColor.BACKGROUND;
+import static com.katyshevtseva.vocabulary.view.utils.VocabularyWindowBuilder.DialogInfo.ENTRY_ADDING;
+import static com.katyshevtseva.vocabulary.view.utils.VocabularyWindowBuilder.DialogInfo.ENTRY_EDITING;
 
 class ListController implements FxController {
     private final MainController mainController;
@@ -172,7 +174,7 @@ class ListController implements FxController {
 
     private void adjustButtonListeners() {
 
-        addWordButton.setOnAction(event -> VocabularyWindowBuilder.getInstance().openEntryAddingDialog(
+        addWordButton.setOnAction(event -> VocabularyWindowBuilder.getInstance().openDialog(ENTRY_ADDING,
                 new EntryAddingDialogController(this::updateTable, currentWordList)));
 
         listArchiveButton.setOnAction(
@@ -185,7 +187,7 @@ class ListController implements FxController {
                 }));
 
         editButton.setOnAction(event -> {
-            VocabularyWindowBuilder.getInstance().openEntryEditingDialog(
+            VocabularyWindowBuilder.getInstance().openDialog(ENTRY_EDITING,
                     new EntryEditingDialogController(this::updateTable, selectedEntries.get(0)));
         });
 

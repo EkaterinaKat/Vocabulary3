@@ -23,6 +23,7 @@ import java.util.List;
 import static com.katyshevtseva.date.DateUtils.READABLE_DATE_FORMAT;
 import static com.katyshevtseva.fx.FxUtils.associateButtonWithControls;
 import static com.katyshevtseva.fx.FxUtils.disableNonNumericChars;
+import static com.katyshevtseva.vocabulary.view.utils.VocabularyWindowBuilder.NodeInfo.SEARCH_RESULT;
 
 class EntryAddingDialogController implements FxController {
     private final ListService service = Core.getInstance().listService();
@@ -72,7 +73,7 @@ class EntryAddingDialogController implements FxController {
         setCountLabelText();
         tuneTable();
         SearchResultController searchResultController = new SearchResultController(new Point(830, 250));
-        searchResultPane.getChildren().add(VocabularyWindowBuilder.getInstance().getSearchResultNode(searchResultController));
+        searchResultPane.getChildren().add(VocabularyWindowBuilder.getInstance().getNode(SEARCH_RESULT, searchResultController));
         wordTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             fillTable(wordTextField.getText());
             searchResultController.fillTable(wordTextField.getText());

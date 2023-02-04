@@ -19,6 +19,8 @@ import java.util.List;
 import java.util.Map;
 
 import static com.katyshevtseva.fx.FxUtils.getPaneWithHeight;
+import static com.katyshevtseva.vocabulary.view.utils.VocabularyWindowBuilder.DialogInfo.FREQUENT_SECTION;
+import static com.katyshevtseva.vocabulary.view.utils.VocabularyWindowBuilder.DialogInfo.LEARNING;
 
 class CatalogueController implements FxController {
     private final MainController mainController;
@@ -51,10 +53,11 @@ class CatalogueController implements FxController {
             if (entriesToLearn.isEmpty()) {
                 new StandardDialogBuilder().openInfoDialog("No words to learn");
             } else {
-                VocabularyWindowBuilder.getInstance().openLearningWindow(new LearningController(entriesToLearn));
+                VocabularyWindowBuilder.getInstance().openDialog(LEARNING, new LearningController(entriesToLearn));
             }
         });
-        frequentSectionButton.setOnAction(event -> VocabularyWindowBuilder.getInstance().openFrequentSectionWindow());
+        frequentSectionButton.setOnAction(event -> VocabularyWindowBuilder.getInstance().openDialog(FREQUENT_SECTION,
+                new FrequentSectionController()));
 
         updateCatalogue();
     }

@@ -11,7 +11,7 @@
             <Pane fx:id="cataloguePane"
                   maxWidth="450" minWidth="450" maxHeight="500" minHeight="500"/>
         </HBox>
-        <Pane fx:id="searchPane" styleClass="black_border" maxWidth="800" minWidth="800" maxHeight="400"
+        <Pane fx:id="searchPane" maxWidth="800" minWidth="800" maxHeight="400"
               minHeight="400"/>
     </VBox>
 

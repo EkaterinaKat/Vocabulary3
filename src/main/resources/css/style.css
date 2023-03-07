@@ -1,60 +1,47 @@
 /* general */
 
 .root{
-    -fx-background-color: #CCFF99;
-}
+    -fx-background-color: bc;
 
-.scroll-pane{
-    -fx-background: #CCFF99;
-}
-
-.scroll-bar .track-background {
- -fx-background-color: #006400;
- -fx-background-radius: 2em;
-}
-
-.scroll-bar .thumb {
- -fx-background-color: #CCFF99;
-}
-
-.increment-button, .decrement-button {
-    -fx-background-color: transparent;
-    -fx-border-color: transparent;
+    bc: #CCFF99;
+    dark: #006400;
+    bright: #7CFC00;
+    warning: #C14242;
 }
 
 .button {
-    -fx-background-color: #006400;
-    -fx-text-fill: #7CFC00;
+    -fx-background-color: dark;
+    -fx-text-fill: bright;
     -fx-font-weight: bold;
 }
 
 .button:hover {
-    -fx-background-color: #7CFC00;
-    -fx-text-fill: #006400;
+    -fx-background-color: bright;
+    -fx-text-fill: dark;
 }
 
 .label{
-    -fx-text-fill: #006400;
+    -fx-text-fill: dark;
     -fx-font-weight: bold;
 }
 
 .check-box{
-    -fx-text-fill: #006400;
+    -fx-text-fill: dark;
+    -fx-font-weight: bold;
+}
+
+.radio-button{
+    -fx-text-fill: dark;
     -fx-font-weight: bold;
 }
 
 .deletionButton:hover{
-    -fx-background-color: #C14242;
-    -fx-text-fill: #FFFFFF;
-}
-
-.radio-button{
-    -fx-text-fill: #006400;
-    -fx-font-weight: bold;
+    -fx-background-color: warning;
+    -fx-text-fill: white;
 }
 
 .black_border {
-    -fx-border-color: #000000;
+    -fx-border-color: black;
 }
 
 .font_size_25{
@@ -64,43 +51,37 @@
 /* catalogue */
 
 .topBtn{
-       -fx-background-color: #006400;
-           -fx-text-fill: #7CFC00;
+       -fx-background-color: dark;
+           -fx-text-fill: bright;
            -fx-font-weight: bold;
 }
 
 .topBtn:hover {
-       -fx-background-color: #7CFC00;
-           -fx-text-fill: #006400;
+       -fx-background-color: bright;
+           -fx-text-fill: dark;
 }
 
 .label{
-       -fx-text-fill: #006400;
+       -fx-text-fill: dark;
        -fx-font-weight: bold;
-}
-
-#aboutBtn{
-    -fx-background-color: #CCFF99;
-    -fx-text-fill: #006400;
-    -fx-font-weight: bold;
 }
 
 /*learning_window_style*/
 
 .learningOkButton{
-    -fx-background-color: #CCFF99;
+    -fx-background-color: bc;
 }
 
 .learningOkButton:hover{
-    -fx-background-color: #7CFC00;
+    -fx-background-color: bright;
 }
 
 .learningNotOkButton{
-    -fx-background-color: #CCFF99;
+    -fx-background-color: bc;
 }
 
 .learningNotOkButton:hover{
-    -fx-background-color: #C14242;
+    -fx-background-color: warning;
 }
 
 #wordLabel{
@@ -111,18 +92,37 @@
 /*table_style*/
 
 .table-view .column-header {
-    -fx-background-color: #006400;
+    -fx-background-color: dark;
 }
 
 .table-view .column-header .label{
-    -fx-text-fill: #7CFC00;
+    -fx-text-fill: bright;
 }
 
 .table-view .table-cell{
-    -fx-text-fill: #006400;
+    -fx-text-fill: dark;
 }
 
 .table-view .table-row-cell:hover:filled{
-    -fx-background-color: #A0FF42;
     -fx-font-weight: bold;
+}
+
+/*scroll-pane_style*/
+
+.scroll-pane{
+    -fx-background: bc;
+}
+
+.scroll-bar .track-background {
+ -fx-background-color: dark;
+ -fx-background-radius: 2em;
+}
+
+.scroll-bar .thumb {
+ -fx-background-color: bc;
+}
+
+.increment-button, .decrement-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
 }

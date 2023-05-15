@@ -17,12 +17,17 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.util.Callback;
 
+import java.awt.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -216,6 +221,10 @@ class ListController implements FxController {
                                 setStyle(Styler.getColorfullStyle(BACKGROUND, "#FFD299"));
                             }
                             this.setContextMenu(getContextMenuByEntry(entry));
+                            this.setOnMouseClicked(event -> {
+                                Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+                                clipboard.setContents(new StringSelection(entry.getId().toString()), null);
+                            });
                         }
                     }
                 };

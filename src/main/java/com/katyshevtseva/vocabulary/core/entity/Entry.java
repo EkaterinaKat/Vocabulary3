@@ -20,9 +20,6 @@ public class Entry {
 
     private Integer page;
 
-    @Column(name = "image_name")
-    private String imageName;
-
     private String example;
 
     @ManyToOne

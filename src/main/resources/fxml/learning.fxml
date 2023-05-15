@@ -2,17 +2,38 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       alignment="CENTER">
 
-    <Pane prefHeight="50"/>
-    <Label text=" " fx:id="wordLabel" wrapText="true"/>
-    <Pane prefHeight="20"/>
-    <Button text="Show translation" fx:id="showTranslationButton"/>
-    <Pane prefHeight="20"/>
-    <Label text=" " fx:id="translationLabel" wrapText="true"/>
+    <HBox alignment="CENTER">
+        <Pane prefWidth="20"/>
+        <VBox alignment="CENTER" maxWidth="450" minWidth="450">
+            <Pane prefHeight="20"/>
+            <Label text=" " fx:id="wordLabel" wrapText="true"/>
+            <Pane prefHeight="20"/>
+            <Label fx:id="levelLabel" textAlignment="CENTER"/>
+            <Label fx:id="countLabel"/>
+            <Label fx:id="levelsInfoLabel"/>
+        </VBox>
+        <Pane prefWidth="40"/>
+        <VBox alignment="CENTER" maxWidth="450" minWidth="450">
+            <Pane prefHeight="20"/>
+            <Button text="Show context" fx:id="showContextButton"/>
+            <Pane prefHeight="20"/>
+            <ImageView fx:id="imageView" fitHeight="300" fitWidth="300"/>
+            <Pane prefHeight="20"/>
+            <Label text=" " fx:id="contextLabel" wrapText="true" maxWidth="300"/>
+            <Pane prefHeight="20"/>
+            <Button text="Show translation" fx:id="showTranslationButton"/>
+            <Pane prefHeight="20"/>
+            <Label text=" " fx:id="translationLabel" wrapText="true"/>
+            <Pane prefHeight="20"/>
+        </VBox>
+    </HBox>
+
     <Pane prefHeight="20"/>
 
     <HBox alignment="CENTER">
@@ -27,11 +48,5 @@
             </HBox.margin>
         </Button>
     </HBox>
-
-    <Pane prefHeight="20"/>
-
-    <Label fx:id="levelLabel" textAlignment="CENTER"/>
-    <Label fx:id="countLabel"/>
-    <Label fx:id="levelsInfoLabel"/>
 
 </VBox>

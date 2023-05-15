@@ -1,12 +1,16 @@
 package com.katyshevtseva.vocabulary.view.controller;
 
 import com.katyshevtseva.fx.WindowBuilder.FxController;
+import com.katyshevtseva.fx.dialog.StandardDialogBuilder;
+import com.katyshevtseva.image.ImageContainer;
 import com.katyshevtseva.vocabulary.core.Core;
 import com.katyshevtseva.vocabulary.core.entity.Entry;
+import com.katyshevtseva.vocabulary.view.utils.ImageUtils;
 import com.katyshevtseva.vocabulary.view.utils.VocabularyWindowBuilder;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -40,6 +44,12 @@ class LearningController implements FxController {
     private Button notOkButton;
     @FXML
     private Label levelsInfoLabel;
+    @FXML
+    private Button showContextButton;
+    @FXML
+    private ImageView imageView;
+    @FXML
+    private Label contextLabel;
 
     LearningController(List<Entry> entries) {
         this.entries = entries;
@@ -47,11 +57,12 @@ class LearningController implements FxController {
 
     @FXML
     private void initialize() {
-        setImageOnButton(GREEN_TICK, okButton, 25);
-        setImageOnButton(RED_CROSS, notOkButton, 25);
+        setImageOnButton(GREEN_TICK, okButton, 50);
+        setImageOnButton(RED_CROSS, notOkButton, 50);
         okButton.setOnAction(event -> resultButtonsListener(true));
         notOkButton.setOnAction(event -> resultButtonsListener(false));
         showTranslationButton.setOnAction(event -> showTranslationButtonListener());
+        showContextButton.setOnAction(event -> showContextButtonListener());
         wordCount = -1;
         nextWord();
         setLevelsInfo();
@@ -72,14 +83,18 @@ class LearningController implements FxController {
     private void nextWord() {
         wordCount++;
         if (wordCount < entries.size()) {
-            tuneLabelsForNewWord();
-            tuneButtonsForNextWord();
+            tuneControlsForNextWord();
         } else {
             finishLearning();
         }
     }
 
-    private void tuneLabelsForNewWord() {
+    private void tuneControlsForNextWord() {
+        showTranslationButton.setDisable(ImageUtils.hasExampleOrImage(getCurrentEntry()));
+        okButton.setDisable(true);
+        notOkButton.setDisable(true);
+        showContextButton.setDisable(!ImageUtils.hasExampleOrImage(getCurrentEntry()));
+
         wordLabel.setText(getCurrentEntry().getWord());
         countLabel.setText(String.format("%s/%s", wordCount + 1, entries.size()));
         String desc = String.format("Level: %s\n", getCurrentEntry().getLevel());
@@ -89,17 +104,34 @@ class LearningController implements FxController {
         desc += "\n";
         levelLabel.setText(desc);
         translationLabel.setText("");
-    }
+        contextLabel.setText("");
 
-    private void tuneButtonsForNextWord() {
-        showTranslationButton.setDisable(false);
-        okButton.setDisable(true);
-        notOkButton.setDisable(true);
+        imageView.setImage(null);
     }
 
     private void showTranslationButtonListener() {
         translationLabel.setText(getCurrentEntry().getTranslation());
         showTranslationButton.setDisable(true);
+        allowAnswer();
+    }
+
+    private void showContextButtonListener() {
+        showTranslationButton.setDisable(false);
+        showContextButton.setDisable(true);
+        contextLabel.setText(getCurrentEntry().getExample());
+
+        try {
+            ImageContainer imageContainer = ImageUtils.getImageContainerOrNull(getCurrentEntry());
+            if (imageContainer != null) {
+                imageView.setImage(imageContainer.getImage());
+            }
+        } catch (Exception e) {
+            new StandardDialogBuilder().setSize(300, 300).openInfoDialog(e.getMessage());
+        }
+        allowAnswer();
+    }
+
+    private void allowAnswer() {
         okButton.setDisable(false);
         notOkButton.setDisable(false);
     }

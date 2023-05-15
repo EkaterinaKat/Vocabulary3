@@ -36,7 +36,7 @@
                 <TableColumn prefWidth="180" text="word" fx:id="wordColumn"/>
                 <TableColumn prefWidth="300" text="translation" fx:id="translationColumn"/>
                 <TableColumn prefWidth="65" text="Page" fx:id="pageColumn"/>
-                <TableColumn prefWidth="150" text="last repeat" fx:id="dateColumn"/>
+                <TableColumn prefWidth="150" text="example" fx:id="exampleColumn"/>
                 <TableColumn prefWidth="65" text="level" fx:id="levelColumn"/>
                 <TableColumn prefWidth="90" fx:id="checkBoxColumn"/>
             </columns>

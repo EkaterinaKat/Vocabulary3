@@ -78,11 +78,6 @@ public class VocDaoImpl implements VocDao {
     }
 
     @Override
-    public List<FrequentWord> getAllFrequentWords() {
-        return coreDao.getAll(FrequentWord.class.getSimpleName());
-    }
-
-    @Override
     public List<LearningLog> getLearningLogsByDate(Date date) {
         Session session = HibernateUtil.getSession();
         session.beginTransaction();

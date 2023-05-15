@@ -51,6 +51,8 @@ class EntryAddingDialogController implements FxController {
     private TableColumn<FrequentWord, Void> addButtonColumn;
     @FXML
     private Pane searchResultPane;
+    @FXML
+    private TextArea exampleTextArea;
 
     EntryAddingDialogController(NoArgsKnob tableUpdateKnob, WordList wordList) {
         this.tableUpdateKnob = tableUpdateKnob;
@@ -84,20 +86,22 @@ class EntryAddingDialogController implements FxController {
 
     private void okButtonListener() {
         service.addEntryToList(wordTextField.getText(), translationTextField.getText(),
-                Integer.parseInt(pageTextField.getText()), wordList);
+                Integer.parseInt(pageTextField.getText()), wordList, exampleTextArea.getText());
         tableUpdateKnob.execute();
         setCountLabelText();
         wordTextField.clear();
         translationTextField.clear();
+        exampleTextArea.clear();
         wordTextField.requestFocus();
     }
 
     private void addFrequentWordButtonListener(FrequentWord frequentWord) {
-        service.addEntryToList(frequentWord, Integer.parseInt(pageTextField.getText()), wordList);
+        service.addEntryToList(frequentWord, Integer.parseInt(pageTextField.getText()), wordList, exampleTextArea.getText());
         tableUpdateKnob.execute();
         setCountLabelText();
         wordTextField.clear();
         translationTextField.clear();
+        exampleTextArea.clear();
         wordTextField.requestFocus();
     }
 

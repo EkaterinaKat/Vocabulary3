@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml">
@@ -12,6 +11,8 @@
             <TextField fx:id="wordTextField" minWidth="270" maxWidth="270"/>
             <Pane prefHeight="15"/>
             <TextField fx:id="translationTextField" minWidth="270" maxWidth="270"/>
+            <Pane prefHeight="15"/>
+            <TextArea fx:id="exampleTextArea" minWidth="270" maxWidth="270" wrapText="true" maxHeight="70"/>
             <Pane prefHeight="15"/>
             <TextField fx:id="pageTextField" minWidth="100" maxWidth="100"/>
             <Pane prefHeight="15"/>

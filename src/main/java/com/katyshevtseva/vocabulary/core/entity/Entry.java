@@ -20,6 +20,11 @@ public class Entry {
 
     private Integer page;
 
+    @Column(name = "image_name")
+    private String imageName;
+
+    private String example;
+
     @ManyToOne
     @JoinColumn(name = "word_list_id")
     private WordList wordList;

@@ -7,13 +7,14 @@ import com.katyshevtseva.vocabulary.core.entity.Entry;
 import com.katyshevtseva.vocabulary.view.utils.VocUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 import static com.katyshevtseva.fx.FxUtils.*;
 
 class EntryEditingDialogController implements FxController {
-    private NoArgsKnob tableUpdateKnob;
-    private Entry entry;
+    private final NoArgsKnob tableUpdateKnob;
+    private final Entry entry;
     @FXML
     private TextField wordTextField;
     @FXML
@@ -22,6 +23,8 @@ class EntryEditingDialogController implements FxController {
     private TextField pageTextField;
     @FXML
     private Button okButton;
+    @FXML
+    private TextArea exampleTextArea;
 
     EntryEditingDialogController(NoArgsKnob tableUpdateKnob, Entry entry) {
         this.tableUpdateKnob = tableUpdateKnob;
@@ -33,6 +36,7 @@ class EntryEditingDialogController implements FxController {
         associateButtonWithControls(okButton, wordTextField, translationTextField, pageTextField);
         wordTextField.setText(entry.getWord());
         translationTextField.setText(entry.getTranslation());
+        exampleTextArea.setText(entry.getExample());
         pageTextField.setText("" + (entry.getPage() == null ? 0 : entry.getPage()));
         VocUtils.addKeyboardLayoutCorrection(wordTextField, translationTextField);
         disableNonNumericChars(pageTextField);
@@ -51,7 +55,7 @@ class EntryEditingDialogController implements FxController {
 
     private void okButtonListener() {
         Core.getInstance().listService().editEntry(entry, wordTextField.getText(), translationTextField.getText(),
-                Integer.parseInt(pageTextField.getText()));
+                Integer.parseInt(pageTextField.getText()), exampleTextArea.getText());
         tableUpdateKnob.execute();
         closeWindowThatContains(wordTextField);
     }

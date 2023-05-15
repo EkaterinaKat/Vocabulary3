@@ -13,7 +13,7 @@ import java.util.List;
 public class ListService {
     private final VocDao dao;
 
-    public void addEntryToList(String word, String translation, int page, WordList list) {
+    public void addEntryToList(String word, String translation, int page, WordList list, String example) {
         Entry entry = new Entry();
         entry.setWord(word);
         entry.setTranslation(translation);
@@ -22,11 +22,12 @@ public class ListService {
         entry.setLastRepeat(new Date());
         entry.setCreationDate(new Date());
         entry.setPage(page);
+        entry.setExample(example);
         list.getEntries().add(entry);
         dao.saveNew(entry);
     }
 
-    public void addEntryToList(FrequentWord frequentWord, int page, WordList list) {
+    public void addEntryToList(FrequentWord frequentWord, int page, WordList list, String example) {
         Entry entry = new Entry();
         entry.setWord(frequentWord.getWord());
         entry.setTranslation(frequentWord.getTranslation());
@@ -36,16 +37,18 @@ public class ListService {
         entry.setCreationDate(new Date());
         entry.setPage(page);
         entry.setFrequentWord(frequentWord);
+        entry.setExample(example);
         frequentWord.setStatus(FrequentWord.Status.NEED_TO_LEARN);
         list.getEntries().add(entry);
         dao.saveNew(entry);
         dao.saveEdited(frequentWord);
     }
 
-    public void editEntry(Entry entry, String newWord, String newTranslation, int newPage) {
+    public void editEntry(Entry entry, String newWord, String newTranslation, int newPage, String example) {
         entry.setWord(newWord);
         entry.setTranslation(newTranslation);
         entry.setPage(newPage);
+        entry.setExample(example);
         dao.saveEdited(entry);
     }
 

@@ -13,7 +13,6 @@ import com.katyshevtseva.vocabulary.core.entity.WordList;
 import com.katyshevtseva.vocabulary.view.utils.VocabularyWindowBuilder;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -65,7 +64,7 @@ class ListController implements FxController {
     @FXML
     private TableColumn<Entry, Boolean> checkBoxColumn;
     @FXML
-    private TableColumn<Entry, String> dateColumn;
+    private TableColumn<Entry, String> exampleColumn;
     @FXML
     private BorderPane root;
     @FXML
@@ -108,11 +107,20 @@ class ListController implements FxController {
         translationColumn.setCellValueFactory(new PropertyValueFactory<>("translation"));
         levelColumn.setCellValueFactory(new PropertyValueFactory<>("level"));
         pageColumn.setCellValueFactory(new PropertyValueFactory<>("page"));
-        dateColumn.setCellValueFactory(param -> {
-            Entry entry = param.getValue();
-            String value = Core.getInstance().entryLifecycleService().getRipenessInfo(entry);
-            return new SimpleStringProperty(value);
+        exampleColumn.setCellValueFactory(new PropertyValueFactory<>("example"));
+        exampleColumn.setCellFactory(param -> new TableCell<Entry, String>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                setText(item);
+                setTooltip(new Tooltip(item));
+            }
         });
+//        dateColumn.setCellValueFactory(param -> {
+//            Entry entry = param.getValue();
+//            String value = Core.getInstance().entryLifecycleService().getRipenessInfo(entry);
+//            return new SimpleStringProperty(value);
+//        });
         checkBoxColumn.setCellValueFactory(param -> {
             Entry entry = param.getValue();
             SimpleBooleanProperty booleanProperty = new SimpleBooleanProperty(false);

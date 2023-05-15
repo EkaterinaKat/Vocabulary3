@@ -31,8 +31,6 @@ public interface VocDao {
 
     int getPageOfLastAddedWord(WordList wordList);
 
-    List<FrequentWord> getAllFrequentWords();
-
     int countFrequentWordByStatus(Status status);
 
     List<FrequentWord> getFrequentWordsByStatus(Status status);

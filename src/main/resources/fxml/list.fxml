@@ -22,8 +22,6 @@
                 <Button fx:id="moveButton" text="Move"/>
                 <Pane prefWidth="10"/>
                 <Button fx:id="wordDeleteButton" text="Delete word" styleClass="deletionButton"/>
-                <Pane prefWidth="10"/>
-                <Button fx:id="editButton" text="Edit"/>
             </HBox>
             <Pane prefHeight="10"/>
         </VBox>

@@ -40,8 +40,6 @@ class ListController implements FxController {
     @FXML
     private Button addWordButton;
     @FXML
-    private Button editButton;
-    @FXML
     private Button moveButton;
     @FXML
     private Button wordDeleteButton;
@@ -141,7 +139,6 @@ class ListController implements FxController {
     }
 
     private void setVisibilityOfWordManagementButtons() {
-        editButton.setVisible(selectedEntries != null && selectedEntries.size() == 1);
         moveButton.setVisible(selectedEntries != null && selectedEntries.size() > 0);
         wordDeleteButton.setVisible(selectedEntries != null && selectedEntries.size() > 0);
     }
@@ -194,11 +191,6 @@ class ListController implements FxController {
                     }
                 }));
 
-        editButton.setOnAction(event -> {
-            VocabularyWindowBuilder.getInstance().openDialog(ENTRY_EDITING,
-                    new EntryEditingDialogController(this::updateTable, selectedEntries.get(0)));
-        });
-
         wordDeleteButton.setOnAction(event -> new StandardDialogBuilder().openQuestionDialog("Delete?", (b -> {
             if (b) {
                 Core.getInstance().listService().deleteEntries(selectedEntries);
@@ -223,10 +215,20 @@ class ListController implements FxController {
                             } else {
                                 setStyle(Styler.getColorfullStyle(BACKGROUND, "#FFD299"));
                             }
+                            this.setContextMenu(getContextMenuByEntry(entry));
                         }
                     }
                 };
             }
         });
+    }
+
+    private ContextMenu getContextMenuByEntry(Entry entry) {
+        ContextMenu contextMenu = new ContextMenu();
+        MenuItem editItem = new MenuItem("Edit");
+        editItem.setOnAction(event -> VocabularyWindowBuilder.getInstance().openDialog(ENTRY_EDITING,
+                new EntryEditingDialogController(this::updateTable, entry)));
+        contextMenu.getItems().add(editItem);
+        return contextMenu;
     }
 }

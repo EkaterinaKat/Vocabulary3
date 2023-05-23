@@ -14,12 +14,10 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 public class VocDaoImpl implements VocDao {
-    private static final SimpleDateFormat postgresDateFormat = new SimpleDateFormat("yyyy-MM-dd");
     private final CoreDao coreDao = new CoreDao();
 
     @Override

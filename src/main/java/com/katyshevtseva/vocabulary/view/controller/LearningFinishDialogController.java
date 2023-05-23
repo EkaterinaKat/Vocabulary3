@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 class LearningFinishDialogController implements FxController {
-    private List<Entry> problematicEntries;
+    private final List<Entry> problematicEntries;
     @FXML
     private Label statisticsLabel;
     @FXML
@@ -33,7 +33,6 @@ class LearningFinishDialogController implements FxController {
     }
 
     private String getProblematicEntriesLog() {
-        System.out.println("getProblematicWordsLog");
         StringBuilder result = new StringBuilder();
         for (Entry entry : problematicEntries.stream()
                 .sorted(Comparator.comparing(Entry::getWordList).thenComparing(Entry::getCreationDate))

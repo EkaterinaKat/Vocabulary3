@@ -17,7 +17,7 @@ public interface VocDao {
 
     <T> void delete(T t);
 
-    List<WordList> getAllWordLists();
+    List<WordList> findListsByArchived(boolean archived);
 
     List<Entry> getAllEntries();
 

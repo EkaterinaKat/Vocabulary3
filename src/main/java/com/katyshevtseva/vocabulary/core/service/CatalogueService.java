@@ -5,14 +5,23 @@ import com.katyshevtseva.vocabulary.core.entity.WordList;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 public class CatalogueService {
     private final VocDao dao;
 
-    public List<WordList> getCatalogue() {
-        return dao.getAllWordLists().stream().filter(wordList -> !wordList.isArchived()).collect(Collectors.toList());
+    public List<WordList> getCatalogue(ListStatus status) {
+        return dao.findListsByArchived(status.listIsArchived);
+    }
+
+    public static enum ListStatus {
+        ACTIVE(false), ARCHIVED(true);
+
+        private final boolean listIsArchived;
+
+        ListStatus(boolean listIsArchived) {
+            this.listIsArchived = listIsArchived;
+        }
     }
 
     public WordList createWordList(String title) {

@@ -1,16 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import java.net.URL?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml">
-
-    <stylesheets>
-        <URL value="@/css/catalogue_style.css"/>
-    </stylesheets>
 
     <top>
         <HBox>
@@ -18,21 +12,27 @@
             <Button fx:id="newListButton" text="Add word list"
                     styleClass="topBtn">
                 <HBox.margin>
-                    <Insets bottom="25" left="40" right="10" top="20"/>
+                    <Insets bottom="25" left="20" right="7" top="20"/>
                 </HBox.margin>
             </Button>
 
             <Button fx:id="learnButton" text="Learn words" styleClass="topBtn">
                 <HBox.margin>
-                    <Insets bottom="25" left="10" right="10" top="20"/>
+                    <Insets bottom="25" left="7" right="7" top="20"/>
                 </HBox.margin>
             </Button>
 
             <Button fx:id="frequentSectionButton" text="5000" styleClass="topBtn">
                 <HBox.margin>
-                    <Insets bottom="25" left="10" right="10" top="20"/>
+                    <Insets bottom="25" left="7" right="7" top="20"/>
                 </HBox.margin>
             </Button>
+
+            <ComboBox fx:id="listStatusBox">
+                <HBox.margin>
+                    <Insets bottom="25" left="7" right="7" top="20"/>
+                </HBox.margin>
+            </ComboBox>
 
         </HBox>
     </top>
@@ -46,7 +46,7 @@
     </center>
 
     <left>
-        <Pane prefWidth="40"/>
+        <Pane prefWidth="20"/>
     </left>
 
 </BorderPane>

@@ -7,9 +7,9 @@
 
     <VBox>
         <HBox>
-            <ImageView fx:id="logoImageView" fitHeight="350" fitWidth="350"/>
+            <ImageView fx:id="logoImageView" fitHeight="300" fitWidth="300"/>
             <Pane fx:id="cataloguePane"
-                  maxWidth="450" minWidth="450" maxHeight="500" minHeight="500"/>
+                  maxWidth="500" minWidth="500" maxHeight="500" minHeight="500"/>
         </HBox>
         <Pane fx:id="searchPane" maxWidth="800" minWidth="800" maxHeight="400"
               minHeight="400"/>

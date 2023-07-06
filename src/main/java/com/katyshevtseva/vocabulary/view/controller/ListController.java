@@ -10,6 +10,7 @@ import com.katyshevtseva.vocabulary.core.Core;
 import com.katyshevtseva.vocabulary.core.CoreConstants;
 import com.katyshevtseva.vocabulary.core.entity.Entry;
 import com.katyshevtseva.vocabulary.core.entity.WordList;
+import com.katyshevtseva.vocabulary.core.service.CatalogueService;
 import com.katyshevtseva.vocabulary.view.utils.VocabularyWindowBuilder;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -156,6 +157,7 @@ class ListController implements FxController {
         table.getItems().clear();
         table.setItems(entries);
         adjustButtonListenersThatDependsOnNotNullCurrentWordList();
+        listArchiveButton.setVisible(!currentWordList.isArchived());
     }
 
     // Настройка этих кнопок идет отдельно от настроек других кнопок так как
@@ -169,7 +171,7 @@ class ListController implements FxController {
         }, titleField));
 
         DcComboBox<WordList> dcComboBox = new DcComboBox<>(true, currentWordList,
-                Core.getInstance().catalogueService().getCatalogue());
+                Core.getInstance().catalogueService().getCatalogue(CatalogueService.ListStatus.ACTIVE));
         moveButton.setOnAction(event -> DialogConstructor.constructDialog(() -> {
             Core.getInstance().listService().moveEntries(selectedEntries, dcComboBox.getValue());
             updateTable();

@@ -1,5 +1,6 @@
 package com.katyshevtseva.vocabulary.view.controller;
 
+import com.katyshevtseva.fx.FxUtils;
 import com.katyshevtseva.fx.WindowBuilder.FxController;
 import com.katyshevtseva.fx.dialog.StandardDialogBuilder;
 import com.katyshevtseva.fx.dialogconstructor.DcTextField;
@@ -7,10 +8,12 @@ import com.katyshevtseva.fx.dialogconstructor.DialogConstructor;
 import com.katyshevtseva.vocabulary.core.Core;
 import com.katyshevtseva.vocabulary.core.entity.Entry;
 import com.katyshevtseva.vocabulary.core.entity.WordList;
+import com.katyshevtseva.vocabulary.core.service.CatalogueService.ListStatus;
 import com.katyshevtseva.vocabulary.view.utils.VocUtils;
 import com.katyshevtseva.vocabulary.view.utils.VocabularyWindowBuilder;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
@@ -33,6 +36,8 @@ class CatalogueController implements FxController {
     private Button frequentSectionButton;
     @FXML
     private VBox cataloguePane;
+    @FXML
+    private ComboBox<ListStatus> listStatusBox;
 
     CatalogueController(MainController mainController) {
         this.mainController = mainController;
@@ -40,6 +45,8 @@ class CatalogueController implements FxController {
 
     @FXML
     private void initialize() {
+        FxUtils.setComboBoxItems(listStatusBox, ListStatus.values(), ListStatus.ACTIVE);
+        listStatusBox.setOnAction(event -> updateCatalogue());
 
         DcTextField titleField = new DcTextField(true, "");
         newListButton.setOnAction(event -> DialogConstructor.constructDialog(() -> {
@@ -69,7 +76,7 @@ class CatalogueController implements FxController {
     }
 
     void updateCatalogue() {
-        List<WordList> catalogue = Core.getInstance().catalogueService().getCatalogue();
+        List<WordList> catalogue = Core.getInstance().catalogueService().getCatalogue(listStatusBox.getValue());
         listLabelMap = new HashMap<>();
         cataloguePane.getChildren().clear();
         for (WordList list : catalogue) {

@@ -36,8 +36,8 @@ public class VocDaoImpl implements VocDao {
     }
 
     @Override
-    public List<WordList> getAllWordLists() {
-        return coreDao.getAll(WordList.class.getSimpleName());
+    public List<WordList> findListsByArchived(boolean archived) {
+        return coreDao.find(WordList.class, Restrictions.eq("archived", archived));
     }
 
     @Override

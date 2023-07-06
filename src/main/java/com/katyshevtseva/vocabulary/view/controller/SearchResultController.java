@@ -8,9 +8,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
 
+import java.awt.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 import java.util.List;
 
 class SearchResultController implements FxController {
@@ -44,6 +49,7 @@ class SearchResultController implements FxController {
             table.setMinHeight(tableSize.getY());
             table.setMaxHeight(tableSize.getY());
         }
+        setRowClickListener();
     }
 
     void fillTable(String inputString) {
@@ -59,5 +65,25 @@ class SearchResultController implements FxController {
         levelColumn.setCellValueFactory(new PropertyValueFactory<>("level"));
         pageColumn.setCellValueFactory(new PropertyValueFactory<>("page"));
         listNameColumn.setCellValueFactory(new PropertyValueFactory<>("wordList"));
+    }
+
+    private void setRowClickListener() {
+        table.setRowFactory(new Callback<TableView<Entry>, TableRow<Entry>>() {
+            @Override
+            public TableRow<Entry> call(TableView<Entry> tableView) {
+                return new TableRow<Entry>() {
+                    @Override
+                    protected void updateItem(Entry entry, boolean empty) {
+                        super.updateItem(entry, empty);
+                        if (entry != null) {
+                            this.setOnMouseClicked(event -> {
+                                Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+                                clipboard.setContents(new StringSelection(entry.getId().toString()), null);
+                            });
+                        }
+                    }
+                };
+            }
+        });
     }
 }

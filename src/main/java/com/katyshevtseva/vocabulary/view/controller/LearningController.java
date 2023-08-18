@@ -2,6 +2,7 @@ package com.katyshevtseva.vocabulary.view.controller;
 
 import com.katyshevtseva.fx.WindowBuilder.FxController;
 import com.katyshevtseva.fx.dialog.StandardDialogBuilder;
+import com.katyshevtseva.general.NoArgsKnob;
 import com.katyshevtseva.image.ImageContainer;
 import com.katyshevtseva.vocabulary.core.Core;
 import com.katyshevtseva.vocabulary.core.entity.Entry;
@@ -26,6 +27,7 @@ import static com.katyshevtseva.vocabulary.view.utils.VocabularyWindowBuilder.Di
 
 class LearningController implements FxController {
     private final List<Entry> entries;
+    private final NoArgsKnob finishKnob;
     private final List<Entry> problematicWords = new ArrayList<>();
     private int wordCount;
     @FXML
@@ -51,8 +53,9 @@ class LearningController implements FxController {
     @FXML
     private Label contextLabel;
 
-    LearningController(List<Entry> entries) {
+    LearningController(List<Entry> entries, NoArgsKnob finishKnob) {
         this.entries = entries;
+        this.finishKnob = finishKnob;
     }
 
     @FXML
@@ -138,6 +141,7 @@ class LearningController implements FxController {
 
     private void finishLearning() {
         VocabularyWindowBuilder.getInstance().openDialog(LEARNING_FINISH, new LearningFinishDialogController(problematicWords));
+        finishKnob.execute();
         closeWindowThatContains(wordLabel);
     }
 

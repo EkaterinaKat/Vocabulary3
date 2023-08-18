@@ -60,7 +60,8 @@ class CatalogueController implements FxController {
             if (entriesToLearn.isEmpty()) {
                 new StandardDialogBuilder().openInfoDialog("No words to learn");
             } else {
-                VocabularyWindowBuilder.getInstance().openDialog(LEARNING, new LearningController(entriesToLearn));
+                VocabularyWindowBuilder.getInstance().openDialog(LEARNING,
+                        new LearningController(entriesToLearn, mainController::updateStatistics));
             }
         });
         frequentSectionButton.setOnAction(event -> VocabularyWindowBuilder.getInstance().openDialog(FREQUENT_SECTION,

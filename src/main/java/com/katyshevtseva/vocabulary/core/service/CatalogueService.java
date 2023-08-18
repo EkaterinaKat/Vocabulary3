@@ -1,9 +1,11 @@
 package com.katyshevtseva.vocabulary.core.service;
 
+import com.katyshevtseva.vocabulary.core.CoreConstants;
 import com.katyshevtseva.vocabulary.core.VocDao;
 import com.katyshevtseva.vocabulary.core.entity.WordList;
 import lombok.RequiredArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -40,5 +42,18 @@ public class CatalogueService {
     public void archiveList(WordList wordList) {
         wordList.setArchived(true);
         dao.saveEdited(wordList);
+    }
+
+    public List<String> getStatistics() {
+        List<String> result = new ArrayList<>();
+        int totalCount = 0;
+        for (int i = 0; i < CoreConstants.MAX_LEVEL; i++) {
+            int count = dao.countWordsInNotArchivedListsByLevel(i);
+            String s = "Level " + i + ": " + count;
+            result.add(s);
+            totalCount += count;
+        }
+        result.add("Total: " + totalCount);
+        return result;
     }
 }

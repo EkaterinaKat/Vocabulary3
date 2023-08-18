@@ -138,6 +138,20 @@ public class VocDaoImpl implements VocDao {
     }
 
     @Override
+    public int countWordsInNotArchivedListsByLevel(int level) {
+        Session session = HibernateUtil.getSession();
+        session.beginTransaction();
+
+        Query query = session.createQuery(
+                "select count(*) from Entry e join e.wordList l  " +
+                        " where e.level = :level and l.archived = false ");
+        query.setInteger("level", level);
+
+        return ((Long) query.uniqueResult()).intValue();
+    }
+
+
+    @Override
     public List<FrequentWord> getFrequentWordsByStatus(Status status) {
         Session session = HibernateUtil.getSession();
         session.beginTransaction();

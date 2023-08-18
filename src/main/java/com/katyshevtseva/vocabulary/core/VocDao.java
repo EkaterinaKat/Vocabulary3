@@ -38,4 +38,6 @@ public interface VocDao {
     List<FrequentWord> searchFrequentWord(String term);
 
     List<Entry> searchEntries(String term);
+
+    int countWordsInNotArchivedListsByLevel(int level);
 }

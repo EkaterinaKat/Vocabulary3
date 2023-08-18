@@ -7,7 +7,16 @@
 
     <VBox>
         <HBox>
-            <ImageView fx:id="logoImageView" fitHeight="300" fitWidth="300"/>
+            <VBox>
+                <ImageView fx:id="logoImageView" fitHeight="300" fitWidth="300"/>
+                <Pane maxHeight="30" minHeight="30"/>
+                <HBox>
+                    <Pane minWidth="20" maxWidth="20"/>
+                    <GridPane fx:id="statisticsPane" vgap="7" hgap="7"/>
+                </HBox>
+
+            </VBox>
+
             <Pane fx:id="cataloguePane"
                   maxWidth="500" minWidth="500" maxHeight="500" minHeight="500"/>
         </HBox>

@@ -2,6 +2,7 @@ package com.katyshevtseva.vocabulary.view.controller;
 
 import com.katyshevtseva.fx.Point;
 import com.katyshevtseva.fx.WindowBuilder.FxController;
+import com.katyshevtseva.general.GeneralUtils;
 import com.katyshevtseva.vocabulary.core.Core;
 import com.katyshevtseva.vocabulary.core.entity.Entry;
 import javafx.collections.FXCollections;
@@ -13,9 +14,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 
-import java.awt.*;
-import java.awt.datatransfer.Clipboard;
-import java.awt.datatransfer.StringSelection;
 import java.util.List;
 
 class SearchResultController implements FxController {
@@ -76,10 +74,7 @@ class SearchResultController implements FxController {
                     protected void updateItem(Entry entry, boolean empty) {
                         super.updateItem(entry, empty);
                         if (entry != null) {
-                            this.setOnMouseClicked(event -> {
-                                Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-                                clipboard.setContents(new StringSelection(entry.getId().toString()), null);
-                            });
+                            this.setOnMouseClicked(event -> GeneralUtils.saveToClipBoard(entry.getId().toString()));
                         }
                     }
                 };

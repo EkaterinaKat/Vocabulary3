@@ -26,8 +26,7 @@ public class WordList implements Comparable<WordList> {
 
     public List<Entry> getEntriesSortedByDate() {
         return entries.stream()
-                .sorted(Comparator.comparing(Entry::getLevel))
-                .sorted(Comparator.comparing(Entry::getCreationDate).reversed())
+                .sorted(Comparator.comparing(Entry::getId).reversed())
                 .collect(Collectors.toList());
     }
 

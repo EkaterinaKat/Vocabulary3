@@ -16,7 +16,11 @@
                        textAlignment="CENTER"/>
             </ScrollPane>
             <Pane prefHeight="20"/>
-            <Button text="Ok" fx:id="okButton"/>
+            <HBox alignment="CENTER">
+                <Button text="Copy" fx:id="copyButton"/>
+                <Pane prefWidth="15"/>
+                <Button text="Ok" fx:id="okButton"/>
+            </HBox>
         </VBox>
     </center>
 

@@ -6,6 +6,7 @@ import com.katyshevtseva.fx.dialog.StandardDialogBuilder;
 import com.katyshevtseva.fx.dialogconstructor.DcComboBox;
 import com.katyshevtseva.fx.dialogconstructor.DcTextField;
 import com.katyshevtseva.fx.dialogconstructor.DialogConstructor;
+import com.katyshevtseva.general.GeneralUtils;
 import com.katyshevtseva.vocabulary.core.Core;
 import com.katyshevtseva.vocabulary.core.CoreConstants;
 import com.katyshevtseva.vocabulary.core.entity.Entry;
@@ -223,10 +224,7 @@ class ListController implements FxController {
                                 setStyle(Styler.getColorfullStyle(BACKGROUND, "#FFD299"));
                             }
                             this.setContextMenu(getContextMenuByEntry(entry));
-                            this.setOnMouseClicked(event -> {
-                                Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-                                clipboard.setContents(new StringSelection(entry.getId().toString()), null);
-                            });
+                            this.setOnMouseClicked(event -> GeneralUtils.saveToClipBoard(entry.getId().toString()));
                         }
                     }
                 };

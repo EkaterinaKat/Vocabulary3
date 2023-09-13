@@ -43,6 +43,7 @@ public class MainController implements FxController {
     }
 
     public void updateStatistics() {
+        statisticsPane.getChildren().clear();
         int columnNum = 2;
         List<String> statistics = Core.getInstance().catalogueService().getStatistics();
         for (int i = 0; i < statistics.size(); i++) {

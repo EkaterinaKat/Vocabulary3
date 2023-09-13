@@ -3,6 +3,7 @@ package com.katyshevtseva.vocabulary.view.controller;
 import com.katyshevtseva.fx.Point;
 import com.katyshevtseva.fx.TableUtils;
 import com.katyshevtseva.fx.WindowBuilder.FxController;
+import com.katyshevtseva.general.GeneralUtils;
 import com.katyshevtseva.general.NoArgsKnob;
 import com.katyshevtseva.vocabulary.core.Core;
 import com.katyshevtseva.vocabulary.core.entity.FrequentWord;
@@ -53,6 +54,10 @@ class EntryAddingDialogController implements FxController {
     private Pane searchResultPane;
     @FXML
     private TextArea exampleTextArea;
+    @FXML
+    private Button pageMinusButton;
+    @FXML
+    private Button pagePlusButton;
 
     EntryAddingDialogController(NoArgsKnob tableUpdateKnob, WordList wordList) {
         this.tableUpdateKnob = tableUpdateKnob;
@@ -82,6 +87,15 @@ class EntryAddingDialogController implements FxController {
         });
         translationTextField.textProperty().addListener(
                 (observable, oldValue, newValue) -> searchResultController.fillTable(translationTextField.getText()));
+        pagePlusButton.setOnAction(event -> pageChangeButtonListener(1));
+        pageMinusButton.setOnAction(event -> pageChangeButtonListener(-1));
+    }
+
+    private void pageChangeButtonListener(int increase) {
+        if (!GeneralUtils.isEmpty(pageTextField.getText())) {
+            int page = Integer.parseInt(pageTextField.getText());
+            pageTextField.setText((page + increase) + "");
+        }
     }
 
     private void okButtonListener() {

@@ -18,8 +18,15 @@
     <TextArea fx:id="exampleTextArea" minWidth="270" maxWidth="270" GridPane.columnIndex="0" GridPane.rowIndex="4"
               GridPane.halignment="CENTER" wrapText="true" maxHeight="70"/>
 
-    <TextField fx:id="pageTextField" minWidth="100" maxWidth="100" GridPane.columnIndex="0" GridPane.rowIndex="5"
-               GridPane.halignment="CENTER"/>
+    <HBox GridPane.columnIndex="0" GridPane.rowIndex="5" GridPane.halignment="CENTER"
+          minWidth="150" maxWidth="150">
+        <Button text="-" fx:id="pageMinusButton"/>
+        <Pane prefWidth="10"/>
+        <TextField fx:id="pageTextField" minWidth="70" maxWidth="70"/>
+        <Pane prefWidth="10"/>
+        <Button text="+" fx:id="pagePlusButton"/>
+    </HBox>
+
 
     <Button text="Ok" fx:id="okButton" GridPane.columnIndex="0" GridPane.rowIndex="6"
             GridPane.halignment="CENTER"/>

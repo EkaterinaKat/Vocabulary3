@@ -15,8 +15,8 @@ public class ListService {
 
     public void addEntryToList(String word, String translation, int page, WordList list, String example) {
         Entry entry = new Entry();
-        entry.setWord(word);
-        entry.setTranslation(translation);
+        entry.setWord(word.trim());
+        entry.setTranslation(translation.trim());
         entry.setLevel(0);
         entry.setWordList(list);
         entry.setLastRepeat(new Date());
@@ -45,8 +45,8 @@ public class ListService {
     }
 
     public void editEntry(Entry entry, String newWord, String newTranslation, int newPage, String example) {
-        entry.setWord(newWord);
-        entry.setTranslation(newTranslation);
+        entry.setWord(newWord.trim());
+        entry.setTranslation(newTranslation.trim());
         entry.setPage(newPage);
         entry.setExample(example);
         dao.saveEdited(entry);

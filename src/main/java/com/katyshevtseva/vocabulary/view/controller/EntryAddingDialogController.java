@@ -82,8 +82,8 @@ class EntryAddingDialogController implements FxController {
         SearchResultController searchResultController = new SearchResultController(new Point(830, 250));
         searchResultPane.getChildren().add(VocabularyWindowBuilder.getInstance().getNode(SEARCH_RESULT, searchResultController));
         wordTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-            fillTable(wordTextField.getText());
-            searchResultController.fillTable(wordTextField.getText());
+            fillTable(wordTextField.getText().trim());
+            searchResultController.fillTable(wordTextField.getText().trim());
         });
         translationTextField.textProperty().addListener(
                 (observable, oldValue, newValue) -> searchResultController.fillTable(translationTextField.getText()));

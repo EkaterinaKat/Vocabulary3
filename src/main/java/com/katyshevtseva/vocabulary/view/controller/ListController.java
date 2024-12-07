@@ -1,12 +1,14 @@
 package com.katyshevtseva.vocabulary.view.controller;
 
 import com.katyshevtseva.fx.Styler;
+import com.katyshevtseva.fx.TableUtils;
 import com.katyshevtseva.fx.WindowBuilder.FxController;
 import com.katyshevtseva.fx.dialog.StandardDialogBuilder;
 import com.katyshevtseva.fx.dialogconstructor.DcComboBox;
 import com.katyshevtseva.fx.dialogconstructor.DcTextField;
 import com.katyshevtseva.fx.dialogconstructor.DialogConstructor;
 import com.katyshevtseva.general.GeneralUtils;
+import com.katyshevtseva.general.TwoArgKnob;
 import com.katyshevtseva.vocabulary.core.Core;
 import com.katyshevtseva.vocabulary.core.CoreConstants;
 import com.katyshevtseva.vocabulary.core.entity.Entry;
@@ -116,11 +118,6 @@ class ListController implements FxController {
                 setTooltip(new Tooltip(item));
             }
         });
-//        dateColumn.setCellValueFactory(param -> {
-//            Entry entry = param.getValue();
-//            String value = Core.getInstance().entryLifecycleService().getRipenessInfo(entry);
-//            return new SimpleStringProperty(value);
-//        });
         checkBoxColumn.setCellValueFactory(param -> {
             Entry entry = param.getValue();
             SimpleBooleanProperty booleanProperty = new SimpleBooleanProperty(false);
@@ -206,26 +203,17 @@ class ListController implements FxController {
     }
 
     private void setRowsColors() {
-        table.setRowFactory(new Callback<TableView<Entry>, TableRow<Entry>>() {
-            @Override
-            public TableRow<Entry> call(TableView<Entry> tableView) {
-                return new TableRow<Entry>() {
-                    @Override
-                    protected void updateItem(Entry entry, boolean empty) {
-                        super.updateItem(entry, empty);
-                        if (entry != null) {
-                            if (entry.getLevel() < CoreConstants.CRITICAL_LEVEL) {
-                                setStyle(Styler.getColorfullStyle(BACKGROUND, "#FF9999"));
-                            } else if (entry.getLevel() >= CoreConstants.MAX_LEVEL) {
-                                setStyle(Styler.getColorfullStyle(BACKGROUND, "#AAFF99"));
-                            } else {
-                                setStyle(Styler.getColorfullStyle(BACKGROUND, "#FFD299"));
-                            }
-                            this.setContextMenu(getContextMenuByEntry(entry));
-                            this.setOnMouseClicked(event -> GeneralUtils.saveToClipBoard(entry.getId().toString()));
-                        }
-                    }
-                };
+        TableUtils.adjustRows(table, (entry, row) -> {
+            if (entry != null) {
+                if (entry.getLevel() < CoreConstants.CRITICAL_LEVEL) {
+                    row.setStyle(Styler.getColorfullStyle(BACKGROUND, "#FF9999"));
+                } else if (entry.getLevel() >= CoreConstants.MAX_LEVEL) {
+                    row.setStyle(Styler.getColorfullStyle(BACKGROUND, "#AAFF99"));
+                } else {
+                    row.setStyle(Styler.getColorfullStyle(BACKGROUND, "#FFD299"));
+                }
+                row.setContextMenu(getContextMenuByEntry(entry));
+                row.setOnMouseClicked(event -> GeneralUtils.saveToClipBoard(entry.getId().toString()));
             }
         });
     }

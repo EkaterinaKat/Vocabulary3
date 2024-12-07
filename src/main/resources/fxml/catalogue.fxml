@@ -1,44 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml">
 
     <top>
-        <HBox>
+        <VBox>
+            <HBox>
+                <Button fx:id="newListButton" text="Add word list"
+                        styleClass="topBtn">
+                    <HBox.margin>
+                        <Insets bottom="10" left="20" right="7" top="20"/>
+                    </HBox.margin>
+                </Button>
 
-            <Button fx:id="newListButton" text="Add word list"
-                    styleClass="topBtn">
-                <HBox.margin>
-                    <Insets bottom="25" left="20" right="7" top="20"/>
-                </HBox.margin>
-            </Button>
+                <Button fx:id="learnButton" text="Learn words" styleClass="topBtn">
+                    <HBox.margin>
+                        <Insets bottom="10" left="7" right="7" top="20"/>
+                    </HBox.margin>
+                </Button>
 
-            <Button fx:id="learnButton" text="Learn words" styleClass="topBtn">
-                <HBox.margin>
-                    <Insets bottom="25" left="7" right="7" top="20"/>
-                </HBox.margin>
-            </Button>
+                <Button fx:id="frequentSectionButton" text="5000" styleClass="topBtn">
+                    <HBox.margin>
+                        <Insets bottom="10" left="7" right="7" top="20"/>
+                    </HBox.margin>
+                </Button>
 
-            <Button fx:id="frequentSectionButton" text="5000" styleClass="topBtn">
-                <HBox.margin>
-                    <Insets bottom="25" left="7" right="7" top="20"/>
-                </HBox.margin>
-            </Button>
+                <Button fx:id="daysReportButton" text="Days report" styleClass="topBtn">
+                    <HBox.margin>
+                        <Insets bottom="10" left="7" right="7" top="20"/>
+                    </HBox.margin>
+                </Button>
+
+            </HBox>
 
             <ComboBox fx:id="listStatusBox">
-                <HBox.margin>
-                    <Insets bottom="25" left="7" right="7" top="20"/>
-                </HBox.margin>
+                <VBox.margin>
+                    <Insets bottom="25" left="20" right="7" top="10"/>
+                </VBox.margin>
             </ComboBox>
-
-        </HBox>
+        </VBox>
     </top>
 
     <center>
-        <ScrollPane styleClass="edge-to-edge" maxWidth="400" minWidth="400" maxHeight="380" minHeight="380">
+        <ScrollPane styleClass="edge-to-edge" maxWidth="400" minWidth="400" maxHeight="340" minHeight="340">
             <VBox fx:id="cataloguePane">
 
             </VBox>

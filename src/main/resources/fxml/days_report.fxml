@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.*?>
+<VBox xmlns:fx="http://javafx.com/fxml"
+      xmlns="http://javafx.com/javafx">
+
+    <Pane minHeight="25" maxHeight="25"/>
+
+    <HBox>
+        <Pane minWidth="25" maxWidth="25"/>
+
+        <ScrollPane maxWidth="700" minWidth="700" maxHeight="750" minHeight="750">
+            <GridPane fx:id="tablePane" hgap="1" vgap="1"/>
+        </ScrollPane>
+    </HBox>
+
+
+</VBox>

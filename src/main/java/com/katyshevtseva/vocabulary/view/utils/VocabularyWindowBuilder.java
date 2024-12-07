@@ -38,6 +38,7 @@ public class VocabularyWindowBuilder {
         ENTRY_EDITING("/fxml/entry_editing_dialog.fxml", new Size(300, 340), ""),
         LEARNING("/fxml/learning.fxml", new Size(750, 960), ""),
         FREQUENT_SECTION("/fxml/frequent_section.fxml", new Size(650, 950), ""),
+        DAYS_REPORT("/fxml/days_report.fxml", new Size(900, 950), ""),
         MAIN("/fxml/main.fxml", new Size(900, 1735), CoreConstants.APP_NAME);
 
         private final String fileName;

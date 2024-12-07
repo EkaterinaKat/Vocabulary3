@@ -23,8 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 import static com.katyshevtseva.fx.FxUtils.getPaneWithHeight;
-import static com.katyshevtseva.vocabulary.view.utils.VocabularyWindowBuilder.DialogInfo.FREQUENT_SECTION;
-import static com.katyshevtseva.vocabulary.view.utils.VocabularyWindowBuilder.DialogInfo.LEARNING;
+import static com.katyshevtseva.vocabulary.view.utils.VocabularyWindowBuilder.DialogInfo.*;
 
 class CatalogueController implements FxController {
     private final MainController mainController;
@@ -39,6 +38,8 @@ class CatalogueController implements FxController {
     private VBox cataloguePane;
     @FXML
     private ComboBox<ListStatus> listStatusBox;
+    @FXML
+    private Button daysReportButton;
 
     CatalogueController(MainController mainController) {
         this.mainController = mainController;
@@ -67,6 +68,9 @@ class CatalogueController implements FxController {
         });
         frequentSectionButton.setOnAction(event -> VocabularyWindowBuilder.getInstance().openDialog(FREQUENT_SECTION,
                 new FrequentSectionController()));
+        daysReportButton.setOnMouseClicked(event -> {
+            VocabularyWindowBuilder.getInstance().openDialog(DAYS_REPORT, new DaysReportController());
+        });
 
         updateCatalogue();
     }

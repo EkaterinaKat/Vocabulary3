@@ -54,31 +54,6 @@ public class VocDao {
         return entries;
     }
 
-    public static List<LearningLog> getLearningLogsByEntry(Entry entry) {
-        Session session = HibernateUtil.getSession();
-        session.beginTransaction();
-
-        Criteria criteria = session.createCriteria(LearningLog.class)
-                .add(Restrictions.eq("entry", entry));
-        List<LearningLog> logs = criteria.list();
-
-        session.getTransaction().commit();
-
-        return logs;
-    }
-
-    public static List<LearningLog> getLearningLogsByDate(Date date) {
-        Session session = HibernateUtil.getSession();
-        session.beginTransaction();
-
-        Criteria criteria = session.createCriteria(LearningLog.class).add(Restrictions.eq("date", date));
-        List<LearningLog> statistics = criteria.list();
-
-        session.getTransaction().commit();
-
-        return statistics;
-    }
-
     public static int getNumOfAddedEntriesByDate(Date date) {
         Session session = HibernateUtil.getSession();
         session.beginTransaction();
@@ -180,5 +155,36 @@ public class VocDao {
         session.getTransaction().commit();
 
         return entries;
+    }
+
+    ////////////////////////////////////////////// LOGS //////////////////////////////////////////////
+
+    public static List<LearningLog> getAllLogs() {
+        return coreDao.getAll(LearningLog.class.getSimpleName());
+    }
+
+    public static List<LearningLog> getLearningLogsByEntry(Entry entry) {
+        Session session = HibernateUtil.getSession();
+        session.beginTransaction();
+
+        Criteria criteria = session.createCriteria(LearningLog.class)
+                .add(Restrictions.eq("entry", entry));
+        List<LearningLog> logs = criteria.list();
+
+        session.getTransaction().commit();
+
+        return logs;
+    }
+
+    public static List<LearningLog> getLearningLogsByDate(Date date) {
+        Session session = HibernateUtil.getSession();
+        session.beginTransaction();
+
+        Criteria criteria = session.createCriteria(LearningLog.class).add(Restrictions.eq("date", date));
+        List<LearningLog> statistics = criteria.list();
+
+        session.getTransaction().commit();
+
+        return statistics;
     }
 }

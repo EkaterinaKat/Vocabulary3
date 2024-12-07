@@ -1,19 +1,17 @@
 package com.katyshevtseva.vocabulary.core.service;
 
 import com.katyshevtseva.general.PieChartData;
-import com.katyshevtseva.vocabulary.core.VocDao;
 import com.katyshevtseva.vocabulary.core.entity.FrequentWord;
 import com.katyshevtseva.vocabulary.core.entity.FrequentWord.Status;
+import com.katyshevtseva.vocabulary.database.VocDao;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Collections;
 import java.util.List;
 
-@RequiredArgsConstructor
 public class FrequentWordService {
-    private final VocDao dao;
 
-    public PieChartData getStatusCountPieChartData() {
+    public static PieChartData getStatusCountPieChartData() {
         PieChartData data = new PieChartData();
 
         for (Status status : Status.values()) {
@@ -23,19 +21,19 @@ public class FrequentWordService {
         return data;
     }
 
-    private int getStatusCount(Status status) {
-        return dao.countFrequentWordByStatus(status);
+    private static int getStatusCount(Status status) {
+        return VocDao.countFrequentWordByStatus(status);
     }
 
-    public List<FrequentWord> getWordsForSorting() {
-        List<FrequentWord> words = dao.getFrequentWordsByStatus(Status.INTACT);
+    public static List<FrequentWord> getWordsForSorting() {
+        List<FrequentWord> words = VocDao.getFrequentWordsByStatus(Status.INTACT);
         Collections.shuffle(words);
         return words;
     }
 
-    public void sort(FrequentWord frequentWord, boolean positiveAnswer) {
+    public static void sort(FrequentWord frequentWord, boolean positiveAnswer) {
         frequentWord.setStatus(positiveAnswer ? Status.KNOWN : Status.NEED_TO_LEARN);
-        dao.saveEdited(frequentWord);
+        VocDao.saveEdited(frequentWord);
     }
 
 }

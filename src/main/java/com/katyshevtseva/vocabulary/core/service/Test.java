@@ -1,9 +1,9 @@
 package com.katyshevtseva.vocabulary.core.service;
 
 import com.katyshevtseva.date.DateUtils;
-import com.katyshevtseva.vocabulary.core.VocDao;
 import com.katyshevtseva.vocabulary.core.entity.Entry;
 import com.katyshevtseva.vocabulary.core.entity.LearningLog;
+import com.katyshevtseva.vocabulary.database.VocDao;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Comparator;
@@ -11,15 +11,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@RequiredArgsConstructor
 public class Test {
-    private final VocDao dao;
 
     // test11 and test12
     public void test1() {
         Date start = new Date();
-        for (Entry entry : dao.getAllEntries()) {
-            List<LearningLog> logs = dao.getLearningLogsByEntry(entry).stream()
+        for (Entry entry : VocDao.getAllEntries()) {
+            List<LearningLog> logs = VocDao.getLearningLogsByEntry(entry).stream()
                     .sorted(Comparator.comparing(LearningLog::getDate)).collect(Collectors.toList());
             if (logs.size() > 0)
                 for (int i = 0; i < logs.size() - 1; i++) {
@@ -53,10 +51,10 @@ public class Test {
     public void test2() {
         //fullCycle = 59
         Date someDaysAgo = DateUtils.shiftDate(new Date(), DateUtils.TimeUnit.DAY, -64);
-        List<Entry> entries = dao.getEntriesByCreationDate(someDaysAgo);
+        List<Entry> entries = VocDao.getEntriesByCreationDate(someDaysAgo);
         for (Entry entry : entries) {
             System.out.println("\n" + entry.toString() + "\n");
-            List<LearningLog> logs = dao.getLearningLogsByEntry(entry).stream()
+            List<LearningLog> logs = VocDao.getLearningLogsByEntry(entry).stream()
                     .sorted(Comparator.comparing(LearningLog::getDate)).collect(Collectors.toList());
             for (LearningLog log : logs) {
                 System.out.println(" * " + log.getStringForTest());

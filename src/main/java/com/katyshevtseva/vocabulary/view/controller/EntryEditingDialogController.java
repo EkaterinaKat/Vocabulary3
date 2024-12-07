@@ -2,8 +2,8 @@ package com.katyshevtseva.vocabulary.view.controller;
 
 import com.katyshevtseva.fx.WindowBuilder.FxController;
 import com.katyshevtseva.general.NoArgsKnob;
-import com.katyshevtseva.vocabulary.core.Core;
 import com.katyshevtseva.vocabulary.core.entity.Entry;
+import com.katyshevtseva.vocabulary.core.service.ListService;
 import com.katyshevtseva.vocabulary.view.utils.VocUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -54,7 +54,7 @@ class EntryEditingDialogController implements FxController {
     }
 
     private void okButtonListener() {
-        Core.getInstance().listService().editEntry(entry, wordTextField.getText(), translationTextField.getText(),
+        ListService.editEntry(entry, wordTextField.getText(), translationTextField.getText(),
                 Integer.parseInt(pageTextField.getText()), exampleTextArea.getText());
         tableUpdateKnob.execute();
         closeWindowThatContains(wordTextField);

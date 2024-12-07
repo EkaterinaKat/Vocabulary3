@@ -3,6 +3,7 @@ package com.katyshevtseva.vocabulary.core;
 import com.katyshevtseva.date.DateUtils;
 import com.katyshevtseva.vocabulary.core.entity.Entry;
 import com.katyshevtseva.vocabulary.core.entity.LearningLog;
+import com.katyshevtseva.vocabulary.database.VocDao;
 import lombok.RequiredArgsConstructor;
 
 import java.text.ParseException;

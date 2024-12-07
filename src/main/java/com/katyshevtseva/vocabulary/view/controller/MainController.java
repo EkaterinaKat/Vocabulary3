@@ -3,8 +3,8 @@ package com.katyshevtseva.vocabulary.view.controller;
 import com.katyshevtseva.fx.FxImageCreationUtil;
 import com.katyshevtseva.fx.WindowBuilder.FxController;
 import com.katyshevtseva.general.GeneralUtils;
-import com.katyshevtseva.vocabulary.core.Core;
 import com.katyshevtseva.vocabulary.core.entity.WordList;
+import com.katyshevtseva.vocabulary.core.service.CatalogueService;
 import com.katyshevtseva.vocabulary.view.utils.VocabularyWindowBuilder;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -45,7 +45,7 @@ public class MainController implements FxController {
     public void updateStatistics() {
         statisticsPane.getChildren().clear();
         int columnNum = 2;
-        List<String> statistics = Core.getInstance().catalogueService().getStatistics();
+        List<String> statistics = CatalogueService.getStatistics();
         for (int i = 0; i < statistics.size(); i++) {
             statisticsPane.add(new Label(statistics.get(i)),
                     GeneralUtils.getColumnByIndexAndColumnNum(i, columnNum),

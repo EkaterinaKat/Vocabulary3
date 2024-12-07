@@ -4,8 +4,8 @@ import com.katyshevtseva.fx.WindowBuilder.FxController;
 import com.katyshevtseva.fx.dialog.StandardDialogBuilder;
 import com.katyshevtseva.general.NoArgsKnob;
 import com.katyshevtseva.image.ImageContainer;
-import com.katyshevtseva.vocabulary.core.Core;
 import com.katyshevtseva.vocabulary.core.entity.Entry;
+import com.katyshevtseva.vocabulary.core.service.LearningService;
 import com.katyshevtseva.vocabulary.view.utils.ImageUtils;
 import com.katyshevtseva.vocabulary.view.utils.VocabularyWindowBuilder;
 import javafx.fxml.FXML;
@@ -75,7 +75,7 @@ class LearningController implements FxController {
         if (getCurrentEntry().getLevel() >= CRITICAL_LEVEL && !positiveAnswer) {
             problematicWords.add(getCurrentEntry());
         }
-        Core.getInstance().learningService().changeEntryLevelAndStatistics(getCurrentEntry(), positiveAnswer);
+        LearningService.changeEntryLevelAndStatistics(getCurrentEntry(), positiveAnswer);
         nextWord();
     }
 

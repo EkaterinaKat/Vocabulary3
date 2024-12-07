@@ -1,19 +1,17 @@
 package com.katyshevtseva.vocabulary.core.service;
 
 import com.katyshevtseva.vocabulary.core.CoreConstants;
-import com.katyshevtseva.vocabulary.core.VocDao;
 import com.katyshevtseva.vocabulary.core.entity.WordList;
+import com.katyshevtseva.vocabulary.database.VocDao;
 import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@RequiredArgsConstructor
 public class CatalogueService {
-    private final VocDao dao;
 
-    public List<WordList> getCatalogue(ListStatus status) {
-        return dao.findListsByArchived(status.listIsArchived);
+    public static List<WordList> getCatalogue(ListStatus status) {
+        return VocDao.findListsByArchived(status.listIsArchived);
     }
 
     public static enum ListStatus {
@@ -26,29 +24,29 @@ public class CatalogueService {
         }
     }
 
-    public WordList createWordList(String title) {
+    public static WordList createWordList(String title) {
         WordList wordList = new WordList();
         wordList.setTitle(title);
         wordList.setArchived(false);
-        dao.saveNew(wordList);
+        VocDao.saveNew(wordList);
         return wordList;
     }
 
-    public void renameList(WordList wordList, String newTitle) {
+    public static void renameList(WordList wordList, String newTitle) {
         wordList.setTitle(newTitle);
-        dao.saveEdited(wordList);
+        VocDao.saveEdited(wordList);
     }
 
-    public void archiveList(WordList wordList) {
+    public static void archiveList(WordList wordList) {
         wordList.setArchived(true);
-        dao.saveEdited(wordList);
+        VocDao.saveEdited(wordList);
     }
 
-    public List<String> getStatistics() {
+    public static List<String> getStatistics() {
         List<String> result = new ArrayList<>();
         int totalCount = 0;
         for (int i = 0; i < CoreConstants.MAX_LEVEL; i++) {
-            int count = dao.countWordsInNotArchivedListsByLevel(i);
+            int count = VocDao.countWordsInNotArchivedListsByLevel(i);
             String s = "Level " + i + ": " + count;
             result.add(s);
             totalCount += count;

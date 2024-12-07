@@ -3,7 +3,6 @@ package com.katyshevtseva.vocabulary.view.controller;
 import com.katyshevtseva.fx.WindowBuilder.FxController;
 import com.katyshevtseva.fx.dialog.StandardDialogBuilder;
 import com.katyshevtseva.general.NoArgsKnob;
-import com.katyshevtseva.vocabulary.core.Core;
 import com.katyshevtseva.vocabulary.core.entity.FrequentWord;
 import com.katyshevtseva.vocabulary.core.service.FrequentWordService;
 import javafx.fxml.FXML;
@@ -18,8 +17,7 @@ import static com.katyshevtseva.fx.FxUtils.closeWindowThatContains;
 import static com.katyshevtseva.fx.FxUtils.setImageOnButton;
 
 class SortingController implements FxController {
-    private FrequentWordService service = Core.getInstance().frequentWordService();
-    private NoArgsKnob chartUpdateKnob;
+    private final NoArgsKnob chartUpdateKnob;
     private List<FrequentWord> words;
     private int wordCount = -1;
     @FXML
@@ -41,7 +39,7 @@ class SortingController implements FxController {
 
     @FXML
     private void initialize() {
-        words = service.getWordsForSorting();
+        words = FrequentWordService.getWordsForSorting();
         setImageOnButton(GREEN_TICK, okButton, 25);
         setImageOnButton(RED_CROSS, notOkButton, 25);
         okButton.setOnAction(event -> resultButtonsListener(true));
@@ -51,7 +49,7 @@ class SortingController implements FxController {
     }
 
     private void resultButtonsListener(boolean positiveAnswer) {
-        service.sort(getCurrentWord(), positiveAnswer);
+        FrequentWordService.sort(getCurrentWord(), positiveAnswer);
         nextWord();
     }
 

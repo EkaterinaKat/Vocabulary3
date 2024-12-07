@@ -3,7 +3,6 @@ package com.katyshevtseva.vocabulary.database;
 import com.katyshevtseva.date.DateUtils;
 import com.katyshevtseva.hibernate.CoreDao;
 import com.katyshevtseva.hibernate.HibernateUtil;
-import com.katyshevtseva.vocabulary.core.VocDao;
 import com.katyshevtseva.vocabulary.core.entity.Entry;
 import com.katyshevtseva.vocabulary.core.entity.FrequentWord;
 import com.katyshevtseva.vocabulary.core.entity.FrequentWord.Status;
@@ -17,36 +16,30 @@ import org.hibernate.criterion.Restrictions;
 import java.util.Date;
 import java.util.List;
 
-public class VocDaoImpl implements VocDao {
-    private final CoreDao coreDao = new CoreDao();
+public class VocDao {
+    private static final CoreDao coreDao = new CoreDao();
 
-    @Override
-    public <T> void saveNew(T t) {
+    public static <T> void saveNew(T t) {
         coreDao.saveNew(t);
     }
 
-    @Override
-    public <T> void saveEdited(T t) {
+    public static <T> void saveEdited(T t) {
         coreDao.update(t);
     }
 
-    @Override
-    public <T> void delete(T t) {
+    public static <T> void delete(T t) {
         coreDao.delete(t);
     }
 
-    @Override
-    public List<WordList> findListsByArchived(boolean archived) {
+    public static List<WordList> findListsByArchived(boolean archived) {
         return coreDao.find(WordList.class, Restrictions.eq("archived", archived));
     }
 
-    @Override
-    public List<Entry> getAllEntries() {
+    public static List<Entry> getAllEntries() {
         return coreDao.getAll(Entry.class.getSimpleName());
     }
 
-    @Override
-    public List<Entry> getEntriesByCreationDate(Date date) {
+    public static List<Entry> getEntriesByCreationDate(Date date) {
         Session session = HibernateUtil.getSession();
         session.beginTransaction();
 
@@ -61,8 +54,7 @@ public class VocDaoImpl implements VocDao {
         return entries;
     }
 
-    @Override
-    public List<LearningLog> getLearningLogsByEntry(Entry entry) {
+    public static List<LearningLog> getLearningLogsByEntry(Entry entry) {
         Session session = HibernateUtil.getSession();
         session.beginTransaction();
 
@@ -75,8 +67,7 @@ public class VocDaoImpl implements VocDao {
         return logs;
     }
 
-    @Override
-    public List<LearningLog> getLearningLogsByDate(Date date) {
+    public static List<LearningLog> getLearningLogsByDate(Date date) {
         Session session = HibernateUtil.getSession();
         session.beginTransaction();
 
@@ -88,8 +79,7 @@ public class VocDaoImpl implements VocDao {
         return statistics;
     }
 
-    @Override
-    public int getNumOfAddedEntriesByDate(Date date) {
+    public static int getNumOfAddedEntriesByDate(Date date) {
         Session session = HibernateUtil.getSession();
         session.beginTransaction();
 
@@ -106,8 +96,7 @@ public class VocDaoImpl implements VocDao {
         return entries.size();
     }
 
-    @Override
-    public int getPageOfLastAddedWord(WordList wordList) {
+    public static int getPageOfLastAddedWord(WordList wordList) {
         Session session = HibernateUtil.getSession();
         session.beginTransaction();
         Query query = session.createSQLQuery(
@@ -125,8 +114,7 @@ public class VocDaoImpl implements VocDao {
         return entries.get(0).getPage();
     }
 
-    @Override
-    public int countFrequentWordByStatus(Status status) {
+    public static int countFrequentWordByStatus(Status status) {
         Session session = HibernateUtil.getSession();
         session.beginTransaction();
 
@@ -137,8 +125,7 @@ public class VocDaoImpl implements VocDao {
         return ((Long) query.uniqueResult()).intValue();
     }
 
-    @Override
-    public int countWordsInNotArchivedListsByLevel(int level) {
+    public static int countWordsInNotArchivedListsByLevel(int level) {
         Session session = HibernateUtil.getSession();
         session.beginTransaction();
 
@@ -151,8 +138,7 @@ public class VocDaoImpl implements VocDao {
     }
 
 
-    @Override
-    public List<FrequentWord> getFrequentWordsByStatus(Status status) {
+    public static List<FrequentWord> getFrequentWordsByStatus(Status status) {
         Session session = HibernateUtil.getSession();
         session.beginTransaction();
 
@@ -166,8 +152,7 @@ public class VocDaoImpl implements VocDao {
         return words;
     }
 
-    @Override
-    public List<FrequentWord> searchFrequentWord(String term) {
+    public static List<FrequentWord> searchFrequentWord(String term) {
         Session session = HibernateUtil.getSession();
         session.beginTransaction();
 
@@ -181,8 +166,7 @@ public class VocDaoImpl implements VocDao {
         return words;
     }
 
-    @Override
-    public List<Entry> searchEntries(String term) {
+    public static List<Entry> searchEntries(String term) {
         Session session = HibernateUtil.getSession();
         session.beginTransaction();
 

@@ -5,10 +5,11 @@ import com.katyshevtseva.fx.WindowBuilder.FxController;
 import com.katyshevtseva.fx.dialog.StandardDialogBuilder;
 import com.katyshevtseva.fx.dialogconstructor.DcTextField;
 import com.katyshevtseva.fx.dialogconstructor.DialogConstructor;
-import com.katyshevtseva.vocabulary.core.Core;
 import com.katyshevtseva.vocabulary.core.entity.Entry;
 import com.katyshevtseva.vocabulary.core.entity.WordList;
+import com.katyshevtseva.vocabulary.core.service.CatalogueService;
 import com.katyshevtseva.vocabulary.core.service.CatalogueService.ListStatus;
+import com.katyshevtseva.vocabulary.core.service.LearningService;
 import com.katyshevtseva.vocabulary.view.utils.VocUtils;
 import com.katyshevtseva.vocabulary.view.utils.VocabularyWindowBuilder;
 import javafx.fxml.FXML;
@@ -50,13 +51,13 @@ class CatalogueController implements FxController {
 
         DcTextField titleField = new DcTextField(true, "");
         newListButton.setOnAction(event -> DialogConstructor.constructDialog(() -> {
-            WordList newWordList = Core.getInstance().catalogueService().createWordList(titleField.getValue());
+            WordList newWordList = CatalogueService.createWordList(titleField.getValue());
             updateCatalogue();
             listSelectionListener(newWordList);
         }, titleField));
 
         learnButton.setOnAction(event -> {
-            List<Entry> entriesToLearn = Core.getInstance().learningService().getEntriesToLearn();
+            List<Entry> entriesToLearn = LearningService.getEntriesToLearn();
             if (entriesToLearn.isEmpty()) {
                 new StandardDialogBuilder().openInfoDialog("No words to learn");
             } else {
@@ -77,7 +78,7 @@ class CatalogueController implements FxController {
     }
 
     void updateCatalogue() {
-        List<WordList> catalogue = Core.getInstance().catalogueService().getCatalogue(listStatusBox.getValue());
+        List<WordList> catalogue = CatalogueService.getCatalogue(listStatusBox.getValue());
         listLabelMap = new HashMap<>();
         cataloguePane.getChildren().clear();
         for (WordList list : catalogue) {

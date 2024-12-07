@@ -2,7 +2,6 @@ package com.katyshevtseva.vocabulary.view.controller;
 
 import com.katyshevtseva.fx.WindowBuilder.FxController;
 import com.katyshevtseva.general.PieChartData;
-import com.katyshevtseva.vocabulary.core.Core;
 import com.katyshevtseva.vocabulary.core.service.FrequentWordService;
 import com.katyshevtseva.vocabulary.view.utils.VocabularyWindowBuilder;
 import javafx.collections.FXCollections;
@@ -12,7 +11,6 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 
 public class FrequentSectionController implements FxController {
-    private final FrequentWordService service = Core.getInstance().frequentWordService();
     @FXML
     private PieChart chart;
     @FXML
@@ -27,7 +25,7 @@ public class FrequentSectionController implements FxController {
 
     private void fillChart() {
         ObservableList<PieChart.Data> observableList = FXCollections.observableArrayList();
-        PieChartData pieChartData = service.getStatusCountPieChartData();
+        PieChartData pieChartData = FrequentWordService.getStatusCountPieChartData();
 
         for (PieChartData.Segment segment : pieChartData.getGetSegmentList()) {
             PieChart.Data data = new PieChart.Data(segment.getTitleAmountAndPercentInfo(), segment.getAmount());

@@ -3,8 +3,8 @@ package com.katyshevtseva.vocabulary.view.controller;
 import com.katyshevtseva.fx.FxUtils;
 import com.katyshevtseva.fx.WindowBuilder.FxController;
 import com.katyshevtseva.general.GeneralUtils;
-import com.katyshevtseva.vocabulary.core.Core;
 import com.katyshevtseva.vocabulary.core.entity.Entry;
+import com.katyshevtseva.vocabulary.core.service.LearningService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -30,7 +30,7 @@ class LearningFinishDialogController implements FxController {
 
     @FXML
     private void initialize() {
-        statisticsLabel.setText(Core.getInstance().learningService().getStatisticsReport());
+        statisticsLabel.setText(LearningService.getStatisticsReport());
         okButton.setOnAction(event -> FxUtils.closeWindowThatContains(okButton));
 
         String pel = getProblematicEntriesLog();

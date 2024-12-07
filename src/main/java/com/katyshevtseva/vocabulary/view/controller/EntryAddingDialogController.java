@@ -5,10 +5,10 @@ import com.katyshevtseva.fx.TableUtils;
 import com.katyshevtseva.fx.WindowBuilder.FxController;
 import com.katyshevtseva.general.GeneralUtils;
 import com.katyshevtseva.general.NoArgsKnob;
-import com.katyshevtseva.vocabulary.core.Core;
 import com.katyshevtseva.vocabulary.core.entity.FrequentWord;
 import com.katyshevtseva.vocabulary.core.entity.WordList;
 import com.katyshevtseva.vocabulary.core.service.ListService;
+import com.katyshevtseva.vocabulary.core.service.SearchService;
 import com.katyshevtseva.vocabulary.view.utils.VocUtils;
 import com.katyshevtseva.vocabulary.view.utils.VocabularyWindowBuilder;
 import javafx.collections.FXCollections;
@@ -27,7 +27,6 @@ import static com.katyshevtseva.fx.FxUtils.disableNonNumericChars;
 import static com.katyshevtseva.vocabulary.view.utils.VocabularyWindowBuilder.NodeInfo.SEARCH_RESULT;
 
 class EntryAddingDialogController implements FxController {
-    private final ListService service = Core.getInstance().listService();
     private final NoArgsKnob tableUpdateKnob;
     private final WordList wordList;
     @FXML
@@ -67,7 +66,7 @@ class EntryAddingDialogController implements FxController {
     @FXML
     private void initialize() {
         associateButtonWithControls(okButton, wordTextField, translationTextField, pageTextField);
-        pageTextField.setText("" + service.getPageOfLastAddedWord(wordList));
+        pageTextField.setText("" + ListService.getPageOfLastAddedWord(wordList));
         VocUtils.addKeyboardLayoutCorrection(wordTextField, translationTextField);
         disableNonNumericChars(pageTextField);
         okButton.setOnAction(event -> okButtonListener());
@@ -99,7 +98,7 @@ class EntryAddingDialogController implements FxController {
     }
 
     private void okButtonListener() {
-        service.addEntryToList(wordTextField.getText(), translationTextField.getText(),
+        ListService.addEntryToList(wordTextField.getText(), translationTextField.getText(),
                 Integer.parseInt(pageTextField.getText()), wordList, exampleTextArea.getText());
         tableUpdateKnob.execute();
         setCountLabelText();
@@ -110,7 +109,7 @@ class EntryAddingDialogController implements FxController {
     }
 
     private void addFrequentWordButtonListener(FrequentWord frequentWord) {
-        service.addEntryToList(frequentWord, Integer.parseInt(pageTextField.getText()), wordList, exampleTextArea.getText());
+        ListService.addEntryToList(frequentWord, Integer.parseInt(pageTextField.getText()), wordList, exampleTextArea.getText());
         tableUpdateKnob.execute();
         setCountLabelText();
         wordTextField.clear();
@@ -120,7 +119,7 @@ class EntryAddingDialogController implements FxController {
     }
 
     private void setCountLabelText() {
-        countLabel.setText(String.format("%s: %d", READABLE_DATE_FORMAT.format(new Date()), service.getNumOfEntriesAddedToday()));
+        countLabel.setText(String.format("%s: %d", READABLE_DATE_FORMAT.format(new Date()), ListService.getNumOfEntriesAddedToday()));
     }
 
     private void tuneTable() {
@@ -131,7 +130,7 @@ class EntryAddingDialogController implements FxController {
     }
 
     private void fillTable(String string) {
-        List<FrequentWord> entries = Core.getInstance().searchService().searchFrequentWords(string);
+        List<FrequentWord> entries = SearchService.searchFrequentWords(string);
         ObservableList<FrequentWord> observableList = FXCollections.observableArrayList();
         observableList.addAll(entries);
         tableView.setItems(observableList);

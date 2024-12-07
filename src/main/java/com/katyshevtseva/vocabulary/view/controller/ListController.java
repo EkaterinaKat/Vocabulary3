@@ -8,12 +8,11 @@ import com.katyshevtseva.fx.dialogconstructor.DcComboBox;
 import com.katyshevtseva.fx.dialogconstructor.DcTextField;
 import com.katyshevtseva.fx.dialogconstructor.DialogConstructor;
 import com.katyshevtseva.general.GeneralUtils;
-import com.katyshevtseva.general.TwoArgKnob;
-import com.katyshevtseva.vocabulary.core.Core;
 import com.katyshevtseva.vocabulary.core.CoreConstants;
 import com.katyshevtseva.vocabulary.core.entity.Entry;
 import com.katyshevtseva.vocabulary.core.entity.WordList;
 import com.katyshevtseva.vocabulary.core.service.CatalogueService;
+import com.katyshevtseva.vocabulary.core.service.ListService;
 import com.katyshevtseva.vocabulary.view.utils.VocabularyWindowBuilder;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -25,7 +24,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
-import javafx.util.Callback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -160,15 +158,15 @@ class ListController implements FxController {
     private void adjustButtonListenersThatDependsOnNotNullCurrentWordList() {
         DcTextField titleField = new DcTextField(true, currentWordList.getTitle());
         listRenameButton.setOnAction(event -> DialogConstructor.constructDialog(() -> {
-            Core.getInstance().catalogueService().renameList(currentWordList, titleField.getValue());
+            CatalogueService.renameList(currentWordList, titleField.getValue());
             mainController.updateListsTitlesInCatalogue();
             mainController.catalogueListSelectionListener(currentWordList);
         }, titleField));
 
         DcComboBox<WordList> dcComboBox = new DcComboBox<>(true, currentWordList,
-                Core.getInstance().catalogueService().getCatalogue(CatalogueService.ListStatus.ACTIVE));
+                CatalogueService.getCatalogue(CatalogueService.ListStatus.ACTIVE));
         moveButton.setOnAction(event -> DialogConstructor.constructDialog(() -> {
-            Core.getInstance().listService().moveEntries(selectedEntries, dcComboBox.getValue());
+            ListService.moveEntries(selectedEntries, dcComboBox.getValue());
             updateTable();
         }, dcComboBox));
     }
@@ -187,7 +185,7 @@ class ListController implements FxController {
         listArchiveButton.setOnAction(
                 event -> new StandardDialogBuilder().openQuestionDialog("Archive list?", (b) -> {
                     if (b) {
-                        Core.getInstance().catalogueService().archiveList(currentWordList);
+                        CatalogueService.archiveList(currentWordList);
                         mainController.updateCatalogue();
                         mainController.updateStatistics();
                         showWordListIfItIsNotNull(null);
@@ -196,7 +194,7 @@ class ListController implements FxController {
 
         wordDeleteButton.setOnAction(event -> new StandardDialogBuilder().openQuestionDialog("Delete?", (b -> {
             if (b) {
-                Core.getInstance().listService().deleteEntries(selectedEntries);
+                ListService.deleteEntries(selectedEntries);
                 updateTable();
             }
         })));

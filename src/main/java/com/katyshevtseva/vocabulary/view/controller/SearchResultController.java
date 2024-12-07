@@ -3,8 +3,8 @@ package com.katyshevtseva.vocabulary.view.controller;
 import com.katyshevtseva.fx.Point;
 import com.katyshevtseva.fx.WindowBuilder.FxController;
 import com.katyshevtseva.general.GeneralUtils;
-import com.katyshevtseva.vocabulary.core.Core;
 import com.katyshevtseva.vocabulary.core.entity.Entry;
+import com.katyshevtseva.vocabulary.core.service.SearchService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -51,7 +51,7 @@ class SearchResultController implements FxController {
     }
 
     void fillTable(String inputString) {
-        List<Entry> entries = Core.getInstance().searchService().search(inputString);
+        List<Entry> entries = SearchService.search(inputString);
         ObservableList<Entry> observableList = FXCollections.observableArrayList();
         observableList.addAll(entries);
         table.setItems(observableList);

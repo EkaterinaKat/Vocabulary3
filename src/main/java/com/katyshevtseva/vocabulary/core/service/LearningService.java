@@ -1,10 +1,10 @@
 package com.katyshevtseva.vocabulary.core.service;
 
 import com.katyshevtseva.vocabulary.core.CoreConstants;
-import com.katyshevtseva.vocabulary.core.VocDao;
 import com.katyshevtseva.vocabulary.core.entity.Entry;
 import com.katyshevtseva.vocabulary.core.entity.FrequentWord;
 import com.katyshevtseva.vocabulary.core.entity.LearningLog;
+import com.katyshevtseva.vocabulary.database.VocDao;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
@@ -14,12 +14,10 @@ import java.util.stream.Collectors;
 import static com.katyshevtseva.vocabulary.core.CoreConstants.MAX_LEVEL;
 import static com.katyshevtseva.vocabulary.core.service.EntryLifecycleService.entryIsRipe;
 
-@RequiredArgsConstructor
 public class LearningService {
-    private final VocDao dao;
 
-    public List<Entry> getEntriesToLearn() {
-        List<Entry> entries = dao.getAllEntries().stream()
+    public static List<Entry> getEntriesToLearn() {
+        List<Entry> entries = VocDao.getAllEntries().stream()
                 .filter(entry -> (!entry.getWordList().isArchived() && entry.getLevel() < MAX_LEVEL && entryIsRipe(entry)))
                 .collect(Collectors.toList());
 
@@ -41,7 +39,7 @@ public class LearningService {
         return result;
     }
 
-    public void changeEntryLevelAndStatistics(Entry entry, boolean positiveAnswer) {
+    public static void changeEntryLevelAndStatistics(Entry entry, boolean positiveAnswer) {
         saveLearningLog(entry, positiveAnswer);
         entry.setLastRepeat(new Date());
 
@@ -52,22 +50,22 @@ public class LearningService {
 
         if (entry.getLevel() == MAX_LEVEL && entry.getFrequentWord() != null) {
             entry.getFrequentWord().setStatus(FrequentWord.Status.LEARNED);
-            dao.saveEdited(entry.getFrequentWord());
+            VocDao.saveEdited(entry.getFrequentWord());
         }
 
-        dao.saveEdited(entry);
+        VocDao.saveEdited(entry);
     }
 
-    private void saveLearningLog(Entry entry, boolean positiveAnswer) {
+    private static void saveLearningLog(Entry entry, boolean positiveAnswer) {
         LearningLog learningLog = new LearningLog();
         learningLog.setEntry(entry);
         learningLog.setDate(new Date());
         learningLog.setInitLevel(entry.getLevel());
         learningLog.setPositiveAnswer(positiveAnswer);
-        dao.saveNew(learningLog);
+        VocDao.saveNew(learningLog);
     }
 
-    public String getStatisticsReport() {
+    public static String getStatisticsReport() {
         StringBuilder report = new StringBuilder("Statistics:\n");
         getTodayLearningStatistics().stream().sorted(Comparator.comparing(LearningStatistics::getLevel))
                 .forEach(statistics -> report.append(String.format("%s: %s/%s \n",
@@ -75,8 +73,8 @@ public class LearningService {
         return report.toString();
     }
 
-    private List<LearningStatistics> getTodayLearningStatistics() {
-        List<LearningLog> logs = dao.getLearningLogsByDate(new Date());
+    private static List<LearningStatistics> getTodayLearningStatistics() {
+        List<LearningLog> logs = VocDao.getLearningLogsByDate(new Date());
         Map<Integer, List<LearningLog>> levelLogListMap = new HashMap<>();
         for (LearningLog log : logs) {
             List<LearningLog> list = levelLogListMap.computeIfAbsent(log.getInitLevel(), k -> new ArrayList<>());

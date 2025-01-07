@@ -210,18 +210,25 @@ class ListController implements FxController {
                 } else {
                     row.setStyle(Styler.getColorfullStyle(BACKGROUND, "#FFD299"));
                 }
-                row.setContextMenu(getContextMenuByEntry(entry));
-                row.setOnMouseClicked(event -> GeneralUtils.saveToClipBoard(entry.getId().toString()));
+                row.setContextMenu(getContextMenu(entry));
             }
         });
     }
 
-    private ContextMenu getContextMenuByEntry(Entry entry) {
+    private ContextMenu getContextMenu(Entry entry) {
         ContextMenu contextMenu = new ContextMenu();
+
         MenuItem editItem = new MenuItem("Edit");
         editItem.setOnAction(event -> VocabularyWindowBuilder.getInstance().openDialog(ENTRY_EDITING,
                 new EntryEditingDialogController(this::updateTable, entry)));
-        contextMenu.getItems().add(editItem);
+
+        MenuItem idItem = new MenuItem("Copy Id");
+        idItem.setOnAction(event -> GeneralUtils.saveToClipBoard(entry.getId().toString()));
+
+        MenuItem entryItem = new MenuItem("Copy Entry");
+        entryItem.setOnAction(event -> GeneralUtils.saveToClipBoard(entry.getWordAndTranslation()));
+
+        contextMenu.getItems().addAll(editItem, idItem, entryItem);
         return contextMenu;
     }
 }

@@ -46,4 +46,8 @@ public class Entry {
                 ", level=" + level +
                 '}';
     }
+
+    public String getWordAndTranslation() {
+        return word + " - " + translation;
+    }
 }

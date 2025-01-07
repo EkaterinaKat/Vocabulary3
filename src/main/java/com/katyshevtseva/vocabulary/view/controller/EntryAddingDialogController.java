@@ -127,6 +127,25 @@ class EntryAddingDialogController implements FxController {
         translationColumn.setCellValueFactory(new PropertyValueFactory<>("translation"));
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
         TableUtils.adjustButtonColumn(addButtonColumn, "Add", this::addFrequentWordButtonListener);
+
+        TableUtils.adjustRows(tableView, (frequentWord, row) -> {
+            if (frequentWord != null) {
+                row.setContextMenu(getContextMenu(frequentWord));
+            }
+        });
+    }
+
+    private ContextMenu getContextMenu(FrequentWord frequentWord) {
+        ContextMenu contextMenu = new ContextMenu();
+
+        MenuItem idItem = new MenuItem("Copy Id");
+        idItem.setOnAction(event -> GeneralUtils.saveToClipBoard(frequentWord.getId().toString()));
+
+        MenuItem entryItem = new MenuItem("Copy Entry");
+        entryItem.setOnAction(event -> GeneralUtils.saveToClipBoard(frequentWord.getWordAndTranslation()));
+
+        contextMenu.getItems().addAll(idItem, entryItem);
+        return contextMenu;
     }
 
     private void fillTable(String string) {

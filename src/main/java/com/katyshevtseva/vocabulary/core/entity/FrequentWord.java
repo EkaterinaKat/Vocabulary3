@@ -27,4 +27,8 @@ public class FrequentWord {
     public enum Status {
         INTACT, NEED_TO_LEARN, LEARNED, KNOWN
     }
+
+    public String getWordAndTranslation() {
+        return word + " - " + translation;
+    }
 }

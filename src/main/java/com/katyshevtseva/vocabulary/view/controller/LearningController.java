@@ -72,7 +72,7 @@ class LearningController implements FxController {
     }
 
     private void resultButtonsListener(boolean positiveAnswer) {
-        if (getCurrentEntry().getLevel() >= CRITICAL_LEVEL && !positiveAnswer) {
+        if (!isLowLevelEntry() && !positiveAnswer) {
             problematicWords.add(getCurrentEntry());
         }
         LearningService.changeEntryLevelAndStatistics(getCurrentEntry(), positiveAnswer);
@@ -81,6 +81,10 @@ class LearningController implements FxController {
 
     private Entry getCurrentEntry() {
         return entries.get(wordCount);
+    }
+
+    private boolean isLowLevelEntry() {
+        return getCurrentEntry().getLevel() < CRITICAL_LEVEL;
     }
 
     private void nextWord() {
@@ -93,15 +97,17 @@ class LearningController implements FxController {
     }
 
     private void tuneControlsForNextWord() {
-        showTranslationButton.setDisable(ImageUtils.hasExampleOrImage(getCurrentEntry()));
         okButton.setDisable(true);
         notOkButton.setDisable(true);
-        showContextButton.setDisable(!ImageUtils.hasExampleOrImage(getCurrentEntry()));
+
+        boolean contextButtonEnabled = ImageUtils.hasExampleOrImage(getCurrentEntry()) && isLowLevelEntry();
+        showContextButton.setDisable(!contextButtonEnabled);
+        showTranslationButton.setDisable(contextButtonEnabled);
 
         wordLabel.setText(getCurrentEntry().getWord());
         countLabel.setText(String.format("%s/%s", wordCount + 1, entries.size()));
         String desc = String.format("Level: %s\n", getCurrentEntry().getLevel());
-        if (getCurrentEntry().getLevel() < CRITICAL_LEVEL) {
+        if (isLowLevelEntry()) {
             desc += String.format("%s (%s)\n", getCurrentEntry().getWordList(), getCurrentEntry().getPage());
         }
         desc += "\n";
@@ -114,6 +120,9 @@ class LearningController implements FxController {
 
     private void showTranslationButtonListener() {
         translationLabel.setText(getCurrentEntry().getTranslation());
+        if (!isLowLevelEntry()) {
+            showContext();
+        }
         showTranslationButton.setDisable(true);
         allowAnswer();
     }
@@ -121,6 +130,10 @@ class LearningController implements FxController {
     private void showContextButtonListener() {
         showTranslationButton.setDisable(false);
         showContextButton.setDisable(true);
+        showContext();
+    }
+
+    private void showContext() {
         contextLabel.setText(getCurrentEntry().getExample());
 
         try {
@@ -131,7 +144,6 @@ class LearningController implements FxController {
         } catch (Exception e) {
             new StandardDialogBuilder().setSize(300, 300).openInfoDialog(e.getMessage());
         }
-        allowAnswer();
     }
 
     private void allowAnswer() {

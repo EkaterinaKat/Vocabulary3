@@ -86,7 +86,8 @@ class CatalogueController implements FxController {
         listLabelMap = new HashMap<>();
         cataloguePane.getChildren().clear();
         for (WordList list : catalogue) {
-            Label label = new Label(list.getTitle());
+            String frozenMark = list.getFrozen() ? " ❆❆❆ " : "";
+            Label label = new Label(frozenMark + list.getTitle());
             label.setMinHeight(30);
             label.setWrapText(true);
             label.setMaxWidth(330);

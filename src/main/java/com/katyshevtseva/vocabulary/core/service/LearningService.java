@@ -6,7 +6,6 @@ import com.katyshevtseva.vocabulary.core.entity.FrequentWord;
 import com.katyshevtseva.vocabulary.core.entity.LearningLog;
 import com.katyshevtseva.vocabulary.database.VocDao;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -18,7 +17,7 @@ public class LearningService {
 
     public static List<Entry> getEntriesToLearn() {
         List<Entry> entries = VocDao.getAllEntries().stream()
-                .filter(entry -> (!entry.getWordList().isArchived() && entry.getLevel() < MAX_LEVEL && entryIsRipe(entry)))
+                .filter(LearningService::entryIsEligibleForLearning)
                 .collect(Collectors.toList());
 
         List<Entry> youngerEntries = entries.stream()
@@ -37,6 +36,13 @@ public class LearningService {
         result.addAll(olderEntries);
 
         return result;
+    }
+
+    private static boolean entryIsEligibleForLearning(Entry entry) {
+        return !entry.getWordList().isArchived()
+                && !entry.getWordList().getFrozen()
+                && entry.getLevel() < MAX_LEVEL
+                && entryIsRipe(entry);
     }
 
     public static void changeEntryLevelAndStatistics(Entry entry, boolean positiveAnswer) {

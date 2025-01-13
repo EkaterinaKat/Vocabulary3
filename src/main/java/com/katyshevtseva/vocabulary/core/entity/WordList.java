@@ -24,6 +24,8 @@ public class WordList implements Comparable<WordList> {
     @OneToMany(mappedBy = "wordList")
     private List<Entry> entries = new ArrayList<>();
 
+    private Boolean frozen;
+
     public List<Entry> getEntriesSortedByDate() {
         return entries.stream()
                 .sorted(Comparator.comparing(Entry::getId).reversed())

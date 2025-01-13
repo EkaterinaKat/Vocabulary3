@@ -19,6 +19,8 @@
                 <Pane prefWidth="10"/>
                 <Button fx:id="listArchiveButton" text="Archive list" styleClass="deletionButton"/>
                 <Pane prefWidth="10"/>
+                <Button fx:id="freezeButton" text="Freeze"/>
+                <Pane prefWidth="10"/>
                 <Button fx:id="moveButton" text="Move"/>
                 <Pane prefWidth="10"/>
                 <Button fx:id="wordDeleteButton" text="Delete word" styleClass="deletionButton"/>

@@ -3,7 +3,6 @@ package com.katyshevtseva.vocabulary.core.service;
 import com.katyshevtseva.vocabulary.core.CoreConstants;
 import com.katyshevtseva.vocabulary.core.entity.WordList;
 import com.katyshevtseva.vocabulary.database.VocDao;
-import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +27,7 @@ public class CatalogueService {
         WordList wordList = new WordList();
         wordList.setTitle(title);
         wordList.setArchived(false);
+        wordList.setFrozen(false);
         VocDao.saveNew(wordList);
         return wordList;
     }
@@ -53,5 +53,11 @@ public class CatalogueService {
         }
         result.add("Total: " + totalCount);
         return result;
+    }
+
+
+    public static void freeze(WordList list) {
+        list.setFrozen(!list.getFrozen());
+        VocDao.saveEdited(list);
     }
 }

@@ -50,6 +50,8 @@ class ListController implements FxController {
     @FXML
     private Button listRenameButton;
     @FXML
+    private Button freezeButton;
+    @FXML
     private TableView<Entry> table;
     @FXML
     private TableColumn<Entry, String> wordColumn;
@@ -198,6 +200,11 @@ class ListController implements FxController {
                 updateTable();
             }
         })));
+
+        freezeButton.setOnAction(event -> {
+            CatalogueService.freeze(currentWordList);
+            mainController.updateCatalogue();
+        });
     }
 
     private void setRowsColors() {
